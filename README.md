@@ -28,6 +28,7 @@ Included:
 - Public metadata search
 - PubMed E-utilities adapter
 - Europe PMC adapter
+- OpenAlex adapter for general scholarly cartridges
 - Cartridge architecture with `bio` as the first active cartridge
 - Abstract-level triage
 - Claim/evidence table schema
@@ -63,7 +64,15 @@ src/evidencemap/core/
 src/evidencemap/cartridges/bio/
 ```
 
-`bio` is the first active cartridge. Future cartridges can add AI/CS, policy, education, and patent/tech evidence mapping without splitting the public product into separate repos.
+Active public-demo cartridges:
+
+- `bio`: biomedical literature
+- `ai_cs`: AI and computer science
+- `policy`: policy and governance research
+- `education`: education research
+- `patent_tech`: patent/technology landscape research
+
+Each cartridge keeps its own source choices, evidence labels, and ranking behavior without splitting the public product into separate repos.
 
 See:
 

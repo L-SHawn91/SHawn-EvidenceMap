@@ -20,29 +20,53 @@ cartridges/
     ranking
     evidence labels
     row template
-
-future cartridges/
   ai_cs
   policy
   education
-  patent
+  patent_tech
 ```
 
 ## Current Cartridge
 
-`bio` is the only active public cartridge.
+Active public-demo cartridges:
 
-It uses:
+### `bio`
+
+Uses:
 - PubMed
 - Europe PMC
 - biomedical evidence labels
 - recent/foundational/balanced ranking modes
 
+### `ai_cs`
+
+Uses:
+- OpenAlex
+- method, benchmark, dataset, implementation, and survey labels
+
+### `policy`
+
+Uses:
+- OpenAlex
+- policy evaluation, intervention, guideline/framework, governance/regulation, and review labels
+
+### `education`
+
+Uses:
+- OpenAlex
+- intervention, learning outcome, experimental/cohort, review, and technology-enhanced learning labels
+
+### `patent_tech`
+
+Uses:
+- OpenAlex
+- technology landscape, patent/IP, application, prototype/validation, and review labels
+
 ## Expansion Rule
 
 Keep new cartridges shallow until demand appears.
 
-Add a cartridge to the public CLI only after:
+Add or deepen a cartridge in the public CLI only after:
 - it has public-safe sources
 - it has a minimal ranking rule
 - it has evidence labels

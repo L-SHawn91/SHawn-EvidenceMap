@@ -1,11 +1,19 @@
 from __future__ import annotations
 
-from evidencemap.core.cartridge import EvidenceCartridge
+from evidencemap.cartridges.ai_cs import AI_CS_CARTRIDGE
 from evidencemap.cartridges.bio import BIO_CARTRIDGE
+from evidencemap.cartridges.education import EDUCATION_CARTRIDGE
+from evidencemap.cartridges.patent_tech import PATENT_TECH_CARTRIDGE
+from evidencemap.cartridges.policy import POLICY_CARTRIDGE
+from evidencemap.core.cartridge import EvidenceCartridge
 
 
 CARTRIDGES: dict[str, EvidenceCartridge] = {
+    AI_CS_CARTRIDGE.id: AI_CS_CARTRIDGE,
     BIO_CARTRIDGE.id: BIO_CARTRIDGE,
+    EDUCATION_CARTRIDGE.id: EDUCATION_CARTRIDGE,
+    PATENT_TECH_CARTRIDGE.id: PATENT_TECH_CARTRIDGE,
+    POLICY_CARTRIDGE.id: POLICY_CARTRIDGE,
 }
 
 
