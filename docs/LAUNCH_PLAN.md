@@ -39,10 +39,16 @@ Ask:
 
 Recommended order:
 1. Public GitHub repo
-2. Static landing page
+2. Static GitHub Pages landing page
 3. Example output
 4. Short post with screenshot
 5. Waitlist/contact CTA
+
+Static deployment target:
+
+```text
+https://l-shawn91.github.io/SHawn-EvidenceMap/
+```
 
 ## Commercial CTA Options
 

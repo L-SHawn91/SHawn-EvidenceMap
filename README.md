@@ -4,6 +4,12 @@ PUBLIC_STATUS: public-demo
 
 Biomedical evidence mapping from public literature metadata.
 
+Public landing page:
+
+```text
+https://l-shawn91.github.io/SHawn-EvidenceMap/
+```
+
 ## What It Does
 
 SHawn EvidenceMap turns a biomedical research question into a small, transparent evidence map:

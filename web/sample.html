@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SHawn EvidenceMap Sample</title>
+    <style>
+      body {
+        margin: 0;
+        background: #f8fafc;
+        color: #18202a;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.5;
+      }
+
+      main {
+        width: min(1040px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 44px 0 64px;
+      }
+
+      a {
+        color: #0f766e;
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: clamp(2rem, 6vw, 4.2rem);
+        line-height: 1;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 760px;
+        color: #5d6978;
+        font-size: 1.08rem;
+      }
+
+      .table-wrap {
+        margin-top: 28px;
+        overflow-x: auto;
+        border: 1px solid #d9e0e8;
+        border-radius: 8px;
+        background: white;
+      }
+
+      table {
+        width: 100%;
+        min-width: 920px;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 14px 16px;
+        border-bottom: 1px solid #d9e0e8;
+        text-align: left;
+        vertical-align: top;
+        font-size: 0.94rem;
+      }
+
+      th {
+        color: #5d6978;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 0 18px;
+        border-radius: 8px;
+        border: 1px solid #0f766e;
+        background: #0f766e;
+        color: white;
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .secondary {
+        background: transparent;
+        color: #0f766e;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a href="./">Back to EvidenceMap</a>
+      <h1>Sample Evidence Map</h1>
+      <p class="lead">
+        Query: endometrial organoid implantation. Public metadata only. Manual verification is required before citation or manuscript use.
+      </p>
+
+      <div class="actions">
+        <a class="button" href="mailto:dr.shawn91@gmail.com?subject=EvidenceMap%20pilot%20request">Request a pilot map</a>
+        <a class="button secondary" href="https://github.com/L-SHawn91/SHawn-EvidenceMap">View GitHub repo</a>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Evidence</th>
+              <th>Year</th>
+              <th>Paper</th>
+              <th>Rationale</th>
+              <th>Support sentence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>model system evidence</td>
+              <td>2017</td>
+              <td>Long-term, hormone-responsive organoid cultures of human endometrium in a chemically defined medium.</td>
+              <td>Foundational paper; high citation count; public PMCID available.</td>
+              <td>Despite the importance of the endometrium as the site of implantation and nutritional support for the conceptus, there are no long-term culture systems that recapitulate endometrial function in vitro.</td>
+            </tr>
+            <tr>
+              <td>model system evidence</td>
+              <td>2021</td>
+              <td>Modelling the impact of decidual senescence on embryo implantation in human endometrial assembloids.</td>
+              <td>Query term overlap; endometrial assembloid implantation model.</td>
+              <td>Our findings suggest that decidual senescence controls endometrial fate decisions at implantation.</td>
+            </tr>
+            <tr>
+              <td>model system evidence</td>
+              <td>2026</td>
+              <td>Mechanistic Insights Into Recurrent Implantation Failure via Endometrial Organoid and Blastoid-Endometrial Cell Implantation Models.</td>
+              <td>Recent-mode top result; direct organoid and implantation model match.</td>
+              <td>Leveraging multiple organoid systems, including endometrial organoids and blastoid-endometrial cell implantation models.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>
