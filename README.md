@@ -96,7 +96,7 @@ Generate a visual HTML report:
 PYTHONPATH=src python3 -m evidencemap.cli "drug screening organoid cancer therapeutic" --cartridge bio --limit 5 --html-report > report.html
 ```
 
-The report format is fixed across cartridges:
+The Markdown report format is fixed across cartridges:
 
 1. Executive Summary
 2. Scope
@@ -125,6 +125,25 @@ Visual sample reports:
 ```text
 examples/reports/html/
 ```
+
+The visual brief is the preferred client-facing pilot deliverable. It includes:
+
+1. Executive Verdict
+2. Evidence Score Ring
+3. Executive Snapshot
+4. Key Findings
+5. Evidence Dashboard
+6. Source Coverage
+7. Year Timeline
+8. Quality Signals
+9. Top Evidence
+10. Ranked Evidence Table
+11. Evidence Gap Check
+12. Action Plan
+13. Delivery Package
+14. QA and Limitations
+
+The visual brief includes an `Export PDF` button for browser print/PDF delivery.
 
 See:
 

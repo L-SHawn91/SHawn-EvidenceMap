@@ -13,12 +13,23 @@
       --panel: #ffffff;
       --accent: #0f766e;
       --accent-soft: #ccfbf1;
+      --accent-mid: #14b8a6;
+      --blue: #2563eb;
+      --blue-soft: #dbeafe;
+      --green: #16a34a;
+      --green-soft: #dcfce7;
+      --rose: #be123c;
+      --rose-soft: #ffe4e6;
       --warn: #b45309;
+      --warn-soft: #fffbeb;
+      --shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      background: var(--bg);
+      background:
+        linear-gradient(180deg, #ecfeff 0, rgba(248, 250, 252, 0) 310px),
+        var(--bg);
       color: var(--ink);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height: 1.5;
@@ -30,32 +41,128 @@
     h2 { margin: 0 0 14px; font-size: 1.45rem; letter-spacing: 0; }
     h3 { margin: 0 0 8px; font-size: 1rem; }
     p { margin: 0; color: var(--muted); }
+    ul { margin: 0; padding-left: 1.25rem; color: var(--muted); }
+    li { margin: 8px 0; }
     section { padding: 30px 0; border-bottom: 1px solid var(--line); }
     .meta { display: flex; flex-wrap: wrap; gap: 8px; }
     .pill { border: 1px solid var(--line); border-radius: 999px; background: white; padding: 6px 10px; font-size: 0.86rem; color: var(--muted); }
     .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-    .card { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 16px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .card { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 16px; box-shadow: var(--shadow); }
     .metric { font-size: 2rem; font-weight: 800; color: var(--accent); line-height: 1; }
+    .metric.blue { color: var(--blue); }
+    .metric.green { color: var(--green); }
+    .metric.warn { color: var(--warn); }
+    .hero-panel {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .verdict {
+      display: grid;
+      gap: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+    .verdict h2 { font-size: 1.8rem; margin: 0; }
+    .score-ring {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      margin: auto;
+      background: conic-gradient(var(--accent) 288.0deg, #e5e7eb 0deg);
+    }
+    .score-inner {
+      width: 126px;
+      height: 126px;
+      border-radius: 50%;
+      background: white;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 12px;
+    }
+    .score-inner strong { display: block; font-size: 2rem; line-height: 1; }
+    .score-inner span { color: var(--muted); font-size: 0.78rem; }
+    .matrix { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .signal {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: #ffffff;
+    }
+    .signal strong { display: block; margin-bottom: 4px; }
+    .signal.good { background: var(--green-soft); border-color: #bbf7d0; }
+    .signal.mid { background: var(--blue-soft); border-color: #bfdbfe; }
+    .signal.watch { background: var(--warn-soft); border-color: #fde68a; }
+    .signal.risk { background: var(--rose-soft); border-color: #fecdd3; }
     .bar-row { display: grid; grid-template-columns: 220px minmax(0, 1fr) 40px; gap: 10px; align-items: center; margin: 10px 0; }
     .bar-bg { height: 12px; border-radius: 999px; background: #e5e7eb; overflow: hidden; }
     .bar-fill { height: 100%; background: var(--accent); }
+    .bar-fill.blue { background: var(--blue); }
+    .bar-fill.green { background: var(--green); }
+    .bar-fill.warn { background: var(--warn); }
+    .mini-bars { display: grid; gap: 8px; }
+    .mini-bar-row { display: grid; grid-template-columns: 120px minmax(0, 1fr) 32px; gap: 8px; align-items: center; color: var(--muted); font-size: 0.86rem; }
+    .mini-bar-bg { height: 8px; background: #e5e7eb; border-radius: 999px; overflow: hidden; }
+    .mini-bar-fill { height: 100%; background: var(--blue); }
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(38px, 1fr));
+      align-items: end;
+      gap: 8px;
+      min-height: 180px;
+      padding-top: 14px;
+    }
+    .timeline-col { display: grid; gap: 6px; align-items: end; text-align: center; color: var(--muted); font-size: 0.75rem; }
+    .timeline-bar { min-height: 8px; border-radius: 6px 6px 0 0; background: linear-gradient(180deg, var(--accent-mid), var(--accent)); }
+    .flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+    .flow-step { position: relative; border: 1px solid var(--line); border-radius: 8px; background: white; padding: 14px; }
+    .flow-step::after { content: "→"; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+    .flow-step:last-child::after { content: ""; }
+    .rank { color: var(--accent); font-weight: 800; font-size: 0.82rem; text-transform: uppercase; }
     .top-card { display: grid; gap: 8px; }
     .tag { display: inline-flex; width: fit-content; border-radius: 999px; background: var(--accent-soft); color: #115e59; padding: 4px 8px; font-weight: 700; font-size: 0.78rem; }
+    .tag.blue { background: var(--blue-soft); color: #1d4ed8; }
+    .tag.warn { background: var(--warn-soft); color: #92400e; }
     .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: white; }
     table { width: 100%; min-width: 980px; border-collapse: collapse; }
     th, td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; font-size: 0.9rem; }
     th { color: var(--muted); font-size: 0.76rem; text-transform: uppercase; }
     .note { border-left: 4px solid var(--warn); padding: 12px 14px; background: #fffbeb; color: #713f12; }
+    .callout { border-left: 4px solid var(--accent); padding: 14px 16px; background: #f0fdfa; color: #134e4a; }
     .footer { color: var(--muted); font-size: 0.9rem; }
+    .print-button {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--ink);
+      color: white;
+      padding: 10px 14px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
     @media print {
       body { background: white; }
       main { width: auto; padding: 24px; }
       section { break-inside: avoid; }
       .card, .table-wrap { break-inside: avoid; }
+      .print-button { display: none; }
     }
     @media (max-width: 840px) {
-      .grid { grid-template-columns: 1fr; }
+      .grid, .grid.two, .grid.four, .hero-panel, .flow, .matrix { grid-template-columns: 1fr; }
       .bar-row { grid-template-columns: 1fr; }
+      .flow-step::after { content: ""; }
     }
   </style>
 </head>
@@ -67,17 +174,42 @@
     <div class="meta">
       <span class="pill">Date: 2026-06-27</span>
       <span class="pill">Cartridge: ai_cs</span>
-      <span class="pill">Rows: 5</span>
+      <span class="pill">Rows: 8</span>
+      <span class="pill">Evidence score: 80/100</span>
+      <span class="pill">Confidence: High</span>
       <span class="pill">Pilot deliverable</span>
     </div>
   </header>
 
   <section>
+    <div class="hero-panel">
+      <div class="verdict">
+        <div class="eyebrow">Executive Verdict</div>
+        <h2>Strong first-pass evidence signal</h2>
+        <p>The strongest current signal is method evidence. The top-ranked source is Performance of ChatGPT on USMLE: Potential for AI-assisted medical education using large language models (2023). Manual verification is required before using this as a client-facing conclusion.</p>
+        <div class="callout">Commercial readout: suitable as a paid pilot brief after manual verification of top sources.</div>
+      </div>
+      <div class="card">
+        <div class="score-ring">
+          <div class="score-inner">
+            <div>
+              <strong>80</strong>
+              <span>evidence brief score</span>
+            </div>
+          </div>
+        </div>
+        <p style="text-align:center; margin-top:14px;">High confidence for a first-pass paid pilot brief</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
     <h2>Executive Snapshot</h2>
-    <div class="grid">
-      <div class="card"><div class="metric">5</div><p>ranked evidence rows</p></div>
-      <div class="card"><div class="metric">1</div><p>evidence categories</p></div>
-      <div class="card"><div class="metric">2019-2023</div><p>year coverage</p></div>
+    <div class="grid four">
+      <div class="card"><div class="metric">8</div><p>ranked evidence rows</p></div>
+      <div class="card"><div class="metric blue">1</div><p>evidence categories</p></div>
+      <div class="card"><div class="metric green">2014-2025</div><p>year coverage</p></div>
+      <div class="card"><div class="metric warn">1</div><p>source families</p></div>
     </div>
   </section>
 
@@ -89,38 +221,76 @@
   </section>
 
   <section>
-    <h2>Evidence Mix</h2>
-    <div class="bar-row"><div>method evidence</div><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div><div>5</div></div>
+    <h2>Evidence Dashboard</h2>
+    <div class="grid two">
+      <div class="card">
+        <h3>Evidence Mix</h3>
+        <div class="bar-row"><div>method evidence</div><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div><div>8</div></div>
+      </div>
+      <div class="card">
+        <h3>Source Coverage</h3>
+        <div class="mini-bars"><div class="mini-bar-row"><div>DOI</div><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:100%"></div></div><div>8</div></div></div>
+      </div>
+    </div>
   </section>
 
   <section>
     <h2>Year Timeline</h2>
-    <div class="bar-row"><div>2019</div><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div><div>2</div></div>
-<div class="bar-row"><div>2020</div><div class="bar-bg"><div class="bar-fill" style="width:50%"></div></div><div>1</div></div>
-<div class="bar-row"><div>2021</div><div class="bar-bg"><div class="bar-fill" style="width:50%"></div></div><div>1</div></div>
-<div class="bar-row"><div>2023</div><div class="bar-bg"><div class="bar-fill" style="width:50%"></div></div><div>1</div></div>
+    <div class="timeline"><div class="timeline-col"><div class="timeline-bar" style="height:75px"></div><div>2014</div><strong>1</strong></div>
+<div class="timeline-col"><div class="timeline-bar" style="height:150px"></div><div>2019</div><strong>2</strong></div>
+<div class="timeline-col"><div class="timeline-bar" style="height:75px"></div><div>2020</div><strong>1</strong></div>
+<div class="timeline-col"><div class="timeline-bar" style="height:75px"></div><div>2021</div><strong>1</strong></div>
+<div class="timeline-col"><div class="timeline-bar" style="height:150px"></div><div>2023</div><strong>2</strong></div>
+<div class="timeline-col"><div class="timeline-bar" style="height:75px"></div><div>2025</div><strong>1</strong></div></div>
+  </section>
+
+  <section>
+    <h2>Quality Signals</h2>
+    <div class="matrix">
+  <div class="signal good"><strong>Support Sentence Coverage</strong><div class="metric">100%</div><p>Rows with an extracted sentence that can be checked by a reviewer.</p></div>
+  <div class="signal good"><strong>Year Metadata Coverage</strong><div class="metric blue">100%</div><p>Rows with usable publication year metadata for timeline interpretation.</p></div>
+  <div class="signal risk"><strong>Source Breadth</strong><div class="metric green">25%</div><p>Public source diversity proxy based on link families in the ranked table.</p></div>
+  <div class="signal risk"><strong>Evidence Label Diversity</strong><div class="metric warn">25%</div><p>Whether the map has multiple evidence types rather than one narrow cluster.</p></div>
+</div>
   </section>
 
   <section>
     <h2>Top Evidence</h2>
     <div class="grid">
       <div class="card top-card">
+  <div class="rank">Rank 1</div>
   <span class="tag">method evidence</span>
   <h3>Performance of ChatGPT on USMLE: Potential for AI-assisted medical education using large language models</h3>
   <p>2023</p>
   <p>We evaluated the performance of a large language model called ChatGPT on the United States Medical Licensing Exam (USMLE), which consists of three exams: Step 1, Step 2CK, and Step 3.</p>
 </div>
 <div class="card top-card">
+  <div class="rank">Rank 2</div>
   <span class="tag">method evidence</span>
   <h3>Domain-Specific Language Model Pretraining for Biomedical Natural Language Processing</h3>
   <p>2021</p>
   <p>Further, in conducting a thorough evaluation of modeling choices, both for pretraining and task-specific fine-tuning, we discover that some common practices are unnecessary with BERT models, such as using complex tagging schemes in named entity recognition.</p>
 </div>
 <div class="card top-card">
+  <div class="rank">Rank 3</div>
   <span class="tag">method evidence</span>
   <h3>IndicNLPSuite: Monolingual Corpora, Evaluation Benchmarks and Pre-trained Multilingual Language Models for Indian Languages</h3>
   <p>2020</p>
   <p>These resources include: (a) large-scale sentence-level monolingual corpora, (b) pre-trained word embeddings, (c) pre-trained language models, and (d) multiple NLU evaluation datasets (IndicGLUE benchmark).</p>
+</div>
+<div class="card top-card">
+  <div class="rank">Rank 4</div>
+  <span class="tag">method evidence</span>
+  <h3>CheXpert: A Large Chest Radiograph Dataset with Uncertainty Labels and Expert Comparison</h3>
+  <p>2019</p>
+  <p>We then evaluate our best model on a test set composed of 500 chest radiographic studies annotated by a consensus of 5 board-certified radiologists, and compare the performance of our model to that of 3 additional radiologists in the detection of 5 selected pathologies.</p>
+</div>
+<div class="card top-card">
+  <div class="rank">Rank 5</div>
+  <span class="tag">method evidence</span>
+  <h3>Transfer Learning in Biomedical Natural Language Processing: An Evaluation of BERT and ELMo on Ten Benchmarking Datasets</h3>
+  <p>2019</p>
+  <p>Inspired by the success of the General Language Understanding Evaluation benchmark, we introduce the Biomedical Language Understanding Evaluation (BLUE) benchmark to facilitate research in the development of pre-training language representations in the biomedicine domain.</p>
 </div>
     </div>
   </section>
@@ -140,6 +310,9 @@
 <tr><td>3</td><td>method evidence</td><td>2020</td><td>IndicNLPSuite: Monolingual Corpora, Evaluation Benchmarks and Pre-trained Multilingual Language Models for Indian Languages</td><td>Query term overlap: large, language, model, benchmark, dataset; quality=1.86; cited_by=411; doi=10.18653/v1/2020.findings-emnlp.445</td><td>These resources include: (a) large-scale sentence-level monolingual corpora, (b) pre-trained word embeddings, (c) pre-trained language models, and (d) multiple NLU evaluation datasets (IndicGLUE benchmark).</td><td><a href="https://doi.org/10.18653/v1/2020.findings-emnlp.445">source</a></td></tr>
 <tr><td>4</td><td>method evidence</td><td>2019</td><td>CheXpert: A Large Chest Radiograph Dataset with Uncertainty Labels and Expert Comparison</td><td>Query term overlap: large, model, benchmark, dataset; quality=1.85; cited_by=2564; doi=10.1609/aaai.v33i01.3301590</td><td>We then evaluate our best model on a test set composed of 500 chest radiographic studies annotated by a consensus of 5 board-certified radiologists, and compare the performance of our model to that of 3 additional radiologists in the detection of 5 selected pathologies.</td><td><a href="https://doi.org/10.1609/aaai.v33i01.3301590">source</a></td></tr>
 <tr><td>5</td><td>method evidence</td><td>2019</td><td>Transfer Learning in Biomedical Natural Language Processing: An Evaluation of BERT and ELMo on Ten Benchmarking Datasets</td><td>Query term overlap: language, model, benchmark, dataset; quality=1.85; cited_by=849; doi=10.18653/v1/w19-5006</td><td>Inspired by the success of the General Language Understanding Evaluation benchmark, we introduce the Biomedical Language Understanding Evaluation (BLUE) benchmark to facilitate research in the development of pre-training language representations in the biomedicine domain.</td><td><a href="https://doi.org/10.18653/v1/w19-5006">source</a></td></tr>
+<tr><td>6</td><td>method evidence</td><td>2014</td><td>The Multimodal Brain Tumor Image Segmentation Benchmark (BRATS)</td><td>Query term overlap: benchmark; quality=1.84; cited_by=6521; doi=10.1109/tmi.2014.2377694</td><td>The BRATS image data and manual annotations continue to be publicly available through an online evaluation system as an ongoing benchmarking resource.</td><td><a href="https://doi.org/10.1109/tmi.2014.2377694">source</a></td></tr>
+<tr><td>7</td><td>method evidence</td><td>2023</td><td>Professional Certification Benchmark Dataset: The First 500 Jobs for Large Language Models</td><td>Query term overlap: large, language, model, benchmark, dataset; quality=1.83; cited_by=38; doi=10.5121/csit.2023.131211</td><td>It compares the performance of two AI models, GPT-3 and Turbo-GPT3.5, on a benchmark dataset of 1149 professional certifications, emphasizing vocational readiness rather than academic performance.</td><td><a href="https://doi.org/10.5121/csit.2023.131211">source</a></td></tr>
+<tr><td>8</td><td>method evidence</td><td>2025</td><td>Pedestrian Attribute Recognition: A New Benchmark Dataset and a Large Language Model Augmented Framework</td><td>Query term overlap: large, language, model, benchmark, dataset; quality=1.82; cited_by=6; doi=10.1609/aaai.v39i4.32434</td><td>However, existing datasets neglect different domains (e.g., environments, times, populations, and data sources), only conducting simple random splits, and the performance of these datasets has already approached saturation.</td><td><a href="https://doi.org/10.1609/aaai.v39i4.32434">source</a></td></tr>
         </tbody>
       </table>
     </div>
@@ -157,20 +330,12 @@
 
   <section>
     <h2>Action Plan</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Immediate</h3>
-        <p>Review the top 5 sources and confirm whether the support sentences match the client question.</p>
-      </div>
-      <div class="card">
-        <h3>Next Pass</h3>
-        <p>Expand synonyms, add comparator terms, and split foundational versus recent evidence.</p>
-      </div>
-      <div class="card">
-        <h3>Paid Upgrade</h3>
-        <p>Add manual source verification, inclusion/exclusion notes, and a polished decision brief.</p>
-      </div>
-    </div>
+    <div class="flow">
+  <div class="flow-step"><div class="rank">Step 1</div><h3>Verify</h3><p>Open top sources and confirm title, abstract, date, and fit to the client question.</p></div>
+  <div class="flow-step"><div class="rank">Step 2</div><h3>Refine</h3><p>Add synonyms, comparator terms, and exclusion terms to reduce noise.</p></div>
+  <div class="flow-step"><div class="rank">Step 3</div><h3>Deepen</h3><p>Separate recent, foundational, and application-oriented evidence runs.</p></div>
+  <div class="flow-step"><div class="rank">Step 4</div><h3>Deliver</h3><p>Package a verified PDF, evidence table, and short recommendation memo.</p></div>
+</div>
   </section>
 
   <section>
@@ -192,5 +357,6 @@
 
   <p class="footer">Prepared as a SHawn EvidenceMap preliminary report. Contact: dr.shawn91@gmail.com</p>
 </main>
+<button class="print-button" onclick="window.print()">Export PDF</button>
 </body>
 </html>

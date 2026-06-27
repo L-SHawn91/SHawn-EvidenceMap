@@ -13,12 +13,23 @@
       --panel: #ffffff;
       --accent: #0f766e;
       --accent-soft: #ccfbf1;
+      --accent-mid: #14b8a6;
+      --blue: #2563eb;
+      --blue-soft: #dbeafe;
+      --green: #16a34a;
+      --green-soft: #dcfce7;
+      --rose: #be123c;
+      --rose-soft: #ffe4e6;
       --warn: #b45309;
+      --warn-soft: #fffbeb;
+      --shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      background: var(--bg);
+      background:
+        linear-gradient(180deg, #ecfeff 0, rgba(248, 250, 252, 0) 310px),
+        var(--bg);
       color: var(--ink);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height: 1.5;
@@ -30,32 +41,128 @@
     h2 { margin: 0 0 14px; font-size: 1.45rem; letter-spacing: 0; }
     h3 { margin: 0 0 8px; font-size: 1rem; }
     p { margin: 0; color: var(--muted); }
+    ul { margin: 0; padding-left: 1.25rem; color: var(--muted); }
+    li { margin: 8px 0; }
     section { padding: 30px 0; border-bottom: 1px solid var(--line); }
     .meta { display: flex; flex-wrap: wrap; gap: 8px; }
     .pill { border: 1px solid var(--line); border-radius: 999px; background: white; padding: 6px 10px; font-size: 0.86rem; color: var(--muted); }
     .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-    .card { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 16px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .card { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 16px; box-shadow: var(--shadow); }
     .metric { font-size: 2rem; font-weight: 800; color: var(--accent); line-height: 1; }
+    .metric.blue { color: var(--blue); }
+    .metric.green { color: var(--green); }
+    .metric.warn { color: var(--warn); }
+    .hero-panel {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .verdict {
+      display: grid;
+      gap: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+    .verdict h2 { font-size: 1.8rem; margin: 0; }
+    .score-ring {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      margin: auto;
+      background: conic-gradient(var(--accent) 306.0deg, #e5e7eb 0deg);
+    }
+    .score-inner {
+      width: 126px;
+      height: 126px;
+      border-radius: 50%;
+      background: white;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 12px;
+    }
+    .score-inner strong { display: block; font-size: 2rem; line-height: 1; }
+    .score-inner span { color: var(--muted); font-size: 0.78rem; }
+    .matrix { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .signal {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: #ffffff;
+    }
+    .signal strong { display: block; margin-bottom: 4px; }
+    .signal.good { background: var(--green-soft); border-color: #bbf7d0; }
+    .signal.mid { background: var(--blue-soft); border-color: #bfdbfe; }
+    .signal.watch { background: var(--warn-soft); border-color: #fde68a; }
+    .signal.risk { background: var(--rose-soft); border-color: #fecdd3; }
     .bar-row { display: grid; grid-template-columns: 220px minmax(0, 1fr) 40px; gap: 10px; align-items: center; margin: 10px 0; }
     .bar-bg { height: 12px; border-radius: 999px; background: #e5e7eb; overflow: hidden; }
     .bar-fill { height: 100%; background: var(--accent); }
+    .bar-fill.blue { background: var(--blue); }
+    .bar-fill.green { background: var(--green); }
+    .bar-fill.warn { background: var(--warn); }
+    .mini-bars { display: grid; gap: 8px; }
+    .mini-bar-row { display: grid; grid-template-columns: 120px minmax(0, 1fr) 32px; gap: 8px; align-items: center; color: var(--muted); font-size: 0.86rem; }
+    .mini-bar-bg { height: 8px; background: #e5e7eb; border-radius: 999px; overflow: hidden; }
+    .mini-bar-fill { height: 100%; background: var(--blue); }
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(38px, 1fr));
+      align-items: end;
+      gap: 8px;
+      min-height: 180px;
+      padding-top: 14px;
+    }
+    .timeline-col { display: grid; gap: 6px; align-items: end; text-align: center; color: var(--muted); font-size: 0.75rem; }
+    .timeline-bar { min-height: 8px; border-radius: 6px 6px 0 0; background: linear-gradient(180deg, var(--accent-mid), var(--accent)); }
+    .flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+    .flow-step { position: relative; border: 1px solid var(--line); border-radius: 8px; background: white; padding: 14px; }
+    .flow-step::after { content: "→"; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+    .flow-step:last-child::after { content: ""; }
+    .rank { color: var(--accent); font-weight: 800; font-size: 0.82rem; text-transform: uppercase; }
     .top-card { display: grid; gap: 8px; }
     .tag { display: inline-flex; width: fit-content; border-radius: 999px; background: var(--accent-soft); color: #115e59; padding: 4px 8px; font-weight: 700; font-size: 0.78rem; }
+    .tag.blue { background: var(--blue-soft); color: #1d4ed8; }
+    .tag.warn { background: var(--warn-soft); color: #92400e; }
     .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: white; }
     table { width: 100%; min-width: 980px; border-collapse: collapse; }
     th, td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; font-size: 0.9rem; }
     th { color: var(--muted); font-size: 0.76rem; text-transform: uppercase; }
     .note { border-left: 4px solid var(--warn); padding: 12px 14px; background: #fffbeb; color: #713f12; }
+    .callout { border-left: 4px solid var(--accent); padding: 14px 16px; background: #f0fdfa; color: #134e4a; }
     .footer { color: var(--muted); font-size: 0.9rem; }
+    .print-button {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--ink);
+      color: white;
+      padding: 10px 14px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
     @media print {
       body { background: white; }
       main { width: auto; padding: 24px; }
       section { break-inside: avoid; }
       .card, .table-wrap { break-inside: avoid; }
+      .print-button { display: none; }
     }
     @media (max-width: 840px) {
-      .grid { grid-template-columns: 1fr; }
+      .grid, .grid.two, .grid.four, .hero-panel, .flow, .matrix { grid-template-columns: 1fr; }
       .bar-row { grid-template-columns: 1fr; }
+      .flow-step::after { content: ""; }
     }
   </style>
 </head>
@@ -67,17 +174,42 @@
     <div class="meta">
       <span class="pill">Date: 2026-06-27</span>
       <span class="pill">Cartridge: legal</span>
-      <span class="pill">Rows: 5</span>
+      <span class="pill">Rows: 8</span>
+      <span class="pill">Evidence score: 85/100</span>
+      <span class="pill">Confidence: High</span>
       <span class="pill">Pilot deliverable</span>
     </div>
   </header>
 
   <section>
+    <div class="hero-panel">
+      <div class="verdict">
+        <div class="eyebrow">Executive Verdict</div>
+        <h2>Strong first-pass evidence signal</h2>
+        <p>The strongest current signal is statutory or regulatory evidence. The top-ranked source is Legal and Ethical Consideration in Artificial Intelligence in Healthcare: Who Takes Responsibility? (2022). Manual verification is required before using this as a client-facing conclusion.</p>
+        <div class="callout">Commercial readout: suitable as a paid pilot brief after manual verification of top sources.</div>
+      </div>
+      <div class="card">
+        <div class="score-ring">
+          <div class="score-inner">
+            <div>
+              <strong>85</strong>
+              <span>evidence brief score</span>
+            </div>
+          </div>
+        </div>
+        <p style="text-align:center; margin-top:14px;">High confidence for a first-pass paid pilot brief</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
     <h2>Executive Snapshot</h2>
-    <div class="grid">
-      <div class="card"><div class="metric">5</div><p>ranked evidence rows</p></div>
-      <div class="card"><div class="metric">2</div><p>evidence categories</p></div>
-      <div class="card"><div class="metric">2018-2025</div><p>year coverage</p></div>
+    <div class="grid four">
+      <div class="card"><div class="metric">8</div><p>ranked evidence rows</p></div>
+      <div class="card"><div class="metric blue">2</div><p>evidence categories</p></div>
+      <div class="card"><div class="metric green">2018-2026</div><p>year coverage</p></div>
+      <div class="card"><div class="metric warn">1</div><p>source families</p></div>
     </div>
   </section>
 
@@ -89,39 +221,77 @@
   </section>
 
   <section>
-    <h2>Evidence Mix</h2>
-    <div class="bar-row"><div>statutory or regulatory evidence</div><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div><div>4</div></div>
-<div class="bar-row"><div>case law or precedent evidence</div><div class="bar-bg"><div class="bar-fill" style="width:25%"></div></div><div>1</div></div>
+    <h2>Evidence Dashboard</h2>
+    <div class="grid two">
+      <div class="card">
+        <h3>Evidence Mix</h3>
+        <div class="bar-row"><div>statutory or regulatory evidence</div><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div><div>7</div></div>
+<div class="bar-row"><div>case law or precedent evidence</div><div class="bar-bg"><div class="bar-fill" style="width:14%"></div></div><div>1</div></div>
+      </div>
+      <div class="card">
+        <h3>Source Coverage</h3>
+        <div class="mini-bars"><div class="mini-bar-row"><div>DOI</div><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:100%"></div></div><div>8</div></div></div>
+      </div>
+    </div>
   </section>
 
   <section>
     <h2>Year Timeline</h2>
-    <div class="bar-row"><div>2018</div><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div><div>2</div></div>
-<div class="bar-row"><div>2022</div><div class="bar-bg"><div class="bar-fill" style="width:50%"></div></div><div>1</div></div>
-<div class="bar-row"><div>2023</div><div class="bar-bg"><div class="bar-fill" style="width:50%"></div></div><div>1</div></div>
-<div class="bar-row"><div>2025</div><div class="bar-bg"><div class="bar-fill" style="width:50%"></div></div><div>1</div></div>
+    <div class="timeline"><div class="timeline-col"><div class="timeline-bar" style="height:150px"></div><div>2018</div><strong>2</strong></div>
+<div class="timeline-col"><div class="timeline-bar" style="height:75px"></div><div>2020</div><strong>1</strong></div>
+<div class="timeline-col"><div class="timeline-bar" style="height:75px"></div><div>2022</div><strong>1</strong></div>
+<div class="timeline-col"><div class="timeline-bar" style="height:75px"></div><div>2023</div><strong>1</strong></div>
+<div class="timeline-col"><div class="timeline-bar" style="height:75px"></div><div>2025</div><strong>1</strong></div>
+<div class="timeline-col"><div class="timeline-bar" style="height:150px"></div><div>2026</div><strong>2</strong></div></div>
+  </section>
+
+  <section>
+    <h2>Quality Signals</h2>
+    <div class="matrix">
+  <div class="signal good"><strong>Support Sentence Coverage</strong><div class="metric">100%</div><p>Rows with an extracted sentence that can be checked by a reviewer.</p></div>
+  <div class="signal good"><strong>Year Metadata Coverage</strong><div class="metric blue">100%</div><p>Rows with usable publication year metadata for timeline interpretation.</p></div>
+  <div class="signal risk"><strong>Source Breadth</strong><div class="metric green">25%</div><p>Public source diversity proxy based on link families in the ranked table.</p></div>
+  <div class="signal watch"><strong>Evidence Label Diversity</strong><div class="metric warn">50%</div><p>Whether the map has multiple evidence types rather than one narrow cluster.</p></div>
+</div>
   </section>
 
   <section>
     <h2>Top Evidence</h2>
     <div class="grid">
       <div class="card top-card">
+  <div class="rank">Rank 1</div>
   <span class="tag">case law or precedent evidence</span>
   <h3>Legal and Ethical Consideration in Artificial Intelligence in Healthcare: Who Takes Responsibility?</h3>
   <p>2022</p>
   <p>Currently, there are no well-defined regulations in place to address the legal and ethical issues that may arise due to the use of artificial intelligence in healthcare settings.</p>
 </div>
 <div class="card top-card">
+  <div class="rank">Rank 2</div>
   <span class="tag">statutory or regulatory evidence</span>
   <h3>Legal, regulatory, and ethical frameworks for development of standards in artificial intelligence (AI) and autonomous robotic surgery</h3>
   <p>2018</p>
   <p>BACKGROUND: This paper aims to move the debate forward regarding the potential for artificial intelligence (AI) and autonomous robotic surgery with a particular focus on ethics, regulation and legal aspects (such as civil law, international law, tort law, liability, medical malpractice, privacy and product/device legislation, among other aspects).</p>
 </div>
 <div class="card top-card">
+  <div class="rank">Rank 3</div>
   <span class="tag">statutory or regulatory evidence</span>
   <h3>The Legal Framework of Artificial Intelligence in the European Union: Regulation, Liability, and Sectoral Challenges.</h3>
   <p>2025</p>
   <p>This includes the EU Regulation 2016/679, which directly addresses crucial issues such as automated decisions and profiling; the EU Regulation 2022/868 on data altruism mechanisms and the reuse of public data; the EU Regulation 2023/2854, which introduces rules related to accessing data generated, among others, by IoT and industrial devices, as well as the E...</p>
+</div>
+<div class="card top-card">
+  <div class="rank">Rank 4</div>
+  <span class="tag">statutory or regulatory evidence</span>
+  <h3>Connecting the dots in trustworthy Artificial Intelligence: From AI principles, ethics, and key requirements to responsible AI systems and regulation</h3>
+  <p>2023</p>
+  <p>On the other hand, a practical approach to implement trustworthy AI systems allows defining the concept of responsibility of AI-based systems facing the law, through a given auditing process.</p>
+</div>
+<div class="card top-card">
+  <div class="rank">Rank 5</div>
+  <span class="tag">statutory or regulatory evidence</span>
+  <h3>Artificial intelligence as a medical device in radiology: ethical and regulatory issues in Europe and the United States</h3>
+  <p>2018</p>
+  <p>In this paper we analyse the state of AI regulation in the context of medical device development, and strategies to make AI applications safe and useful in the future.</p>
 </div>
     </div>
   </section>
@@ -141,6 +311,9 @@
 <tr><td>3</td><td>statutory or regulatory evidence</td><td>2025</td><td>The Legal Framework of Artificial Intelligence in the European Union: Regulation, Liability, and Sectoral Challenges.</td><td>Query term overlap: artificial, intelligence, regulation, legal, liability; quality=2.20; cited_by=0; doi=10.34190/icair.5.1.4331</td><td>This includes the EU Regulation 2016/679, which directly addresses crucial issues such as automated decisions and profiling; the EU Regulation 2022/868 on data altruism mechanisms and the reuse of public data; the EU Regulation 2023/2854, which introduces rules related to accessing data generated, among others, by IoT and industrial devices, as well as the E...</td><td><a href="https://doi.org/10.34190/icair.5.1.4331">source</a></td></tr>
 <tr><td>4</td><td>statutory or regulatory evidence</td><td>2023</td><td>Connecting the dots in trustworthy Artificial Intelligence: From AI principles, ethics, and key requirements to responsible AI systems and regulation</td><td>Query term overlap: artificial, intelligence, regulation; quality=2.05; cited_by=659; doi=10.1016/j.inffus.2023.101896</td><td>On the other hand, a practical approach to implement trustworthy AI systems allows defining the concept of responsibility of AI-based systems facing the law, through a given auditing process.</td><td><a href="https://doi.org/10.1016/j.inffus.2023.101896">source</a></td></tr>
 <tr><td>5</td><td>statutory or regulatory evidence</td><td>2018</td><td>Artificial intelligence as a medical device in radiology: ethical and regulatory issues in Europe and the United States</td><td>Query term overlap: artificial, intelligence, regulation, legal; quality=2.00; cited_by=464; doi=10.1007/s13244-018-0645-y</td><td>In this paper we analyse the state of AI regulation in the context of medical device development, and strategies to make AI applications safe and useful in the future.</td><td><a href="https://doi.org/10.1007/s13244-018-0645-y">source</a></td></tr>
+<tr><td>6</td><td>statutory or regulatory evidence</td><td>2020</td><td>Legal Ethics, Liability and Regulation in an AI World</td><td>Query term overlap: regulation, legal, liability; quality=2.00; cited_by=0; doi=10.5040/9781509931842.ch-011</td><td>Legal Ethics, Liability and Regulation in an AI World</td><td><a href="https://doi.org/10.5040/9781509931842.ch-011">source</a></td></tr>
+<tr><td>7</td><td>statutory or regulatory evidence</td><td>2026</td><td>LIABILITY FOR CRIMES COMMITTED USING ARTIFICIAL INTELLIGENCE: AN INTERNATIONAL LEGAL APPROACH</td><td>Query term overlap: artificial, intelligence, regulation, legal, liability; quality=1.86; cited_by=0; doi=10.51788/tsul.jurisprudence.6.1./wtue5604</td><td>The article analyzes the impact of the rapid development of artificial intelligence systems and autonomous technologies on criminal-legal relations, as well as the place and role of artificial intelligence and technologies operating on its basis in the field of criminal-legal regulation and related current problems.</td><td><a href="https://doi.org/10.51788/tsul.jurisprudence.6.1./wtue5604">source</a></td></tr>
+<tr><td>8</td><td>statutory or regulatory evidence</td><td>2026</td><td>Artificial Intelligence and Legal Responsibility: Comparative Lessons for Nigeria in Determining Legal Liability for AI Harm</td><td>Query term overlap: artificial, intelligence, regulation, legal, liability; quality=1.86; cited_by=0; doi=10.2139/ssrn.6173489</td><td>The paper argues that while Nigeria lacks a specific AI regulatory framework, existing laws, particularly the tort of negligence and the Federal Competition and Consumer Protection Act, can be applied to determine liability in AI-related harm.</td><td><a href="https://doi.org/10.2139/ssrn.6173489">source</a></td></tr>
         </tbody>
       </table>
     </div>
@@ -153,25 +326,17 @@
 
   <section>
     <h2>Evidence Gap Check</h2>
-    <ul><li>Evidence is sufficiently clustered for a first-pass brief. Dominant signal: statutory or regulatory evidence (4 rows).</li></ul>
+    <ul><li>Evidence is sufficiently clustered for a first-pass brief. Dominant signal: statutory or regulatory evidence (7 rows).</li></ul>
   </section>
 
   <section>
     <h2>Action Plan</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Immediate</h3>
-        <p>Review the top 5 sources and confirm whether the support sentences match the client question.</p>
-      </div>
-      <div class="card">
-        <h3>Next Pass</h3>
-        <p>Expand synonyms, add comparator terms, and split foundational versus recent evidence.</p>
-      </div>
-      <div class="card">
-        <h3>Paid Upgrade</h3>
-        <p>Add manual source verification, inclusion/exclusion notes, and a polished decision brief.</p>
-      </div>
-    </div>
+    <div class="flow">
+  <div class="flow-step"><div class="rank">Step 1</div><h3>Verify</h3><p>Open top sources and confirm title, abstract, date, and fit to the client question.</p></div>
+  <div class="flow-step"><div class="rank">Step 2</div><h3>Refine</h3><p>Add synonyms, comparator terms, and exclusion terms to reduce noise.</p></div>
+  <div class="flow-step"><div class="rank">Step 3</div><h3>Deepen</h3><p>Separate recent, foundational, and application-oriented evidence runs.</p></div>
+  <div class="flow-step"><div class="rank">Step 4</div><h3>Deliver</h3><p>Package a verified PDF, evidence table, and short recommendation memo.</p></div>
+</div>
   </section>
 
   <section>
@@ -193,5 +358,6 @@
 
   <p class="footer">Prepared as a SHawn EvidenceMap preliminary report. Contact: dr.shawn91@gmail.com</p>
 </main>
+<button class="print-button" onclick="window.print()">Export PDF</button>
 </body>
 </html>
