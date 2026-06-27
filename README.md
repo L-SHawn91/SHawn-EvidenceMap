@@ -80,6 +80,43 @@ See:
 docs/CARTRIDGE_ARCHITECTURE.md
 ```
 
+## Customer Reports
+
+Generate a fixed customer-facing preliminary report:
+
+```bash
+PYTHONPATH=src python3 -m evidencemap.cli "endometrial organoid implantation" --cartridge bio --limit 5 --report
+```
+
+The report format is fixed across cartridges:
+
+1. Executive Summary
+2. Scope
+3. Method Snapshot
+4. Evidence Mix
+5. Year Coverage
+6. Ranked Evidence Table
+7. Initial Interpretation
+8. Recommended Next Steps
+9. Limitations
+10. Delivery Note
+
+Sample reports:
+
+```text
+examples/reports/bio_endometrial_organoid_implantation.md
+examples/reports/ai_cs_llm_benchmark_dataset.md
+examples/reports/policy_climate_intervention_evaluation.md
+examples/reports/education_intervention_learning_outcomes.md
+examples/reports/patent_tech_crispr_landscape.md
+```
+
+See:
+
+```text
+docs/REPORT_TEMPLATE.md
+```
+
 Local web demo:
 
 ```bash
