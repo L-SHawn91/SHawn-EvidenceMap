@@ -30,8 +30,7 @@ This report is designed for research planning, review scoping, grant background 
 
 ## 4. Evidence Mix
 
-- technology landscape evidence: 4
-- application evidence: 1
+- technology landscape evidence: 5
 
 ## 5. Year Coverage
 
@@ -41,11 +40,11 @@ This report is designed for research planning, review scoping, grant background 
 
 | # | Evidence type | Year | Paper | Rationale | Support sentence | Source |
 |---:|---|---:|---|---|---|---|
-| 1 | technology landscape evidence | 2018 | Advancing biotechnology with CRISPR/Cas9: recent applications and patent landscape | Query term overlap: crispr, patent, landscape, technology, application; quality=2.28; cited_by=33; doi=10.1007/s10295-017-2000-6 | Next, we detail the current status of the patent landscape, highlighting its exploitation through different companies, and conclude with future perspectives of this technology. | https://doi.org/10.1007/s10295-017-2000-6 |
-| 2 | technology landscape evidence | 2016 | The emerging patent landscape of CRISPR–Cas gene editing technology | Query term overlap: crispr, patent, landscape, technology; quality=1.70; cited_by=126; doi=10.1038/nbt.3692 | The emerging patent landscape of CRISPR–Cas gene editing technology | https://doi.org/10.1038/nbt.3692 |
-| 3 | application evidence | 2023 | Application of CRISPR-Cas9 genome editing technology in various fields: A review | Query term overlap: crispr, technology, application; quality=1.59; cited_by=176; doi=10.52225/narra.v3i2.184 | We begin by describing the fundamental principles of CRISPR-Cas9 technology, explaining how the system utilizes a single guide RNA (sgRNA) to direct the Cas9 nuclease to specific DNA sequences in the genome, resulting in targeted double-stranded breaks. | https://doi.org/10.52225/narra.v3i2.184 |
-| 4 | technology landscape evidence | 2018 | The CRISPR Patent Landscape: Past, Present, and Future | Query term overlap: crispr, patent, landscape, technology; quality=1.43; cited_by=49; doi=10.1089/crispr.2017.0013 | Like the technology itself, the future of the CRISPR patent landscape depends on researchers and their institutions. | https://doi.org/10.1089/crispr.2017.0013 |
-| 5 | technology landscape evidence | 2017 | Single Cell Protein—State-of-the-Art, Industrial Landscape and Patents 2001–2016 | Query term overlap: patent, landscape; quality=1.41; cited_by=685; doi=10.3389/fmicb.2017.02009 | The following review addresses the latest developments in SCP production from various organisms, giving an overview of commercial exploitation, a review of recent advances in the patent landscape (2001-2016) and a list of industrial players in the SCP field. | https://doi.org/10.3389/fmicb.2017.02009 |
+| 1 | technology landscape evidence | 2018 | Advancing biotechnology with CRISPR/Cas9: recent applications and patent landscape | Query term overlap: crispr, patent, landscape, technology, application; quality=2.29; cited_by=33; doi=10.1007/s10295-017-2000-6 | Next, we detail the current status of the patent landscape, highlighting its exploitation through different companies, and conclude with future perspectives of this technology. | https://doi.org/10.1007/s10295-017-2000-6 |
+| 2 | technology landscape evidence | 2023 | Examining the Patent Landscape of E-Fuel Technology | Query term overlap: patent, landscape, technology, application; quality=1.96; cited_by=9; doi=10.3390/en16052139 | The main findings show that the patent landscape is dominated by applications from the private sector, and the main knowledge base is centered around chemical engineering and production techniques for liquid hydrocarbon mixture. | https://doi.org/10.3390/en16052139 |
+| 3 | technology landscape evidence | 2016 | The emerging patent landscape of CRISPR–Cas gene editing technology | Query term overlap: crispr, patent, landscape, technology; quality=1.73; cited_by=126; doi=10.1038/nbt.3692 | The emerging patent landscape of CRISPR–Cas gene editing technology | https://doi.org/10.1038/nbt.3692 |
+| 4 | technology landscape evidence | 2017 | Single Cell Protein—State-of-the-Art, Industrial Landscape and Patents 2001–2016 | Query term overlap: patent, landscape; quality=1.68; cited_by=685; doi=10.3389/fmicb.2017.02009 | The following review addresses the latest developments in SCP production from various organisms, giving an overview of commercial exploitation, a review of recent advances in the patent landscape (2001-2016) and a list of industrial players in the SCP field. | https://doi.org/10.3389/fmicb.2017.02009 |
+| 5 | technology landscape evidence | 2023 | Landscape of Genome Editing Technology Patents in the European Patent Office with a Focus on CRISPR-Related Opposition Proceedings | Query term overlap: crispr, patent, landscape, technology; quality=1.64; cited_by=1; doi=10.1089/blr.2023.29326.ah | Landscape of Genome Editing Technology Patents in the European Patent Office with a Focus on CRISPR-Related Opposition Proceedings | https://doi.org/10.1089/blr.2023.29326.ah |
 
 ## 7. Initial Interpretation
 

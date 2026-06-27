@@ -6,6 +6,7 @@ from evidencemap.models import EvidenceRow, Paper
 
 
 THEME_RULES: list[tuple[str, re.Pattern[str]]] = [
+    ("drug screening evidence", re.compile(r"\bdrug|compound|therapeutic|screening|high-throughput|high throughput|assay\b", re.I)),
     ("model system evidence", re.compile(r"\borganoid|assembloid|3d culture|model\b", re.I)),
     ("mechanistic evidence", re.compile(r"\bmechanism|pathway|signaling|gene|protein|transcript", re.I)),
     ("clinical or patient evidence", re.compile(r"\bpatient|clinical|cohort|trial|diagnosis", re.I)),

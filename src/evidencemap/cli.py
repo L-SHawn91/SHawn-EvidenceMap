@@ -6,6 +6,7 @@ from .cartridges import cartridge_ids
 from .export import to_json, to_markdown
 from .pipeline import build_evidence_map
 from .report import to_customer_report
+from .visual_report import to_visual_html
 
 
 def main() -> None:
@@ -23,6 +24,7 @@ def main() -> None:
     parser.add_argument("--cache-ttl-hours", type=float, default=24, help="Local query cache TTL in hours")
     parser.add_argument("--markdown", action="store_true", help="Print Markdown instead of JSON")
     parser.add_argument("--report", action="store_true", help="Print fixed customer report Markdown")
+    parser.add_argument("--html-report", action="store_true", help="Print fixed visual customer report HTML")
     args = parser.parse_args()
 
     evidence_map = build_evidence_map(
@@ -33,7 +35,9 @@ def main() -> None:
         use_cache=not args.no_cache,
         cache_ttl_hours=args.cache_ttl_hours,
     )
-    if args.report:
+    if args.html_report:
+        print(to_visual_html(evidence_map))
+    elif args.report:
         print(to_customer_report(evidence_map))
     elif args.markdown:
         print(to_markdown(evidence_map))

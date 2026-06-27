@@ -9,6 +9,10 @@ CORE_ALIASES: dict[str, set[str]] = {
     "endometrial": {"endometrial", "endometrium", "uterine", "uterus"},
     "organoid": {"organoid", "organoids", "assembloid", "assembloids", "3d"},
     "implantation": {"implantation", "implant", "receptivity", "receptive", "embryo"},
+    "drug": {"drug", "compound", "therapeutic", "pharmacological", "small molecule"},
+    "screening": {"screening", "screen", "high throughput", "hts", "assay"},
+    "target": {"target", "targeting", "pathway", "mechanism", "biomarker"},
+    "cancer": {"cancer", "tumor", "tumour", "oncology", "carcinoma"},
 }
 
 

@@ -29,6 +29,7 @@ Included:
 - PubMed E-utilities adapter
 - Europe PMC adapter
 - OpenAlex adapter for general scholarly cartridges
+- Crossref adapter for general scholarly cartridges
 - Cartridge architecture with `bio` as the first active cartridge
 - Abstract-level triage
 - Claim/evidence table schema
@@ -70,6 +71,7 @@ Active public-demo cartridges:
 - `ai_cs`: AI and computer science
 - `policy`: policy and governance research
 - `education`: education research
+- `legal`: legal/regulatory research
 - `patent_tech`: patent/technology landscape research
 
 Each cartridge keeps its own source choices, evidence labels, and ranking behavior without splitting the public product into separate repos.
@@ -88,6 +90,12 @@ Generate a fixed customer-facing preliminary report:
 PYTHONPATH=src python3 -m evidencemap.cli "endometrial organoid implantation" --cartridge bio --limit 5 --report
 ```
 
+Generate a visual HTML report:
+
+```bash
+PYTHONPATH=src python3 -m evidencemap.cli "drug screening organoid cancer therapeutic" --cartridge bio --limit 5 --html-report > report.html
+```
+
 The report format is fixed across cartridges:
 
 1. Executive Summary
@@ -104,17 +112,34 @@ The report format is fixed across cartridges:
 Sample reports:
 
 ```text
-examples/reports/bio_endometrial_organoid_implantation.md
+examples/reports/bio_drug_screening_organoid_cancer.md
 examples/reports/ai_cs_llm_benchmark_dataset.md
 examples/reports/policy_climate_intervention_evaluation.md
 examples/reports/education_intervention_learning_outcomes.md
+examples/reports/legal_ai_regulation_liability.md
 examples/reports/patent_tech_crispr_landscape.md
+```
+
+Visual sample reports:
+
+```text
+examples/reports/html/
 ```
 
 See:
 
 ```text
 docs/REPORT_TEMPLATE.md
+```
+
+## Source Boundary
+
+Public cartridges use no-auth public metadata sources only. API-key, login, paid, institutional, customer-uploaded, or private SHawn ecosystem sources are private-only.
+
+See:
+
+```text
+docs/SOURCE_BOUNDARY.md
 ```
 
 Local web demo:

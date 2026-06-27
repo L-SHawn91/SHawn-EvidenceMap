@@ -23,6 +23,7 @@ cartridges/
   ai_cs
   policy
   education
+  legal
   patent_tech
 ```
 
@@ -42,24 +43,35 @@ Uses:
 
 Uses:
 - OpenAlex
+- Crossref
 - method, benchmark, dataset, implementation, and survey labels
 
 ### `policy`
 
 Uses:
 - OpenAlex
+- Crossref
 - policy evaluation, intervention, guideline/framework, governance/regulation, and review labels
 
 ### `education`
 
 Uses:
 - OpenAlex
+- Crossref
 - intervention, learning outcome, experimental/cohort, review, and technology-enhanced learning labels
+
+### `legal`
+
+Uses:
+- OpenAlex
+- Crossref
+- case law/precedent, statutory/regulatory, legal scholarship, governance/policy, and review labels
 
 ### `patent_tech`
 
 Uses:
 - OpenAlex
+- Crossref
 - technology landscape, patent/IP, application, prototype/validation, and review labels
 
 ## Expansion Rule

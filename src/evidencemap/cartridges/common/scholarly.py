@@ -4,6 +4,7 @@ import re
 from dataclasses import dataclass
 
 from evidencemap.core.cartridge import EvidenceCartridge
+from evidencemap.crossref import search_crossref
 from evidencemap.models import EvidenceRow, Paper
 from evidencemap.openalex import search_openalex
 
@@ -15,7 +16,7 @@ class ScholarlyCartridgeConfig:
     description: str
     aliases: dict[str, set[str]]
     theme_rules: tuple[tuple[str, str], ...]
-    sources: tuple[str, ...] = ("openalex",)
+    sources: tuple[str, ...] = ("openalex", "crossref")
     status: str = "public_demo"
 
 
@@ -24,7 +25,13 @@ def make_scholarly_cartridge(config: ScholarlyCartridgeConfig) -> EvidenceCartri
     evidence_labels = tuple(label for label, _ in config.theme_rules) + ("background evidence",)
 
     def search(query: str, limit: int) -> list[Paper]:
-        return search_openalex(query, limit=limit)
+        papers: list[Paper] = []
+        for source_fn in (search_openalex, search_crossref):
+            try:
+                papers.extend(source_fn(query, limit=limit))
+            except Exception:
+                continue
+        return papers
 
     def enrich(papers: list[Paper]) -> None:
         return None
@@ -98,6 +105,8 @@ def score_scholarly_paper(
     text = f"{title} {abstract}".strip()
     if not text:
         return 0.0, ""
+    if weak_placeholder_text(text):
+        return 0.0, ""
 
     title_hits = concept_hit_count(title, groups)
     text_hits = concept_hit_count(text, groups)
@@ -109,8 +118,9 @@ def score_scholarly_paper(
     abstract_bonus = 0.15 if paper.abstract else 0.0
     doi_bonus = 0.06 if paper.doi else 0.0
     citation_bonus = citation_weight(paper.citations, ranking_mode)
+    uncited_penalty = 0.12 if paper.citations == 0 else 0.0
     recency_bonus = recency_weight(paper.year, ranking_mode)
-    score = title_hits * 0.35 + text_hits * 0.16 + abstract_bonus + doi_bonus + citation_bonus + recency_bonus
+    score = title_hits * 0.35 + text_hits * 0.16 + abstract_bonus + doi_bonus + citation_bonus + recency_bonus - uncited_penalty
     return round(score, 4), support
 
 
@@ -156,7 +166,7 @@ def citation_weight(citations: int | None, ranking_mode: str) -> float:
         return min(0.50, citations / 1200)
     if ranking_mode == "recent":
         return min(0.05, citations / 1800)
-    return min(0.18, citations / 1200)
+    return min(0.45, citations / 900)
 
 
 def recency_weight(year: int | None, ranking_mode: str) -> float:
@@ -200,3 +210,15 @@ def split_sentences(text: str) -> list[str]:
 
 def normalize(text: str) -> str:
     return text.lower().replace("-", " ")
+
+
+def weak_placeholder_text(text: str) -> bool:
+    lowered = normalize(text)
+    return any(
+        phrase in lowered
+        for phrase in (
+            "description to come",
+            "abstract not available",
+            "no abstract available",
+        )
+    )
