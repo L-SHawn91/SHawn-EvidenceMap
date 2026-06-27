@@ -78,13 +78,13 @@ def to_visual_html(evidence_map: EvidenceMap) -> str:
 <body>
 <main>
   <header class="cover">
-    <div class="eyebrow">SHawn EvidenceMap · Preliminary Visual Report</div>
+    <div class="eyebrow">SHawn EvidenceMap · Client-Ready Evidence Brief</div>
     <h1>{esc(evidence_map.query)}</h1>
     <div class="meta">
       <span class="pill">Date: {date.today().isoformat()}</span>
       <span class="pill">Cartridge: {esc(evidence_map.cartridge)}</span>
       <span class="pill">Rows: {len(evidence_map.rows)}</span>
-      <span class="pill">Manual verification required</span>
+      <span class="pill">Pilot deliverable</span>
     </div>
   </header>
 
@@ -95,6 +95,11 @@ def to_visual_html(evidence_map: EvidenceMap) -> str:
       <div class="card"><div class="metric">{len(counts)}</div><p>evidence categories</p></div>
       <div class="card"><div class="metric">{year_span(years)}</div><p>year coverage</p></div>
     </div>
+  </section>
+
+  <section>
+    <h2>Key Findings</h2>
+    {key_findings_html(evidence_map)}
   </section>
 
   <section>
@@ -136,18 +141,39 @@ def to_visual_html(evidence_map: EvidenceMap) -> str:
   </section>
 
   <section>
-    <h2>Recommended Next Steps</h2>
-    <ul>
-      <li>Manually verify the top-ranked sources.</li>
-      <li>Confirm whether evidence labels match the intended use case.</li>
-      <li>Expand the query with synonyms, context terms, and comparator terms.</li>
-      <li>Separate foundational and recent evidence for review/grant/manuscript use.</li>
-      <li>Verify citation metadata directly from indexed sources before use.</li>
-    </ul>
+    <h2>Evidence Gap Check</h2>
+    {gap_check_html(evidence_map)}
   </section>
 
   <section>
-    <h2>Limitations</h2>
+    <h2>Action Plan</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Immediate</h3>
+        <p>Review the top 5 sources and confirm whether the support sentences match the client question.</p>
+      </div>
+      <div class="card">
+        <h3>Next Pass</h3>
+        <p>Expand synonyms, add comparator terms, and split foundational versus recent evidence.</p>
+      </div>
+      <div class="card">
+        <h3>Paid Upgrade</h3>
+        <p>Add manual source verification, inclusion/exclusion notes, and a polished decision brief.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Delivery Package</h2>
+    <div class="grid">
+      <div class="card"><h3>Visual Brief</h3><p>Client-facing HTML/PDF-ready report with evidence dashboard and top sources.</p></div>
+      <div class="card"><h3>Evidence Table</h3><p>Ranked table with evidence label, support sentence, source link, and quality rationale.</p></div>
+      <div class="card"><h3>Follow-up Plan</h3><p>Clear next steps for deeper manual review, report expansion, or premium workflow.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>QA and Limitations</h2>
     <div class="note">
       Public metadata may be incomplete or duplicated. Ranking is a triage signal, not a quality appraisal.
       This report does not verify full text, methods quality, statistical validity, legal status, clinical recommendations, or patent claims.
@@ -199,6 +225,34 @@ def top_cards_html(rows) -> str:
 </div>"""
         )
     return "\n".join(cards)
+
+
+def key_findings_html(evidence_map: EvidenceMap) -> str:
+    if not evidence_map.rows:
+        return "<p>No findings available because no evidence rows were returned.</p>"
+    items = []
+    for idx, row in enumerate(evidence_map.rows[:3], start=1):
+        items.append(
+            f"<li><strong>Finding {idx}:</strong> {esc(row.evidence_type)} is represented by <em>{esc(row.title)}</em>{f' ({row.year})' if row.year else ''}. {esc(row.support_sentence)}</li>"
+        )
+    return "<ul>" + "\n".join(items) + "</ul>"
+
+
+def gap_check_html(evidence_map: EvidenceMap) -> str:
+    if not evidence_map.rows:
+        return '<div class="note">No evidence rows were returned. Broaden the query before delivery.</div>'
+    counts = Counter(row.evidence_type for row in evidence_map.rows)
+    dominant, dominant_count = counts.most_common(1)[0]
+    gaps = []
+    if len(counts) == 1 and len(evidence_map.rows) >= 3:
+        gaps.append(f"Evidence is concentrated in one category: {dominant}. Add query variants to test for missing evidence types.")
+    if any(not row.support_sentence for row in evidence_map.rows):
+        gaps.append("Some rows lack support sentences. Manual abstract/full-text review is recommended.")
+    if all((row.year or 0) < 2020 for row in evidence_map.rows):
+        gaps.append("Most evidence appears older. Add a recent-mode run before delivery.")
+    if not gaps:
+        gaps.append(f"Evidence is sufficiently clustered for a first-pass brief. Dominant signal: {dominant} ({dominant_count} rows).")
+    return "<ul>" + "\n".join(f"<li>{esc(gap)}</li>" for gap in gaps) + "</ul>"
 
 
 def table_rows_html(evidence_map: EvidenceMap) -> str:
