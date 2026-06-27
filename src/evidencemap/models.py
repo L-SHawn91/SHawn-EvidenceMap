@@ -38,3 +38,4 @@ class EvidenceMap:
     query: str
     papers: list[Paper]
     rows: list[EvidenceRow]
+    cartridge: str = "bio"

@@ -15,6 +15,7 @@ def to_markdown(evidence_map: EvidenceMap) -> str:
         f"# Evidence Map: {evidence_map.query}",
         "",
         "PUBLIC_STATUS: public-demo-output",
+        f"CARTRIDGE: {evidence_map.cartridge}",
         "",
         "This output is for research triage and requires manual verification before citation.",
         "",

@@ -2,14 +2,16 @@ from __future__ import annotations
 
 import argparse
 
+from .cartridges import cartridge_ids
 from .export import to_json, to_markdown
 from .pipeline import build_evidence_map
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Build a public-demo biomedical evidence map.")
-    parser.add_argument("query", help="Biomedical research question or topic")
-    parser.add_argument("--limit", type=int, default=20, help="Maximum PubMed records to fetch")
+    parser = argparse.ArgumentParser(description="Build a public-demo research evidence map.")
+    parser.add_argument("query", help="Research question or topic")
+    parser.add_argument("--cartridge", choices=cartridge_ids(), default="bio", help="Domain cartridge to use")
+    parser.add_argument("--limit", type=int, default=20, help="Maximum ranked evidence rows to return")
     parser.add_argument(
         "--ranking-mode",
         choices=["balanced", "recent", "foundational"],
@@ -25,6 +27,7 @@ def main() -> None:
         args.query,
         limit=args.limit,
         ranking_mode=args.ranking_mode,
+        cartridge_id=args.cartridge,
         use_cache=not args.no_cache,
         cache_ttl_hours=args.cache_ttl_hours,
     )

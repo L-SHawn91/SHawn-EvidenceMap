@@ -2,7 +2,7 @@
 
 PUBLIC_STATUS: public-demo
 
-Biomedical evidence mapping from public literature metadata.
+Research evidence mapping from public literature metadata.
 
 Public landing page:
 
@@ -12,7 +12,7 @@ https://l-shawn91.github.io/SHawn-EvidenceMap/
 
 ## What It Does
 
-SHawn EvidenceMap turns a biomedical research question into a small, transparent evidence map:
+SHawn EvidenceMap turns a research question into a small, transparent evidence map:
 
 1. Plan a public literature query
 2. Search public metadata sources
@@ -27,6 +27,8 @@ This repository starts as a clean public-demo skeleton. It does not copy private
 Included:
 - Public metadata search
 - PubMed E-utilities adapter
+- Europe PMC adapter
+- Cartridge architecture with `bio` as the first active cartridge
 - Abstract-level triage
 - Claim/evidence table schema
 - Markdown and JSON export
@@ -42,7 +44,7 @@ Excluded:
 ## Quick Start
 
 ```bash
-PYTHONPATH=src python3 -m evidencemap.cli "endometrial organoid implantation" --limit 10 --markdown
+PYTHONPATH=src python3 -m evidencemap.cli "endometrial organoid implantation" --cartridge bio --limit 10 --markdown
 ```
 
 Ranking modes:
@@ -50,6 +52,23 @@ Ranking modes:
 ```bash
 PYTHONPATH=src python3 -m evidencemap.cli "endometrial organoid implantation" --ranking-mode recent --markdown
 PYTHONPATH=src python3 -m evidencemap.cli "endometrial organoid implantation" --ranking-mode foundational --markdown
+```
+
+## Cartridge Architecture
+
+The public product is one repo with domain cartridges:
+
+```text
+src/evidencemap/core/
+src/evidencemap/cartridges/bio/
+```
+
+`bio` is the first active cartridge. Future cartridges can add AI/CS, policy, education, and patent/tech evidence mapping without splitting the public product into separate repos.
+
+See:
+
+```text
+docs/CARTRIDGE_ARCHITECTURE.md
 ```
 
 Local web demo:
