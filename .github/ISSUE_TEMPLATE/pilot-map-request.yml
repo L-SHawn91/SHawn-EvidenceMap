@@ -1,0 +1,46 @@
+name: Pilot evidence map request
+description: Request a public-metadata evidence map pilot.
+title: "[Pilot] "
+labels:
+  - pilot-request
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for public-metadata pilot requests only. Do not include non-public data, private PDFs, patient information, credentials, or confidential project details.
+  - type: input
+    id: research-question
+    attributes:
+      label: Research question
+      description: Keep it public and non-confidential.
+      placeholder: "Example: endometrial organoid implantation"
+    validations:
+      required: true
+  - type: dropdown
+    id: use-case
+    attributes:
+      label: Use case
+      options:
+        - Review planning
+        - Grant background scan
+        - Manuscript evidence triage
+        - General literature mapping
+    validations:
+      required: true
+  - type: dropdown
+    id: depth
+    attributes:
+      label: Desired depth
+      options:
+        - Lite scan
+        - Deep evidence map
+        - Citation audit
+        - Not sure yet
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Public notes
+      description: Add public constraints only. Do not paste confidential details.
+      placeholder: "Species, disease area, publication years, or output format preferences."

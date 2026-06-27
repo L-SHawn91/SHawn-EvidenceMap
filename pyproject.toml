@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shawn-evidencemap"
+version = "0.1.0"
+description = "Public-demo biomedical evidence mapping from public literature metadata"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "SHawn" }]
+license = { text = "Proprietary-public-demo" }
+
+[project.scripts]
+evidencemap = "evidencemap.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
