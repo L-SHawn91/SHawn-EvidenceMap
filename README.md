@@ -16,6 +16,12 @@ Public landing page:
 https://l-shawn91.github.io/SHawn-EvidenceMap/
 ```
 
+Maintainer evidence:
+
+```text
+docs/MAINTAINER_EVIDENCE.md
+```
+
 ## SHawn public OSS stack
 
 SHawn EvidenceMap is the report/flagship layer of a public-safe research-agent evidence workflow stack:
