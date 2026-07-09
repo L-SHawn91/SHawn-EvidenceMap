@@ -4,12 +4,20 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "shawn-evidencemap"
-version = "0.1.0"
-description = "Public-demo biomedical evidence mapping from public literature metadata"
+version = "0.1.1"
+description = "Public-safe evidence mapping toolkit for scholarly metadata and research-agent workflows"
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [{ name = "SHawn" }]
 license = "Apache-2.0"
+keywords = ["evidence-mapping", "open-science", "public-safe", "scholarly-metadata", "research-agent"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+]
 
 [project.scripts]
 evidencemap = "evidencemap.cli:main"
@@ -17,6 +25,12 @@ evidencemap = "evidencemap.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+
+[project.urls]
+Homepage = "https://l-shawn91.github.io/SHawn-EvidenceMap/"
+Repository = "https://github.com/L-SHawn91/SHawn-EvidenceMap"
+Issues = "https://github.com/L-SHawn91/SHawn-EvidenceMap/issues"
+Documentation = "https://github.com/L-SHawn91/SHawn-EvidenceMap/blob/main/docs/MAINTAINER_EVIDENCE.md"
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]

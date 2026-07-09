@@ -8,7 +8,7 @@ It is vendor-neutral and describes the repository's public release and maintenan
 - Repository: https://github.com/L-SHawn91/SHawn-EvidenceMap
 - License: Apache-2.0 (`LICENSE` + `NOTICE`)
 - Homepage/demo: https://l-shawn91.github.io/SHawn-EvidenceMap/
-- Release: `v0.1.0` — public-safe evidence map, published 2026-07-09
+- Release: `v0.1.1` — maintainer evidence and verification hardening, after the `v0.1.0` public-safe evidence map release
 - Scope: public-safe evidence mapping for scholarly metadata and research-agent workflows
 
 ## Maintenance signals
@@ -21,6 +21,7 @@ Public maintenance infrastructure is present in the repository:
 - `SECURITY.md`
 - `CHANGELOG.md`
 - `ROADMAP.md`
+- `docs/VERIFICATION.md`
 - Issue templates and pull-request template
 - Public roadmap issues for adapters, schema, public-boundary policy, report gallery, and CI
 - A merged pull request demonstrating the branch → PR → merge workflow
@@ -38,7 +39,7 @@ git status -sb
 
 Current verified state:
 
-- `pytest`: 3 passed
+- `pytest`: 9 passed
 - `public_safety_scan`: `PUBLIC_SAFETY_OK`
 - `compileall`: OK
 - working tree: clean at verification

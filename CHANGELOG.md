@@ -2,6 +2,17 @@
 
 All notable public changes to SHawn EvidenceMap are recorded here.
 
+## [0.1.1] - 2026-07-09
+
+### Added
+- Maintainer evidence and verification docs for public reviewer/readme traceability.
+- Export, report, visual HTML escaping, and public-safety scanner regression tests.
+- Package metadata for repository, homepage, issues, and documentation links.
+
+### Boundaries
+- CI is still tracked as a public roadmap issue until workflow-scope credentials are available.
+- No external adoption or CI-passing claim is made for this release.
+
 ## [0.1.0] - 2026-07-09
 
 ### Added

@@ -4,9 +4,21 @@ PUBLIC_STATUS: public-demo · early-stage OSS
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 [![Public boundary](https://img.shields.io/badge/public--boundary-metadata%20%2B%20toy%20data-green.svg)](docs/PUBLIC_BOUNDARY.md)
-[![Release: v0.1.0](https://img.shields.io/badge/release-v0.1.0-informational.svg)](CHANGELOG.md)
+[![Release: v0.1.1](https://img.shields.io/badge/release-v0.1.1-informational.svg)](CHANGELOG.md)
 
 Research evidence mapping from public literature metadata.
+
+## Public review quick facts
+
+- **Representative repo:** `SHawn-EvidenceMap`
+- **License:** Apache-2.0
+- **Release:** `v0.1.1` hardening release after `v0.1.0` public-safe launch
+- **Demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/
+- **Verification:** `pytest`, `public_safety_scan`, and `compileall` pass locally
+- **Maintainer evidence:** [`docs/MAINTAINER_EVIDENCE.md`](docs/MAINTAINER_EVIDENCE.md)
+- **Verification details:** [`docs/VERIFICATION.md`](docs/VERIFICATION.md)
+- **Boundary:** public scholarly metadata, synthetic examples, templates, and public reports only
+
 
 **License:** Apache-2.0
 
