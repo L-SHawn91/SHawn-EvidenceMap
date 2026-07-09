@@ -9,7 +9,7 @@ description = "Public-demo biomedical evidence mapping from public literature me
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [{ name = "SHawn" }]
-license = { text = "Proprietary-public-demo" }
+license = "Apache-2.0"
 
 [project.scripts]
 evidencemap = "evidencemap.cli:main"

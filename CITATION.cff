@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+title: "SHawn EvidenceMap"
+message: "If this public demo helps your work, please cite the repository."
+type: software
+authors:
+  - family-names: "SHawn"
+repository-code: "https://github.com/L-SHawn91/SHawn-EvidenceMap"
+url: "https://l-shawn91.github.io/SHawn-EvidenceMap/"
+abstract: "Public literature-metadata evidence mapping for transparent research triage."
+license: Apache-2.0

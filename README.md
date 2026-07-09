@@ -4,6 +4,8 @@ PUBLIC_STATUS: public-demo
 
 Research evidence mapping from public literature metadata.
 
+**License:** Apache-2.0
+
 Public landing page:
 
 ```text
@@ -183,6 +185,15 @@ evidencemap "endometrial organoid implantation" --limit 10 --markdown
 ## Safety Note
 
 This tool is for research planning and literature triage. Outputs should be manually verified before citation, clinical interpretation, grant submission, or manuscript use.
+
+Before release or tag, run:
+
+```bash
+bash scripts/public_safety_scan.sh
+PYTHONPATH=src python3 -m evidencemap.cli "endometrial organoid implantation" --cartridge bio --limit 3 --markdown
+```
+
+See `SECURITY.md`, `LICENSE`, and `CITATION.cff` for public-use boundaries.
 
 ## Public / Private Boundary
 
