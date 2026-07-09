@@ -1,0 +1,19 @@
+name: Roadmap task
+description: Suggest or track a public-safe roadmap item
+title: "[roadmap]: "
+labels: [roadmap]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: Describe the public-safe improvement.
+    validations:
+      required: true
+  - type: textarea
+    id: boundary
+    attributes:
+      label: Public boundary
+      description: Confirm this uses public metadata, toy data, schemas, or templates only.
+    validations:
+      required: true

@@ -1,6 +1,10 @@
 # SHawn EvidenceMap
 
-PUBLIC_STATUS: public-demo
+PUBLIC_STATUS: public-demo · early-stage OSS
+
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
+[![Public boundary](https://img.shields.io/badge/public--boundary-metadata%20%2B%20toy%20data-green.svg)](docs/PUBLIC_BOUNDARY.md)
+[![Release: v0.1.0](https://img.shields.io/badge/release-v0.1.0-informational.svg)](CHANGELOG.md)
 
 Research evidence mapping from public literature metadata.
 
@@ -11,6 +15,22 @@ Public landing page:
 ```text
 https://l-shawn91.github.io/SHawn-EvidenceMap/
 ```
+
+## SHawn public OSS stack
+
+SHawn EvidenceMap is the report/flagship layer of a public-safe research-agent evidence workflow stack:
+
+| Layer | Public repo | Role |
+|---|---|---|
+| Search | [`shawn-bio-search-lite`](https://github.com/L-SHawn91/shawn-bio-search-lite) | Public scholarly metadata adapters |
+| Map | [`paper-map-lite`](https://github.com/L-SHawn91/paper-map-lite) | Toy claim/evidence graph schemas |
+| Report | [`SHawn-EvidenceMap`](https://github.com/L-SHawn91/SHawn-EvidenceMap) | Evidence maps and public reports |
+| Coordinate | [`shawn-sync-lite`](https://github.com/L-SHawn91/shawn-sync-lite) | Public-safe manifests and boundary templates |
+| Execute safely | [`newbrain-router`](https://github.com/L-SHawn91/newbrain-router) | Dry-run routing and approval-gate examples |
+| QA documents | [`shawn-docx-qa`](https://github.com/L-SHawn91/shawn-docx-qa) / [`SHawn-hwp`](https://github.com/L-SHawn91/SHawn-hwp) | Public document QA utilities |
+| Present | [`SHawn-WEB`](https://github.com/L-SHawn91/SHawn-WEB) | Public hub/demo surface |
+
+This is not a dump of private SHawn repos. The public stack contains schemas, templates, toy data, public metadata adapters, mock executors, and public reports only.
 
 ## What It Does
 
@@ -198,3 +218,19 @@ See `SECURITY.md`, `LICENSE`, and `CITATION.cff` for public-use boundaries.
 ## Public / Private Boundary
 
 This repo is public-demo only. It must not contain private paths, credentials, private databases, non-public project state, or personal workflow logs.
+
+## Maintainer checks
+
+```bash
+PYTHONPATH=src python3 -m pytest -q
+python3 scripts/public_safety_scan.py .
+python3 -m compileall -q src
+```
+
+## Project documents
+
+- [Public boundary](docs/PUBLIC_BOUNDARY.md)
+- [Roadmap](ROADMAP.md)
+- [Changelog](CHANGELOG.md)
+- [Contributing](CONTRIBUTING.md)
+- [Security](SECURITY.md)
