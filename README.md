@@ -5,6 +5,7 @@ PUBLIC_STATUS: public-demo · early-stage OSS
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 [![Public boundary](https://img.shields.io/badge/public--boundary-metadata%20%2B%20toy%20data-green.svg)](docs/PUBLIC_BOUNDARY.md)
 [![Release: v0.1.1](https://img.shields.io/badge/release-v0.1.1-informational.svg)](CHANGELOG.md)
+[![Public CI](https://github.com/L-SHawn91/SHawn-EvidenceMap/actions/workflows/ci.yml/badge.svg)](https://github.com/L-SHawn91/SHawn-EvidenceMap/actions/workflows/ci.yml)
 
 Research evidence mapping from public literature metadata.
 
@@ -14,7 +15,7 @@ Research evidence mapping from public literature metadata.
 - **License:** Apache-2.0
 - **Release:** `v0.1.1` hardening release after `v0.1.0` public-safe launch
 - **Demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/
-- **Verification:** `pytest`, `public_safety_scan`, `compileall`, wheel build, and clean-wheel install pass locally
+- **Verification:** public CI passes `pytest`, `public_safety_scan`, `compileall`, wheel build, CLI verification, and artifact upload; clean-wheel installation also passes locally
 - **Installable release:** [`v0.1.1` wheel + SHA256SUMS](https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/tag/v0.1.1)
 - **Installation:** [`docs/INSTALLATION.md`](docs/INSTALLATION.md)
 - **Community/pilot requests:** [GitHub Discussion #9](https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9)

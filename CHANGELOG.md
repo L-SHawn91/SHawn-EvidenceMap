@@ -1,6 +1,12 @@
 # Changelog
 
-All notable public changes to SHawn EvidenceMap are recorded here.
+All notable public changes to this project are documented here.
+
+## Unreleased
+
+### Added
+- Public GitHub Actions CI for tests, public-safety scanning, source compilation, wheel build, CLI verification, and wheel artifact upload.
+- Public CI status badge and reviewer-facing CI evidence links.
 
 ## [0.1.1] - 2026-07-09
 

@@ -4,7 +4,7 @@ SHawn EvidenceMap is an early-stage public-safe evidence mapping toolkit. The ro
 
 ## Near-term
 
-- Enable GitHub Actions CI after workflow-scope credentials are available.
+- Maintain the active GitHub Actions Public CI gate and expand adapter coverage without requiring secrets.
 - Prepare optional package distribution metadata without claiming external adoption.
 - Add more public metadata adapter tests for PubMed, Europe PMC, OpenAlex, and Crossref.
 - Expand toy examples for the `bio`, `ai_cs`, `policy`, `education`, `legal`, and `patent_tech` cartridges.

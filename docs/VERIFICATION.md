@@ -1,7 +1,6 @@
 # Verification
 
-This repository is verified with local, reproducible commands until GitHub Actions CI is enabled.
-CI enablement is tracked publicly in issue #7.
+This repository is verified with both local reproducible commands and active GitHub Actions Public CI.
 
 ## Maintainer gate
 
@@ -32,4 +31,4 @@ The public-safety scan fails on concrete secret-like assignments, private corpus
 
 ## CI status
 
-GitHub Actions CI is not claimed as active until a workflow-scope credential is used to add the workflow file. Until then, all public claims should say "local verification passes", not "CI passing".
+GitHub Actions [Public CI](https://github.com/L-SHawn91/SHawn-EvidenceMap/actions/workflows/ci.yml) runs on pushes and pull requests. It verifies tests, the public-safety scan, source compilation, wheel build, CLI execution, and wheel artifact upload. Verified run: https://github.com/L-SHawn91/SHawn-EvidenceMap/actions/runs/29061091630.

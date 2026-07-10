@@ -26,6 +26,7 @@ Public maintenance infrastructure is present in the repository:
 - Public roadmap issues for adapters, schema, public-boundary policy, report gallery, and CI
 - A merged pull request demonstrating the branch → PR → merge workflow
 - GitHub Discussions enabled, with [Discussion #9](https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9) inviting genuine public pilot requests and feedback
+- Active [Public CI](https://github.com/L-SHawn91/SHawn-EvidenceMap/actions/workflows/ci.yml) for pushes and pull requests
 
 ## Reproducible local verification
 
@@ -48,7 +49,7 @@ Current verified state:
 - Release assets: wheel + `SHA256SUMS`
 - Working tree clean at final verification
 
-GitHub Actions test CI is planned publicly in issue #7. Until it is enabled, do not describe the project as having passing test CI; describe the local verification commands above instead. The GitHub Pages deployment workflow is active and has successful runs.
+GitHub Actions Public CI is active and passing. A verified run executes tests, the public-safety scan, source compilation, wheel build, CLI verification, and wheel artifact upload. The GitHub Pages deployment workflow is also active and passing.
 
 ## Public-safe boundary
 
@@ -92,7 +93,7 @@ Related public-safe Apache-2.0 repositories maintained as supporting layers:
 The intended maintenance loop is:
 
 ```text
-roadmap issue → branch → pull request → local tests + public-safety scan → merge → changelog/release note → tagged release
+roadmap issue → branch → pull request → Public CI + public-safety scan → merge → changelog/release note → tagged release
 ```
 
 Current stage: early public release. No external adoption is claimed; this document records maintenance discipline, public-boundary hygiene, and verifiable release practice.
