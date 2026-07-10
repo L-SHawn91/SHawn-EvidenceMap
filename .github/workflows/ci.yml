@@ -46,9 +46,32 @@ jobs:
       - name: Verify CLI entry point
         run: evidencemap --help
 
+      - name: Build and verify SQLite reference demo
+        run: |
+          mkdir -p build/reference-demo
+          python -m evidencemap.refdb demo --db build/reference-demo/demo-a.sqlite3
+          python -m evidencemap.refdb verify --db build/reference-demo/demo-a.sqlite3
+          python -m evidencemap.refdb export --db build/reference-demo/demo-a.sqlite3 --out build/reference-demo/demo-a.json
+          python -m evidencemap.refdb page --db build/reference-demo/demo-a.sqlite3 --out build/reference-demo/index.html
+          python -m evidencemap.refdb demo --db build/reference-demo/demo-b.sqlite3
+          python -m evidencemap.refdb export --db build/reference-demo/demo-b.sqlite3 --out build/reference-demo/demo-b.json
+          cmp build/reference-demo/demo-a.json build/reference-demo/demo-b.json
+          cmp build/reference-demo/demo-a.json web/db-demo/reference.json
+          cmp build/reference-demo/index.html web/db-demo/index.html
+
       - name: Upload wheel artifact
         uses: actions/upload-artifact@v7
         with:
           name: shawn-evidencemap-wheel
           path: dist/*.whl
+          if-no-files-found: error
+
+      - name: Upload SQLite reference demo artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: evidencemap-synthetic-sqlite-reference
+          path: |
+            build/reference-demo/demo-a.sqlite3
+            build/reference-demo/demo-a.json
+            build/reference-demo/index.html
           if-no-files-found: error

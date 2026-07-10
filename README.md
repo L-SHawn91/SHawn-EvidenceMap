@@ -4,7 +4,7 @@ PUBLIC_STATUS: public-demo · early-stage OSS
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 [![Public boundary](https://img.shields.io/badge/public--boundary-metadata%20%2B%20toy%20data-green.svg)](docs/PUBLIC_BOUNDARY.md)
-[![Release: v0.1.1](https://img.shields.io/badge/release-v0.1.1-informational.svg)](CHANGELOG.md)
+[![Release: v0.2.0](https://img.shields.io/badge/release-v0.2.0-informational.svg)](CHANGELOG.md)
 [![Public CI](https://github.com/L-SHawn91/SHawn-EvidenceMap/actions/workflows/ci.yml/badge.svg)](https://github.com/L-SHawn91/SHawn-EvidenceMap/actions/workflows/ci.yml)
 
 Research evidence mapping from public literature metadata.
@@ -13,14 +13,16 @@ Research evidence mapping from public literature metadata.
 
 - **Representative repo:** `SHawn-EvidenceMap`
 - **License:** Apache-2.0
-- **Release:** `v0.1.1` hardening release after `v0.1.0` public-safe launch
+- **Release:** `v0.2.0` SQLite reference-pipeline release after the `v0.1.1` verification hardening release
 - **Demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/
-- **Verification:** public CI passes `pytest`, `public_safety_scan`, `compileall`, wheel build, CLI verification, and artifact upload; clean-wheel installation also passes locally
-- **Installable release:** [`v0.1.1` wheel + SHA256SUMS](https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/tag/v0.1.1)
+- **Database demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/db-demo/
+- **Verification:** public CI passes `pytest`, database integrity and determinism checks, `public_safety_scan`, `compileall`, wheel build, CLI verification, and artifact upload
+- **Installable release:** [`v0.2.0` wheel + SHA256SUMS](https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/tag/v0.2.0)
 - **Installation:** [`docs/INSTALLATION.md`](docs/INSTALLATION.md)
 - **Community/pilot requests:** [GitHub Discussion #9](https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9)
 - **Maintainer evidence:** [`docs/MAINTAINER_EVIDENCE.md`](docs/MAINTAINER_EVIDENCE.md)
 - **Verification details:** [`docs/VERIFICATION.md`](docs/VERIFICATION.md)
+- **Database reference:** [`docs/DATABASE_REFERENCE.md`](docs/DATABASE_REFERENCE.md)
 - **Boundary:** public scholarly metadata, synthetic examples, templates, and public reports only
 
 
@@ -62,7 +64,21 @@ SHawn EvidenceMap turns a research question into a small, transparent evidence m
 2. Search public metadata sources
 3. Group papers by simple evidence themes
 4. Build a claim/evidence table
-5. Export Markdown or JSON
+5. Persist synthetic/public-metadata entities, provenance, and relations in a reproducible SQLite reference store
+6. Export Markdown, JSON, or a static database demo page
+
+## Database-backed reference pipeline
+
+The public reference layer demonstrates database mechanics without publishing non-public research records. It uses Python's standard-library `sqlite3` module to persist paper, dataset, and claim entities with normalized identifiers, provenance, typed relations, schema migrations, integrity checks, and deterministic export.
+
+```bash
+python3 -m evidencemap.refdb demo --db demo.sqlite3
+python3 -m evidencemap.refdb verify --db demo.sqlite3
+python3 -m evidencemap.refdb export --db demo.sqlite3 --out demo.json
+python3 -m evidencemap.refdb page --db demo.sqlite3 --out web/db-demo/index.html
+```
+
+The bundled records are generated examples, not research findings. See [`docs/DATABASE_REFERENCE.md`](docs/DATABASE_REFERENCE.md) for the schema, reproducibility contract, and public boundary.
 
 ## Current Scope
 
@@ -78,6 +94,10 @@ Included:
 - Abstract-level triage
 - Claim/evidence table schema
 - Markdown and JSON export
+- SQLite reference schema with migrations and foreign-key integrity checks
+- Idempotent DOI/PMID/accession normalization and entity upsert
+- Paper–dataset–claim relations and source provenance
+- Deterministic database JSON and static HTML export
 
 Excluded:
 - Private full-text corpus
@@ -89,12 +109,12 @@ Excluded:
 
 ## Quick Start
 
-Install the verified v0.1.1 release wheel:
+Install the verified v0.2.0 release wheel:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/download/v0.1.1/shawn_evidencemap-0.1.1-py3-none-any.whl
+python -m pip install https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/download/v0.2.0/shawn_evidencemap-0.2.0-py3-none-any.whl
 evidencemap "endometrial organoid implantation" --cartridge bio --limit 10 --markdown
 ```
 
