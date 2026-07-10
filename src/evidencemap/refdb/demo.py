@@ -81,6 +81,84 @@ def build_synthetic_demo(store: ReferenceStore) -> None:
     )
 
 
+def build_public_metadata_demo(store: ReferenceStore) -> None:
+    """Populate a deterministic registry-linkage example from public metadata only.
+
+    The snapshot intentionally contains identifiers, titles, and source URLs only.
+    It does not copy abstracts, full text, sample-level data, or biological claims.
+    """
+    paper = store.upsert_entity(
+        kind="paper",
+        title="Imbalanced Host Response to SARS-CoV-2 Drives Development of COVID-19.",
+        identifiers={
+            "doi": "10.1016/j.cell.2020.04.026",
+            "pmid": "32416070",
+        },
+        metadata={
+            "data_class": "public_metadata",
+            "record_scope": "identifier_title_only",
+        },
+    )
+    dataset = store.upsert_entity(
+        kind="dataset",
+        title="Transcriptional response to SARS-CoV-2 infection",
+        identifiers={"accession": "GSE147507"},
+        metadata={
+            "data_class": "public_metadata",
+            "record_scope": "identifier_title_only",
+        },
+    )
+    linkage = store.upsert_entity(
+        kind="claim",
+        title="NCBI GEO links GSE147507 to PMID 32416070.",
+        identifiers={"demo_id": "ncbi-geo-link-gse147507-pmid32416070"},
+        metadata={
+            "data_class": "public_metadata",
+            "record_scope": "registry_linkage_only",
+        },
+    )
+
+    for source_id, target_id, relation in (
+        (paper, dataset, "registry_linked"),
+        (linkage, paper, "links_paper"),
+        (linkage, dataset, "links_dataset"),
+    ):
+        store.add_relation(source_id, target_id, relation)
+
+    retrieved_at = "2026-07-10T00:00:00Z"
+    for entity_id, source, source_ref in (
+        (
+            paper,
+            "ncbi_pubmed",
+            "https://pubmed.ncbi.nlm.nih.gov/32416070/",
+        ),
+        (
+            dataset,
+            "ncbi_geo",
+            "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE147507",
+        ),
+        (
+            linkage,
+            "ncbi_geo",
+            "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE147507",
+        ),
+    ):
+        store.add_provenance(
+            entity_id,
+            source=source,
+            source_ref=source_ref,
+            retrieved_at=retrieved_at,
+        )
+
+    store.record_ingest_run(
+        run_id="public-metadata-demo-20260710",
+        source="ncbi_public_metadata_snapshot",
+        started_at=retrieved_at,
+        finished_at=retrieved_at,
+        record_count=3,
+    )
+
+
 def render_demo_page(export_data: str | Mapping[str, Any]) -> str:
     """Render canonical export data as a deterministic, escaped static page."""
     payload = json.loads(export_data) if isinstance(export_data, str) else dict(export_data)
@@ -89,6 +167,29 @@ def render_demo_page(export_data: str | Mapping[str, Any]) -> str:
     relations = payload.get("relations", [])
     provenance = payload.get("provenance", [])
     ingest_runs = payload.get("ingest_runs", [])
+    is_public_metadata = bool(entities) and all(
+        entity.get("metadata", {}).get("data_class") == "public_metadata"
+        for entity in entities
+    )
+    if is_public_metadata:
+        page_title = "Public metadata linkage demo"
+        page_lead = (
+            "A deterministic, offline snapshot shows how a public paper identifier and "
+            "a public dataset accession can be linked with explicit registry provenance."
+        )
+        data_badge = "Public identifiers and titles only"
+        boundary_text = (
+            "Registry linkage only: this demo records an official metadata relationship "
+            "and does not independently validate a scientific conclusion."
+        )
+    else:
+        page_title = "Synthetic database reference demo"
+        page_lead = (
+            "Papers, datasets, claims, provenance, and relations are persisted in a "
+            "deterministic SQLite reference store and exported as a static, inspectable report."
+        )
+        data_badge = "Synthetic metadata only"
+        boundary_text = "No private corpus, manuscript, or operational database is included."
 
     def esc(value: Any) -> str:
         return html.escape(str(value), quote=True)
@@ -145,7 +246,7 @@ def render_demo_page(export_data: str | Mapping[str, Any]) -> str:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Synthetic database reference demo</title>
+  <title>{esc(page_title)}</title>
   <style>
     :root {{ --ink:#19231f; --muted:#66736d; --paper:#f6f3e9; --panel:#fffdf7; --sage:#2f6f61; --sage-soft:#dfece6; --gold:#b88732; --line:#d9ded8; }}
     * {{ box-sizing:border-box; }}
@@ -200,11 +301,11 @@ def render_demo_page(export_data: str | Mapping[str, Any]) -> str:
 <main>
   <header class="hero">
     <div class="eyebrow">SHawn EvidenceMap · SQLite reference</div>
-    <h1>Synthetic database reference demo</h1>
-    <p class="lead">Papers, datasets, claims, provenance, and relations are persisted in a deterministic SQLite reference store and exported as a static, inspectable report.</p>
-    <div class="badges"><span class="badge">Synthetic metadata only</span><span class="badge">Schema v{esc(payload.get('schema_version', SCHEMA_VERSION))}</span><span class="badge">Foreign keys enabled</span><span class="badge">Canonical export</span></div>
-    <div class="actions"><a href="reference.json">Inspect canonical JSON</a><a href="https://github.com/L-SHawn91/SHawn-EvidenceMap/blob/main/docs/DATABASE_REFERENCE.md">Read schema and boundary docs</a></div>
-    <div class="boundary"><strong>Public boundary:</strong> No private corpus, manuscript, or operational database is included.</div>
+    <h1>{esc(page_title)}</h1>
+    <p class="lead">{esc(page_lead)}</p>
+    <div class="badges"><span class="badge">{esc(data_badge)}</span><span class="badge">Schema v{esc(payload.get('schema_version', SCHEMA_VERSION))}</span><span class="badge">Foreign keys enabled</span><span class="badge">Canonical export</span></div>
+    <div class="actions"><a href="reference.json">Inspect canonical JSON</a><a href="https://github.com/L-SHawn91/SHawn-EvidenceMap/blob/main/docs/PILOT_QUICKSTART.md">Run the 5-minute pilot</a><a href="https://github.com/L-SHawn91/SHawn-EvidenceMap/blob/main/docs/DATABASE_REFERENCE.md">Read schema and boundary docs</a></div>
+    <div class="boundary"><strong>Public boundary:</strong> {esc(boundary_text)}</div>
   </header>
   <div class="metrics">{cards}</div>
   <div class="grid">

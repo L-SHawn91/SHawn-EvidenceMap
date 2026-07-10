@@ -2,6 +2,23 @@
 
 All notable public changes to this project are documented here.
 
+## [0.2.1] - 2026-07-10
+
+### Added
+- Deterministic offline public-metadata demo linking PMID `32416070`, DOI `10.1016/j.cell.2020.04.026`, and GEO accession `GSE147507` through official registry metadata.
+- `public-demo` SQLite CLI command, canonical JSON, and responsive static Pages view.
+- Five-minute pilot quickstart and structured issue form for genuine external run feedback.
+- CI verification for public-metadata DB integrity, deterministic export, and tracked JSON/HTML parity.
+
+### Verification
+- Public identifiers, titles, linkage, and source URLs were read back from NCBI PubMed and GEO metadata.
+- The example contains no abstract, full text, PDF, sample-level values, patient information, or private research record.
+
+### Boundaries
+- The registry linkage is a metadata assertion only and does not independently validate a scientific conclusion.
+- Self-runs, CI runs, and requested stars are not claimed as external adoption.
+- PyPI publication is not claimed; the verified GitHub release wheel remains the installation path.
+
 ## [0.2.0] - 2026-07-10
 
 ### Added

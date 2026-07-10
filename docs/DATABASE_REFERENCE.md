@@ -4,7 +4,12 @@ SHawn EvidenceMap includes a reproducible SQLite reference pipeline that demonst
 
 ## Public boundary
 
-The bundled demo is deterministic and entirely synthetic. It contains no copied article text, PDFs, unpublished findings, credentials, local paths, or operational database state. The generated SQLite file is a disposable build artifact and is not tracked by Git.
+Two bundled demonstrations are available:
+
+- the synthetic demo contains generated records only;
+- the public-metadata demo contains public identifiers, titles, one official NCBI paper–dataset registry linkage, and source URLs only.
+
+Neither demo contains abstracts, copied article text, PDFs, sample-level values, unpublished findings, credentials, local paths, or operational database state. Generated SQLite files are disposable build/release artifacts and are not tracked by Git.
 
 ## Data model
 
@@ -39,10 +44,13 @@ From a source checkout:
 ```bash
 python3 -m pip install -e '.[dev]'
 python3 -m evidencemap.refdb demo --db demo.sqlite3
-python3 -m evidencemap.refdb verify --db demo.sqlite3
-python3 -m evidencemap.refdb export --db demo.sqlite3 --out demo.json
-python3 -m evidencemap.refdb page --db demo.sqlite3 --out web/db-demo/index.html
+python3 -m evidencemap.refdb public-demo --db public-metadata.sqlite3
+python3 -m evidencemap.refdb verify --db public-metadata.sqlite3
+python3 -m evidencemap.refdb export --db public-metadata.sqlite3 --out reference.json
+python3 -m evidencemap.refdb page --db public-metadata.sqlite3 --out index.html
 ```
+
+The complete external-user path is documented in [`PILOT_QUICKSTART.md`](PILOT_QUICKSTART.md).
 
 Expected verification output:
 
@@ -68,4 +76,4 @@ Two fresh demo databases must produce byte-identical canonical JSON exports. CI 
 
 The reference pipeline proves the public implementation of database-backed evidence mechanics: stable identifiers, provenance, relations, integrity checks, incremental upsert, and reproducible export.
 
-It does not claim that the generated records are research evidence, citation-ready findings, external adoption, or a copy of any non-public operational system.
+It does not claim that the synthetic records are research evidence, that a registry linkage independently validates a scientific conclusion, that the outputs are citation-ready findings, that external adoption exists, or that the examples copy a non-public operational system.

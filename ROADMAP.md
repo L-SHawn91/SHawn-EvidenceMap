@@ -2,6 +2,12 @@
 
 SHawn EvidenceMap is an early-stage public-safe evidence mapping toolkit. The roadmap focuses on maintainer hygiene and reusable public workflows rather than private project imports.
 
+## Completed in v0.2.1
+
+- Added a deterministic public PMID/DOI/GEO linkage demo using identifiers, titles, and source URLs only.
+- Added a five-minute pilot path and structured feedback form for genuine external runs.
+- Added CI and Pages verification for the public-metadata snapshot.
+
 ## Completed in v0.2.0
 
 - Added an active GitHub Actions Public CI gate.
