@@ -8,6 +8,8 @@ All notable public changes to SHawn EvidenceMap are recorded here.
 - Maintainer evidence and verification docs for public reviewer/readme traceability.
 - Export, report, visual HTML escaping, and public-safety scanner regression tests.
 - Package metadata for repository, homepage, issues, and documentation links.
+- Verified release wheel and `SHA256SUMS` attached to the v0.1.1 GitHub release.
+- Installation guide with clean virtual-environment verification.
 
 ### Boundaries
 - CI is still tracked as a public roadmap issue until workflow-scope credentials are available.

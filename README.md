@@ -14,7 +14,9 @@ Research evidence mapping from public literature metadata.
 - **License:** Apache-2.0
 - **Release:** `v0.1.1` hardening release after `v0.1.0` public-safe launch
 - **Demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/
-- **Verification:** `pytest`, `public_safety_scan`, and `compileall` pass locally
+- **Verification:** `pytest`, `public_safety_scan`, `compileall`, wheel build, and clean-wheel install pass locally
+- **Installable release:** [`v0.1.1` wheel + SHA256SUMS](https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/tag/v0.1.1)
+- **Installation:** [`docs/INSTALLATION.md`](docs/INSTALLATION.md)
 - **Maintainer evidence:** [`docs/MAINTAINER_EVIDENCE.md`](docs/MAINTAINER_EVIDENCE.md)
 - **Verification details:** [`docs/VERIFICATION.md`](docs/VERIFICATION.md)
 - **Boundary:** public scholarly metadata, synthetic examples, templates, and public reports only
@@ -84,6 +86,19 @@ Excluded:
 - SHawn internal agent operations
 
 ## Quick Start
+
+Install the verified v0.1.1 release wheel:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/download/v0.1.1/shawn_evidencemap-0.1.1-py3-none-any.whl
+evidencemap "endometrial organoid implantation" --cartridge bio --limit 10 --markdown
+```
+
+See [`docs/INSTALLATION.md`](docs/INSTALLATION.md) for checksum verification and source installation.
+
+From a source checkout:
 
 ```bash
 PYTHONPATH=src python3 -m evidencemap.cli "endometrial organoid implantation" --cartridge bio --limit 10 --markdown

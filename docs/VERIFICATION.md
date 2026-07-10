@@ -22,6 +22,8 @@ pytest: 9 passed
 public_safety_scan: PUBLIC_SAFETY_OK
 compileall: OK
 git diff --check: OK
+wheel build: OK
+clean-wheel install and CLI help: OK
 ```
 
 ## What the safety scan checks

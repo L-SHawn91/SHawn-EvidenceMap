@@ -41,10 +41,13 @@ Current verified state:
 
 - `pytest`: 9 passed
 - `public_safety_scan`: `PUBLIC_SAFETY_OK`
-- `compileall`: OK
-- working tree: clean at verification
+- `compileall`: passed
+- Wheel build: `shawn_evidencemap-0.1.1-py3-none-any.whl`
+- Clean virtual-environment wheel installation and `evidencemap --help`: passed
+- Release assets: wheel + `SHA256SUMS`
+- Working tree clean at final verification
 
-GitHub Actions CI is planned publicly in issue #7. Until it is enabled, do not describe the project as having passing CI; describe the local verification commands above instead.
+GitHub Actions test CI is planned publicly in issue #7. Until it is enabled, do not describe the project as having passing test CI; describe the local verification commands above instead. The GitHub Pages deployment workflow is active and has successful runs.
 
 ## Public-safe boundary
 
