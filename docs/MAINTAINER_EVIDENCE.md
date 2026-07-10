@@ -25,6 +25,7 @@ Public maintenance infrastructure is present in the repository:
 - Issue templates and pull-request template
 - Public roadmap issues for adapters, schema, public-boundary policy, report gallery, and CI
 - A merged pull request demonstrating the branch → PR → merge workflow
+- GitHub Discussions enabled, with [Discussion #9](https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9) inviting genuine public pilot requests and feedback
 
 ## Reproducible local verification
 

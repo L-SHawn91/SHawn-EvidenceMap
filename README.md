@@ -17,6 +17,7 @@ Research evidence mapping from public literature metadata.
 - **Verification:** `pytest`, `public_safety_scan`, `compileall`, wheel build, and clean-wheel install pass locally
 - **Installable release:** [`v0.1.1` wheel + SHA256SUMS](https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/tag/v0.1.1)
 - **Installation:** [`docs/INSTALLATION.md`](docs/INSTALLATION.md)
+- **Community/pilot requests:** [GitHub Discussion #9](https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9)
 - **Maintainer evidence:** [`docs/MAINTAINER_EVIDENCE.md`](docs/MAINTAINER_EVIDENCE.md)
 - **Verification details:** [`docs/VERIFICATION.md`](docs/VERIFICATION.md)
 - **Boundary:** public scholarly metadata, synthetic examples, templates, and public reports only
