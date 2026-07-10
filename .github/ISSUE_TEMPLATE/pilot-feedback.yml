@@ -1,0 +1,64 @@
+name: Public metadata pilot feedback
+description: Report a genuine run, usability issue, or public-metadata use case.
+title: "[Pilot feedback] "
+labels:
+  - pilot-feedback
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for testing SHawn EvidenceMap. Report what actually happened, including failures. Do not include private manuscripts, PDFs, credentials, patient/sample data, unpublished results, or confidential project details.
+  - type: dropdown
+    id: result
+    attributes:
+      label: Pilot result
+      description: What happened when you followed the five-minute pilot?
+      options:
+        - Completed successfully
+        - Completed with usability friction
+        - Failed during installation
+        - Failed during database build or verification
+        - Reviewed the public demo without installing
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Public technical context only.
+      placeholder: "Example: Ubuntu 24.04, Python 3.11"
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: What did you observe?
+      description: Include the exact public command and non-sensitive error text when relevant.
+      placeholder: "The first confusing or failing step was..."
+    validations:
+      required: true
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Public-metadata use case
+      description: Optional. Describe a non-confidential paper/dataset metadata workflow this could or could not support.
+      placeholder: "Example: linking a PMID to a GEO accession for a review-planning table."
+  - type: dropdown
+    id: cite_feedback
+    attributes:
+      label: Public feedback attribution
+      description: May the maintainer cite this public issue as a pilot feedback record? This does not imply endorsement.
+      options:
+        - Yes
+        - No
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundary
+    attributes:
+      label: Public boundary confirmation
+      options:
+        - label: I confirm that this issue contains public, non-confidential information only.
+          required: true
+        - label: I understand that a registry linkage is not independent validation of a scientific conclusion.
+          required: true

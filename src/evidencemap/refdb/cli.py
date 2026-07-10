@@ -4,15 +4,18 @@ import argparse
 from pathlib import Path
 from typing import Sequence
 
-from .demo import build_synthetic_demo, render_demo_page
+from .demo import build_public_metadata_demo, build_synthetic_demo, render_demo_page
 from .store import ReferenceStore
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Build, verify, and export the synthetic SQLite reference demo."
+        description="Build, verify, and export SQLite reference demos."
     )
-    parser.add_argument("command", choices=("demo", "verify", "export", "page"))
+    parser.add_argument(
+        "command",
+        choices=("demo", "public-demo", "verify", "export", "page"),
+    )
     parser.add_argument("--db", required=True, type=Path, help="SQLite database path")
     parser.add_argument("--out", type=Path, help="Output path for export or page")
     return parser
@@ -28,6 +31,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.command == "demo":
             build_synthetic_demo(store)
             print("REFERENCE_DB_DEMO_OK")
+            return 0
+
+        if args.command == "public-demo":
+            build_public_metadata_demo(store)
+            print("PUBLIC_METADATA_DB_DEMO_OK")
             return 0
 
         if args.command == "verify":

@@ -59,6 +59,19 @@ jobs:
           cmp build/reference-demo/demo-a.json web/db-demo/reference.json
           cmp build/reference-demo/index.html web/db-demo/index.html
 
+      - name: Build and verify public metadata pilot demo
+        run: |
+          mkdir -p build/public-metadata-demo
+          python -m evidencemap.refdb public-demo --db build/public-metadata-demo/demo-a.sqlite3
+          python -m evidencemap.refdb verify --db build/public-metadata-demo/demo-a.sqlite3
+          python -m evidencemap.refdb export --db build/public-metadata-demo/demo-a.sqlite3 --out build/public-metadata-demo/demo-a.json
+          python -m evidencemap.refdb page --db build/public-metadata-demo/demo-a.sqlite3 --out build/public-metadata-demo/index.html
+          python -m evidencemap.refdb public-demo --db build/public-metadata-demo/demo-b.sqlite3
+          python -m evidencemap.refdb export --db build/public-metadata-demo/demo-b.sqlite3 --out build/public-metadata-demo/demo-b.json
+          cmp build/public-metadata-demo/demo-a.json build/public-metadata-demo/demo-b.json
+          cmp build/public-metadata-demo/demo-a.json web/public-metadata-demo/reference.json
+          cmp build/public-metadata-demo/index.html web/public-metadata-demo/index.html
+
       - name: Upload wheel artifact
         uses: actions/upload-artifact@v7
         with:
@@ -74,4 +87,14 @@ jobs:
             build/reference-demo/demo-a.sqlite3
             build/reference-demo/demo-a.json
             build/reference-demo/index.html
+          if-no-files-found: error
+
+      - name: Upload public metadata pilot artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: evidencemap-public-metadata-reference
+          path: |
+            build/public-metadata-demo/demo-a.sqlite3
+            build/public-metadata-demo/demo-a.json
+            build/public-metadata-demo/index.html
           if-no-files-found: error
