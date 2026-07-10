@@ -8,8 +8,8 @@ It is vendor-neutral and describes the repository's public release and maintenan
 - Repository: https://github.com/L-SHawn91/SHawn-EvidenceMap
 - License: Apache-2.0 (`LICENSE` + `NOTICE`)
 - Homepage/demo: https://l-shawn91.github.io/SHawn-EvidenceMap/
-- Release: `v0.1.1` — maintainer evidence and verification hardening, after the `v0.1.0` public-safe evidence map release
-- Scope: public-safe evidence mapping for scholarly metadata and research-agent workflows
+- Release: `v0.2.0` — reproducible SQLite reference pipeline, after the `v0.1.1` verification hardening release
+- Scope: public-safe, database-backed evidence mapping for scholarly metadata and research-agent workflows
 
 ## Maintenance signals
 
@@ -22,6 +22,7 @@ Public maintenance infrastructure is present in the repository:
 - `CHANGELOG.md`
 - `ROADMAP.md`
 - `docs/VERIFICATION.md`
+- `docs/DATABASE_REFERENCE.md`
 - Issue templates and pull-request template
 - Public roadmap issues for adapters, schema, public-boundary policy, report gallery, and CI
 - A merged pull request demonstrating the branch → PR → merge workflow
@@ -41,15 +42,17 @@ git status -sb
 
 Current verified state:
 
-- `pytest`: 9 passed
+- `pytest`: 21 passed
 - `public_safety_scan`: `PUBLIC_SAFETY_OK`
 - `compileall`: passed
-- Wheel build: `shawn_evidencemap-0.1.1-py3-none-any.whl`
-- Clean virtual-environment wheel installation and `evidencemap --help`: passed
+- SQLite integrity and foreign-key verification: passed
+- Independent synthetic database builds produce byte-identical canonical JSON: passed
+- Wheel build: `shawn_evidencemap-0.2.0-py3-none-any.whl`
+- Clean virtual-environment wheel installation, `evidencemap --help`, and reference DB commands: passed
 - Release assets: wheel + `SHA256SUMS`
 - Working tree clean at final verification
 
-GitHub Actions Public CI is active and passing. A verified run executes tests, the public-safety scan, source compilation, wheel build, CLI verification, and wheel artifact upload. The GitHub Pages deployment workflow is also active and passing.
+GitHub Actions Public CI is active. It executes tests, the public-safety scan, source compilation, wheel build, CLI verification, SQLite integrity and determinism checks, generated-page parity, and wheel plus synthetic-reference artifact upload. The GitHub Pages deployment workflow publishes the static database demo.
 
 ## Public-safe boundary
 
@@ -62,6 +65,8 @@ Allowed:
 - Public report templates
 - Public metadata adapter code
 - Schemas and validation examples
+- Generated SQLite reference databases using deterministic synthetic metadata
+- Public migrations, identifier normalization, provenance, relation, and integrity-check code
 - Mock or dry-run workflow examples
 
 Not allowed:

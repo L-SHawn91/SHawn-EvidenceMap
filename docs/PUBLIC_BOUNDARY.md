@@ -9,11 +9,13 @@ SHawn EvidenceMap is a public-safe projection of an evidence workflow. It is not
 - Public report templates
 - Public metadata adapter code
 - Schemas and validation examples
+- Generated SQLite reference databases built only from deterministic synthetic metadata
+- Public schema migrations, identifier normalization, provenance, relation, and integrity-check code
 - Mock or dry-run workflow examples
 
 ## Not allowed
 
-- Private databases or private corpora
+- Non-public operational databases or full-text collections
 - Full-text PDFs or unpublished manuscripts
 - Credentials, cookies, OAuth files, tokens, or `.env` files
 - Local machine paths or cloud-drive private paths
