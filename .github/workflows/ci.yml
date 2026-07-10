@@ -1,0 +1,54 @@
+name: Public CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: public-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  public-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install package and test dependencies
+        run: python -m pip install -e '.[dev]'
+
+      - name: Run tests
+        run: python -m pytest -q
+
+      - name: Run public-safety scan
+        run: python scripts/public_safety_scan.py .
+
+      - name: Compile Python sources
+        run: python -m compileall -q src
+
+      - name: Build wheel
+        run: python -m pip wheel . --no-deps -w dist
+
+      - name: Verify CLI entry point
+        run: evidencemap --help
+
+      - name: Upload wheel artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: shawn-evidencemap-wheel
+          path: dist/*.whl
+          if-no-files-found: error
