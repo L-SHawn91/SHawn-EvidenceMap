@@ -1,0 +1,524 @@
+{
+  "cases": [
+    {
+      "correctness": {
+        "expected_exit_code": 0,
+        "failed_runs": [],
+        "failure_reasons": {},
+        "pass": true
+      },
+      "name": "shawn_generic_query",
+      "peak_rss_kb": {
+        "max": 29956,
+        "raw": [
+          29956,
+          29204,
+          29364,
+          29660,
+          29560
+        ]
+      },
+      "samples": [
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 29956,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "9bcf55cbc7597fb94c42544685018c65b0083a9e677bd5efd7086229bd25ad42",
+          "wall_seconds": 3.364304048998747
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 29204,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "9bcf55cbc7597fb94c42544685018c65b0083a9e677bd5efd7086229bd25ad42",
+          "wall_seconds": 3.4926847079768777
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 29364,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "9bcf55cbc7597fb94c42544685018c65b0083a9e677bd5efd7086229bd25ad42",
+          "wall_seconds": 3.4095026910072193
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 29660,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "9bcf55cbc7597fb94c42544685018c65b0083a9e677bd5efd7086229bd25ad42",
+          "wall_seconds": 2.742230097996071
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 29560,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "9bcf55cbc7597fb94c42544685018c65b0083a9e677bd5efd7086229bd25ad42",
+          "wall_seconds": 3.113619298033882
+        }
+      ],
+      "timing_is_informational": true,
+      "wall_seconds": {
+        "max": 3.4926847079768777,
+        "median": 3.364304048998747,
+        "min": 2.742230097996071,
+        "raw": [
+          3.364304048998747,
+          3.4926847079768777,
+          3.4095026910072193,
+          2.742230097996071,
+          3.113619298033882
+        ]
+      }
+    },
+    {
+      "correctness": {
+        "expected_exit_code": 0,
+        "failed_runs": [],
+        "failure_reasons": {},
+        "pass": true
+      },
+      "name": "shawn_public_demo",
+      "peak_rss_kb": {
+        "max": 22744,
+        "raw": [
+          22616,
+          22496,
+          22484,
+          22540,
+          22484,
+          22488,
+          22484,
+          22488,
+          22612,
+          22744
+        ]
+      },
+      "samples": [
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22616,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "ccf8987792d6715d276684388646704dbd6e20cae58c2f144a3568b513b07a10",
+          "wall_seconds": 0.09691065998049453
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22496,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "ccf8987792d6715d276684388646704dbd6e20cae58c2f144a3568b513b07a10",
+          "wall_seconds": 0.09882159798871726
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22484,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "ccf8987792d6715d276684388646704dbd6e20cae58c2f144a3568b513b07a10",
+          "wall_seconds": 0.09312170499470085
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22540,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "ccf8987792d6715d276684388646704dbd6e20cae58c2f144a3568b513b07a10",
+          "wall_seconds": 0.09603847900871187
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22484,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "ccf8987792d6715d276684388646704dbd6e20cae58c2f144a3568b513b07a10",
+          "wall_seconds": 0.09645641903625801
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22488,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "ccf8987792d6715d276684388646704dbd6e20cae58c2f144a3568b513b07a10",
+          "wall_seconds": 0.09723602602025494
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22484,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "ccf8987792d6715d276684388646704dbd6e20cae58c2f144a3568b513b07a10",
+          "wall_seconds": 0.09710121096577495
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22488,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "ccf8987792d6715d276684388646704dbd6e20cae58c2f144a3568b513b07a10",
+          "wall_seconds": 0.10206181404646486
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22612,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "ccf8987792d6715d276684388646704dbd6e20cae58c2f144a3568b513b07a10",
+          "wall_seconds": 0.09638328000437468
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22744,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "ccf8987792d6715d276684388646704dbd6e20cae58c2f144a3568b513b07a10",
+          "wall_seconds": 0.09616177005227655
+        }
+      ],
+      "timing_is_informational": true,
+      "wall_seconds": {
+        "max": 0.10206181404646486,
+        "median": 0.09668353950837627,
+        "min": 0.09312170499470085,
+        "raw": [
+          0.09691065998049453,
+          0.09882159798871726,
+          0.09312170499470085,
+          0.09603847900871187,
+          0.09645641903625801,
+          0.09723602602025494,
+          0.09710121096577495,
+          0.10206181404646486,
+          0.09638328000437468,
+          0.09616177005227655
+        ]
+      }
+    },
+    {
+      "correctness": {
+        "expected_exit_code": 0,
+        "failed_runs": [],
+        "failure_reasons": {},
+        "pass": true
+      },
+      "name": "shawn_verify_existing_database",
+      "peak_rss_kb": {
+        "max": 22748,
+        "raw": [
+          22748,
+          22616,
+          22748,
+          22744,
+          22620,
+          22744,
+          22748,
+          22616,
+          22620,
+          22744
+        ]
+      },
+      "samples": [
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22748,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "0ec6bae56f3db27e03d228dcbb9f9cab1d00d42303d5984977b0c0c966fc748a",
+          "wall_seconds": 0.07666180504020303
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22616,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "0ec6bae56f3db27e03d228dcbb9f9cab1d00d42303d5984977b0c0c966fc748a",
+          "wall_seconds": 0.0754797370173037
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22748,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "0ec6bae56f3db27e03d228dcbb9f9cab1d00d42303d5984977b0c0c966fc748a",
+          "wall_seconds": 0.07542115595424548
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22744,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "0ec6bae56f3db27e03d228dcbb9f9cab1d00d42303d5984977b0c0c966fc748a",
+          "wall_seconds": 0.07590296800481156
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22620,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "0ec6bae56f3db27e03d228dcbb9f9cab1d00d42303d5984977b0c0c966fc748a",
+          "wall_seconds": 0.07589779898989946
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22744,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "0ec6bae56f3db27e03d228dcbb9f9cab1d00d42303d5984977b0c0c966fc748a",
+          "wall_seconds": 0.07187272602459416
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22748,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "0ec6bae56f3db27e03d228dcbb9f9cab1d00d42303d5984977b0c0c966fc748a",
+          "wall_seconds": 0.07193941302830353
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22616,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "0ec6bae56f3db27e03d228dcbb9f9cab1d00d42303d5984977b0c0c966fc748a",
+          "wall_seconds": 0.07548011600738391
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22620,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "0ec6bae56f3db27e03d228dcbb9f9cab1d00d42303d5984977b0c0c966fc748a",
+          "wall_seconds": 0.07542525202734396
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 22744,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "0ec6bae56f3db27e03d228dcbb9f9cab1d00d42303d5984977b0c0c966fc748a",
+          "wall_seconds": 0.07614018599269912
+        }
+      ],
+      "timing_is_informational": true,
+      "wall_seconds": {
+        "max": 0.07666180504020303,
+        "median": 0.07547992651234381,
+        "min": 0.07187272602459416,
+        "raw": [
+          0.07666180504020303,
+          0.0754797370173037,
+          0.07542115595424548,
+          0.07590296800481156,
+          0.07589779898989946,
+          0.07187272602459416,
+          0.07193941302830353,
+          0.07548011600738391,
+          0.07542525202734396,
+          0.07614018599269912
+        ]
+      }
+    },
+    {
+      "correctness": {
+        "expected_exit_code": 2,
+        "failed_runs": [],
+        "failure_reasons": {},
+        "pass": true
+      },
+      "name": "shawn_reject_missing_database",
+      "peak_rss_kb": {
+        "max": 22244,
+        "raw": [
+          22104,
+          22232,
+          22236,
+          22236,
+          22232,
+          21976,
+          22244,
+          22232,
+          21980,
+          22036
+        ]
+      },
+      "samples": [
+        {
+          "exit_code": 2,
+          "peak_rss_kb": 22104,
+          "stderr_sha256": "f6e168045d6e41f1d3b89a345d28f8be345af4c0600980bdafaf231b192723c1",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "wall_seconds": 0.07078940398059785
+        },
+        {
+          "exit_code": 2,
+          "peak_rss_kb": 22232,
+          "stderr_sha256": "c6461789231c7d84a3102549fe01b2cf6f14598a2434d810c66f64225589886b",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "wall_seconds": 0.07067998597631231
+        },
+        {
+          "exit_code": 2,
+          "peak_rss_kb": 22236,
+          "stderr_sha256": "a823f55b5dff3e02b7f76af0d87fc1497c5807733083280a3c4bb02bc1e32f87",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "wall_seconds": 0.07562249497277662
+        },
+        {
+          "exit_code": 2,
+          "peak_rss_kb": 22236,
+          "stderr_sha256": "01547ea6abef34aa22362c84dd55a0a821f42175f96fce04569360ab173c7879",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "wall_seconds": 0.07532544300192967
+        },
+        {
+          "exit_code": 2,
+          "peak_rss_kb": 22232,
+          "stderr_sha256": "06ad2b0bd75336c0d708fd6453ddf171b9d3783da15de647ee3084b0715bbf4e",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "wall_seconds": 0.07638449798105285
+        },
+        {
+          "exit_code": 2,
+          "peak_rss_kb": 21976,
+          "stderr_sha256": "614d0fee89e07d96efadd2c387b0912f53cf91ff5f924ea76bbe6584e56f966e",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "wall_seconds": 0.07155546499416232
+        },
+        {
+          "exit_code": 2,
+          "peak_rss_kb": 22244,
+          "stderr_sha256": "0c97db38c616c1a3b7e6dfcbdce105aee2e441f7051e505c0399d08ac61c0fe3",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "wall_seconds": 0.07548827200662345
+        },
+        {
+          "exit_code": 2,
+          "peak_rss_kb": 22232,
+          "stderr_sha256": "89d08c5b44193a4213c4690158d8234765a693db03b96a6bc10961c754f47594",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "wall_seconds": 0.0752849470009096
+        },
+        {
+          "exit_code": 2,
+          "peak_rss_kb": 21980,
+          "stderr_sha256": "f141a5708e0c92298342a3c7644df2483f12ecee115a0ae7d00268e69ab8f92e",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "wall_seconds": 0.07521005399757996
+        },
+        {
+          "exit_code": 2,
+          "peak_rss_kb": 22036,
+          "stderr_sha256": "5ec67acae5224e8ef2c322af93d4d0df6f55d54f933cf63c392f9f0df64b0f01",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "wall_seconds": 0.0724124779808335
+        }
+      ],
+      "timing_is_informational": true,
+      "wall_seconds": {
+        "max": 0.07638449798105285,
+        "median": 0.07524750049924478,
+        "min": 0.07067998597631231,
+        "raw": [
+          0.07078940398059785,
+          0.07067998597631231,
+          0.07562249497277662,
+          0.07532544300192967,
+          0.07638449798105285,
+          0.07155546499416232,
+          0.07548827200662345,
+          0.0752849470009096,
+          0.07521005399757996,
+          0.0724124779808335
+        ]
+      }
+    },
+    {
+      "correctness": {
+        "expected_exit_code": 0,
+        "failed_runs": [],
+        "failure_reasons": {},
+        "pass": true
+      },
+      "name": "pyalex_openalex_overlap_smoke",
+      "peak_rss_kb": {
+        "max": 28928,
+        "raw": [
+          28668,
+          28672,
+          28800,
+          28672,
+          28928
+        ]
+      },
+      "samples": [
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 28668,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "3108f7fb62d0c3353b74c80b31aacb235a26733388cccc3fa60409682f74d47d",
+          "wall_seconds": 1.2624001300428063
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 28672,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "3108f7fb62d0c3353b74c80b31aacb235a26733388cccc3fa60409682f74d47d",
+          "wall_seconds": 1.7109076210181229
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 28800,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "3108f7fb62d0c3353b74c80b31aacb235a26733388cccc3fa60409682f74d47d",
+          "wall_seconds": 1.2930031249998137
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 28672,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "3108f7fb62d0c3353b74c80b31aacb235a26733388cccc3fa60409682f74d47d",
+          "wall_seconds": 1.8634869750239886
+        },
+        {
+          "exit_code": 0,
+          "peak_rss_kb": 28928,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "3108f7fb62d0c3353b74c80b31aacb235a26733388cccc3fa60409682f74d47d",
+          "wall_seconds": 0.8225734750158153
+        }
+      ],
+      "timing_is_informational": true,
+      "wall_seconds": {
+        "max": 1.8634869750239886,
+        "median": 1.2930031249998137,
+        "min": 0.8225734750158153,
+        "raw": [
+          1.2624001300428063,
+          1.7109076210181229,
+          1.2930031249998137,
+          1.8634869750239886,
+          0.8225734750158153
+        ]
+      }
+    }
+  ],
+  "claims_not_made": [
+    "SHawn EvidenceMap is faster than PyAlex or any other project",
+    "different-scope research tools form a speed leaderboard",
+    "the project is production-ready or battle-tested",
+    "maintainer-generated traffic is external adoption"
+  ],
+  "environment": {
+    "cpu_model": "AMD Ryzen 7 5800X3D 8-Core Processor",
+    "hostname_omitted": true,
+    "logical_cpu_count": 16,
+    "machine": "x86_64",
+    "openalex_api_key_present": false,
+    "os": "Linux",
+    "os_release": "6.8.0-94-generic",
+    "paths_omitted": true,
+    "python": "3.10.12",
+    "rss_method": "linux_proc_status_sampling"
+  },
+  "input": {
+    "query": "open science metadata reproducibility",
+    "query_sha256": "0bc9cf0b39967e3cddf0bc9d5033c7b12a2f52a521be455b28b98256c19108b8",
+    "requested_rows": 3
+  },
+  "measured_at_utc": "2026-07-11T10:17:07Z",
+  "methodology": {
+    "correctness_first": true,
+    "cross_tool_speed_ranking": false,
+    "local_repetitions": 10,
+    "local_warmups": 3,
+    "network_repetitions": 5,
+    "network_timing_is_informational_only": true,
+    "network_warmups": 1
+  },
+  "overall_pass": true,
+  "schema_version": "1",
+  "source_release": "v0.2.3",
+  "tool_versions": {
+    "pyalex": "0.21",
+    "shawn_evidencemap": "0.2.3"
+  }
+}

@@ -2,7 +2,7 @@ cff-version: 1.2.0
 title: "SHawn EvidenceMap"
 message: "If this public demo helps your work, please cite the repository."
 type: software
-version: "0.2.2"
+version: "0.2.3"
 date-released: "2026-07-11"
 authors:
   - family-names: "SHawn"

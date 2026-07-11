@@ -8,7 +8,7 @@ It is vendor-neutral and describes the repository's public release and maintenan
 - Repository: https://github.com/L-SHawn91/SHawn-EvidenceMap
 - License: Apache-2.0 (`LICENSE` + `NOTICE`)
 - Homepage/demo: https://l-shawn91.github.io/SHawn-EvidenceMap/
-- Release: `v0.2.2` — blind-onboarding safety fixes, after the `v0.2.1` public-metadata pilot
+- Release: `v0.2.3` — public benchmark, outreach evidence plan, and optional OpenAlex API-key support
 - Scope: public-safe, database-backed evidence mapping for scholarly metadata and research-agent workflows
 
 ## Maintenance signals
@@ -24,6 +24,8 @@ Public maintenance infrastructure is present in the repository:
 - `docs/VERIFICATION.md`
 - `docs/DATABASE_REFERENCE.md`
 - `docs/PILOT_QUICKSTART.md` with a five-minute, no-network public-metadata run and feedback boundary
+- `docs/PUBLIC_BENCHMARK_2026-07-11.md` with raw-result linkage, fairness boundaries, and prohibited claims
+- `docs/PILOT_OUTREACH_STRATEGY.md` with external-run KPIs and anti-gaming rules
 - Issue templates and pull-request template
 - Public roadmap issues for adapters, schema, public-boundary policy, report gallery, and CI
 - A merged pull request demonstrating the branch → PR → merge workflow
@@ -43,13 +45,15 @@ git status -sb
 
 Current verified state:
 
-- `pytest`: 27 passed
+- `pytest`: 38 passed
 - `public_safety_scan`: `PUBLIC_SAFETY_OK`
 - `compileall`: passed
 - Synthetic and public-metadata SQLite integrity and foreign-key verification: passed
 - Independent database builds produce byte-identical canonical JSON: passed
-- Wheel build: `shawn_evidencemap-0.2.2-py3-none-any.whl`
+- Wheel build: `shawn_evidencemap-0.2.3-py3-none-any.whl`
 - Clean virtual-environment wheel installation, domain-neutral generic query, missing-database rejection, `evidencemap --help`, and reference DB commands: passed
+- Correctness-first public benchmark: all SHawn lanes passed; the PyAlex overlap smoke is informational and not ranked
+- Optional OpenAlex API-key URL construction and credential-safe error handling: passed
 - Release assets: wheel, synthetic/public-metadata SQLite + JSON snapshots, and `SHA256SUMS`
 - Working tree clean at final verification
 
