@@ -1,192 +1,197 @@
-# Pilot outreach strategy
+# Metadata Bridge pilot outreach strategy
+
+PUBLIC_STATUS: public launch playbook · no private contact data
 
 ## Objective
 
-The objective is to obtain independent, public evidence that another person can install SHawn EvidenceMap, run one documented path, and report what worked or failed.
+Obtain independent evidence that a researcher, librarian, or research-software user can run SHawn EvidenceMap on a real public metadata workflow and identify whether the metadata bridge saves meaningful cleanup or handoff time.
 
-The objective is **not** to maximize stars, impressions, clones, or maintainer-generated activity.
+The objective is not to maximize stars, impressions, clones, or maintainer-generated downloads. A documented failure is useful evidence.
 
-## Current baseline — 2026-07-11
+## Current baseline — 2026-07-12
 
 ```text
-External users with a documented run: 0
-External feedback comments: 0
-External issues or pull requests: 0
+Independent documented runs: 0
+External actionable issues: 0
 Documented downstream uses: 0
+Paid pilots: 0
+Repeat users: 0
 ```
 
-Maintainer runs, CI jobs, release read-backs, benchmark executions, and automated clones do not change this baseline.
-
-## Conversion event
-
-A successful pilot conversion requires all three:
-
-1. a distinct external person;
-2. a stated install or execution attempt using their own environment or topic;
-3. a verifiable public link, such as a GitHub Discussion comment, issue, pull request, or public downstream repository.
-
-A failure report counts as a successful pilot conversion if it satisfies those conditions. A star without an execution report does not count.
+Maintainer executions, CI, release read-backs, and automated traffic do not change this baseline.
 
 ## Positioning
 
-Use this description:
+Use:
 
-> SHawn EvidenceMap is an early, public-safe command-line tool that searches public scholarly metadata, deduplicates and ranks records, and can produce a deterministic SQLite/JSON/HTML reference fixture. It is seeking installation and workflow feedback, not endorsement.
+> SHawn EvidenceMap is an Apache-2.0, local-first CLI that turns public DOI, PMID, OpenAlex, accession, CSV, RIS, and BibTeX records into auditable SQLite/JSON snapshots and deterministic CSV/RIS/BibTeX handoffs. It records provenance and inserted/merged/rejected decisions instead of silently merging identifier collisions.
 
-Do not position it as a replacement for CoLRev, revtools, EviAtlas, PyAlex, Citation.js, or a full systematic-review platform.
+Short form:
+
+> Turn messy DOI and PMID lists into auditable, deterministic research handoffs—locally, without lock-in.
+
+Do not say:
+
+- verified DOI or registry-validated identifier;
+- scientifically validated evidence;
+- systematic-review replacement;
+- clinical-grade or submission-ready;
+- private workspace, private upload, or enterprise SLA;
+- faster or better than another tool without a scoped executable benchmark.
+
+`Verifiable` refers to local integrity, provenance, normalized identifiers, and recorded processing decisions.
+
+## Public conversion surfaces
+
+- Landing page: https://l-shawn91.github.io/SHawn-EvidenceMap/pilot.html
+- 60-second executable demo: https://l-shawn91.github.io/SHawn-EvidenceMap/assets/pilot-demo-60s.mp4
+- Pilot intake and discussion: https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9
+- Structured run feedback: https://github.com/L-SHawn91/SHawn-EvidenceMap/issues/new?template=pilot-feedback.yml
+- Free release: https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/tag/v0.2.4
+
+Do not publish a personal email address. Do not collect private data through GitHub.
+
+## Initial customer profile
+
+Prioritize:
+
+1. systematic or scoping review researchers managing DOI/PMID lists in spreadsheets;
+2. medical or health-science librarians supporting evidence synthesis;
+3. graduate students, postdocs, and research faculty handing records to Zotero or Rayyan;
+4. small labs that need a reproducible metadata manifest for a public research workflow;
+5. research-software engineers evaluating local-first metadata interoperability.
+
+Do not target pharmaceutical/CRO enterprise, clinical decision support, regulated submissions, private full-text workflows, or teams requiring an SLA during this validation stage.
+
+## Free and paid boundary
+
+The Apache-2.0 CLI, import/export formats, audit events, database verification, documentation, and bug fixes remain free.
+
+The introductory pilot sells hands-on work rather than restricted code:
+
+- metadata cleanup and collision review;
+- reproducible audit snapshot and export package;
+- workflow setup for Zotero, Rayyan, R, or Python;
+- a 45-minute handoff session.
+
+Introductory validation range: `KRW 99,000–150,000` for approximately 50–1,000 public metadata records. It is not a fixed tariff. Scope, availability, invoicing, and applicable institutional or administrative requirements must be confirmed before payment.
+
+## Fourteen-day sprint
+
+### Days 1–2 — public conversion path
+
+- [x] remove personal Gmail addresses from tracked launch surfaces;
+- [x] configure future repository commits with a GitHub noreply address;
+- [x] make Discussion #9 the primary public intake;
+- [x] publish an explicit no-private-data boundary.
+
+### Days 3–4 — executable demonstration
+
+- [x] build a tracked public/synthetic CSV fixture;
+- [x] execute the real v0.2.4 ingest, verify, and export path;
+- [x] publish the actual `3 inserted / 2 merged / 1 rejected` result;
+- [x] publish a reproducible 60-second MP4 and downloadable outputs.
+
+### Days 5–7 — five personalized outreach slots
+
+Send no more than five direct messages before reviewing response quality:
+
+| Slot | Role | Personalization evidence | Ask | Status |
+|---|---|---|---|---|
+| 1 | evidence-synthesis librarian | public methods/support page | 20-minute workflow observation | pending |
+| 2 | systematic-review author | recent public review/method paper | test public DOI/PMID handoff | pending |
+| 3 | graduate student or postdoc | public review workflow context | identify first confusing step | pending |
+| 4 | research-software engineer | public metadata/reproducibility work | inspect audit/interchange boundary | pending |
+| 5 | open-science community member | public interoperability activity | reproduce one documented path | pending |
+
+Do not store names, email addresses, private replies, or unpublished topics in this repository. Record only aggregate counts and public links a participant chooses to publish.
+
+### Days 8–10 — interviews
+
+Target three 20-minute workflow interviews. Observe the current process before presenting the paid pilot. Ask:
+
+1. Where does the DOI/PMID list originate?
+2. Which duplicate or conflict cases require manual work?
+3. Which tool receives the cleaned list?
+4. What provenance must be retained?
+5. Would a bounded audit package be worth paying for, and why or why not?
+
+### Days 11–14 — evidence snapshot
+
+Record only:
+
+- outreach attempts;
+- responses;
+- interviews completed;
+- independent executions;
+- actionable issues;
+- explicit quote/estimate requests;
+- paid pilots;
+- repeat users.
+
+## Direct outreach template
+
+> Hi — I maintain SHawn EvidenceMap, a new Apache-2.0 metadata bridge for public DOI/PMID and bibliographic records. I am not asking for a star or endorsement. I am trying to learn how researchers currently clean duplicates and preserve provenance before moving records into Zotero, Rayyan, R, or Python. Would you be willing to show me that workflow for 20 minutes or try one public example? A negative result is useful. The 60-second executable demo and data boundary are here: https://l-shawn91.github.io/SHawn-EvidenceMap/pilot.html
+
+Personalize the first two sentences from the recipient's public work. Never imply affiliation or prior approval.
+
+## Community post template
+
+> Maintainer disclosure: I built SHawn EvidenceMap, an early Apache-2.0 CLI for local-first scholarly metadata handoffs. It normalizes public DOI/PMID/OpenAlex/accession records, records inserted/merged/rejected decisions, and exports auditable SQLite/JSON plus deterministic CSV/RIS/BibTeX. It is not a screening platform and does not validate identifiers against external registries. I am looking for one or two failure-oriented pilot runs, not stars or endorsements. Demo, fixture, outputs, and limitations: https://l-shawn91.github.io/SHawn-EvidenceMap/pilot.html
+
+Check each community's posting rules before posting. Do not paste identical promotional text into multiple communities on the same day.
 
 ## Channel order
 
-### Tier 0 — direct design review, days 1–7
+1. High-fit direct contacts: five personalized requests.
+2. GitHub Discussion #9 and structured feedback issue.
+3. OpenAlex Community or evidence-synthesis software communities after one independent run.
+4. Research-software communities after one concrete correction or use case.
+5. Broad social or OSS channels only after a documented downstream run.
 
-Ask 3–5 existing professional contacts who perform literature review, bibliometrics, research software, or open-science work.
-
-Request:
-
-- 15 minutes;
-- one documented path;
-- their own topic if using the search path;
-- one public sentence about success or failure;
-- no star and no endorsement.
-
-Why first: response quality and relevance are higher than broad public posting, and the first corrections can be made before wider exposure.
-
-Privacy: do not publish contact names, private replies, email addresses, or unpublished research topics. Only link feedback the participant has made public.
-
-### Tier 1 — domain communities, after one direct review
-
-#### Evidence Synthesis Hackathon
-
-Official site: https://eshackathon.org/
-
-The ESHackathon explicitly supports development, testing, and promotion of open evidence-synthesis software and workflows. Approach it as a testing or interoperability request, not a product launch.
-
-Potential fit:
-
-- ESHToolsBlog or a tool-testing discussion after one independent run;
-- a reproducibility or interoperability demo;
-- feedback on where a metadata triage layer fits in evidence-synthesis workflows.
-
-Do not claim ESHackathon affiliation or list the tool in a community project without acceptance.
-
-#### ESMARConf
-
-Official mission: https://esmarconf.org/mission/
-
-ESMARConf focuses on evidence synthesis and meta-analysis in R. SHawn EvidenceMap is Python-based, so it should not be pitched as a direct conference fit until there is an R-facing export or a concrete cross-language workflow. Treat it as a later collaboration route, not the first promotional channel.
-
-#### OpenAlex Community Group
-
-Official community route: https://groups.google.com/g/openalex-community
-
-Use the community discussion group rather than the announcement-focused OpenAlex User Group. Position SHawn EvidenceMap as a downstream OpenAlex/Crossref integration and triage layer, not a PyAlex competitor.
-
-A courtesy note to PyAlex maintainers may share the benchmark scope before wider distribution. It must not request endorsement, stars, reciprocal links, or issue-tracker promotion.
-
-### Tier 2 — research software communities, after one real case
-
-- US-RSE: https://us-rse.org/
-- Society of Research Software Engineering: https://society-rse.org/
-
-Join the relevant community route and check its posting norms first. Share a reproducibility case or ask for benchmark-method feedback. Do not drop a generic repository link into unrelated channels.
-
-Entry gate:
-
-```text
-At least one external documented run
-and one concrete correction or use case
-```
-
-### Tier 3 — broad OSS channels, after a documented downstream case
-
-Examples include general open-source forums, Reddit, Hacker News, or social media. Broad promotion before a real case is likely to produce low-quality traffic and no evidence.
-
-Entry gate:
-
-```text
-One public downstream use
-or one external benchmark reproduction
-or one merged external contribution
-```
-
-## Cadence
-
-- Contact no more than two high-fit people or communities per week initially.
-- Do not post identical text to several communities on the same day.
-- Wait at least seven days before one polite follow-up.
-- Stop after one unanswered follow-up.
-- Record public outcomes, not private identities.
-- If two people fail at the same step, pause promotion and fix onboarding before widening reach.
-
-## Message templates
-
-### Direct pilot request
-
-> Hi — I maintain SHawn EvidenceMap, a two-week-old open-source CLI for public scholarly metadata triage and reproducible SQLite/JSON/HTML outputs. I am not asking for a star or endorsement. Would you be willing to spend 15 minutes trying either your own search topic or the fixed offline fixture, then leave one public sentence about where it worked or failed? The install path and scope limits are here: https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9
-
-### OpenAlex community request
-
-> Maintainer disclosure: I built SHawn EvidenceMap, an early open-source downstream tool using public OpenAlex and Crossref metadata. It is not a replacement for PyAlex or a full review platform. I published a correctness-first benchmark with raw JSON and explicitly avoided a speed ranking because the workflows differ. I am looking for one or two people to reproduce the three-record metadata path or point out an unfair comparison assumption. No star or endorsement requested. Benchmark: https://github.com/L-SHawn91/SHawn-EvidenceMap/blob/main/docs/PUBLIC_BENCHMARK_2026-07-11.md
-
-### Evidence-synthesis tool-testing request
-
-> I maintain a new Python CLI that turns public scholarly metadata into a small evidence-triage map and deterministic reference artifacts. The project currently has no documented external users, so I am seeking failure-oriented testing rather than promotion. Would one reviewer be willing to try a 15-minute public pilot and identify where this does or does not fit an evidence-synthesis workflow? Scope, unsupported use cases, raw benchmark data, and the feedback form are public.
-
-## Public response destinations
-
-Preferred:
-
-1. Discussion #9 for a short run report;
-2. the pilot feedback issue form for a reproducible failure or unsupported use case;
-3. a pull request for a documentation or benchmark correction;
-4. a public downstream repository for an actual use case.
-
-Never ask participants to share private PDFs, manuscripts, credentials, API keys, patient data, unpublished datasets, or confidential review queries.
+Never advertise inside competitor issue trackers.
 
 ## KPI gates
 
-### By 2026-07-25 — 14 days
+### Day 14
 
-- benchmark runner, raw JSON, and interpretation publicly merged;
-- 2 direct design-review requests sent;
-- at least 1 external public response or installation attempt;
-- at least 1 correction incorporated, if a correction is received;
-- courtesy benchmark-scope notice prepared for PyAlex maintainers, but not posted to an issue tracker as advertising.
+- three completed interviews;
+- one independent execution attempt;
+- one actionable correction or explicit workflow-fit statement.
 
-### By 2026-08-10 — 30 days
+### Day 30
 
-- at least 3 independently documented install attempts;
-- at least 2 distinct external people;
-- at least 1 actionable external issue, including a failure report;
-- at least 1 external benchmark reproduction or raw-result comparison;
-- OpenAlex Community or ESHackathon outreach attempted only if the first direct review has occurred.
+- three independent users;
+- one actionable external issue;
+- one real public metadata workflow completed.
 
-### By 2026-09-09 — 60 days
+### Day 60
 
-- at least 1 documented use with an external person's own topic or workflow;
-- at least 1 external contribution, including documentation;
-- at least 1 community demo, tool-testing conversation, or public downstream link;
-- decision recorded: continue, reposition, integrate with another project, or archive.
+- one paid pilot, or two explicit quote requests;
+- evidence of which output or support task creates willingness to pay.
 
-## Stop and reassess rules
+### Day 90
 
-Pause broader promotion when any condition occurs:
+- three paid pilots, or five repeat users;
+- otherwise stop the monetization experiment and retain the project as free OSS/research infrastructure.
 
-- the first two independent users cannot finish installation;
-- benchmark correctness fails on another supported environment;
-- OpenAlex authentication or rate limits block the advertised pilot;
-- the project cannot explain how it differs from a thin API client or full review platform;
-- feedback indicates the primary use case is unsupported.
+## Stop and reassess
 
-In those cases, fix the product boundary before increasing reach.
+Pause broader promotion if:
+
+- the first two independent users cannot complete installation;
+- two users fail at the same onboarding step;
+- users consistently expect registry validation or scientific appraisal;
+- no one can name a real handoff pain after five interviews;
+- external payment conflicts with applicable institutional or administrative requirements.
+
+Fix the product boundary or onboarding before widening reach.
 
 ## Prohibited tactics
 
 - asking for stars, forks, downloads, or reciprocal promotion;
-- using alternate accounts or coordinated self-engagement;
-- treating maintainer downloads or CI clones as adoption;
-- posting advertisements in competitor issue trackers;
-- claiming superiority from the PyAlex smoke timing;
-- claiming affiliation with OpenAlex, ESHackathon, ESMARConf, or RSE organizations;
-- mass direct messages, scraped email lists, or repeated unsolicited follow-ups;
-- publishing private correspondence as evidence.
+- treating maintainer traffic as adoption;
+- scraped email lists, mass DMs, or repeated unsolicited follow-ups;
+- publishing private correspondence or participant identities;
+- accepting private PDFs, manuscripts, patient/sample data, credentials, or confidential review queries;
+- claiming demand, adoption, superiority, or scientific validation without evidence.

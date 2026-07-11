@@ -21,7 +21,7 @@ def search_crossref(query: str, limit: int = 20) -> list[Paper]:
     )
     request = urllib.request.Request(
         f"{CROSSREF_WORKS}?{params}",
-        headers={"User-Agent": "SHawn-EvidenceMap/0.1 (mailto:dr.shawn91@gmail.com)"},
+        headers={"User-Agent": "SHawn-EvidenceMap/0.2 (+https://github.com/L-SHawn91/SHawn-EvidenceMap)"},
     )
     with urllib.request.urlopen(request, timeout=25) as response:
         payload = json.loads(response.read().decode("utf-8"))

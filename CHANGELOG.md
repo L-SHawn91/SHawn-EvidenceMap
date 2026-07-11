@@ -2,6 +2,21 @@
 
 All notable public changes to this project are documented here.
 
+## [Unreleased]
+
+### Added
+- A reproducible 60-second metadata bridge demo generated from tracked public/synthetic input and the real ingest, verify, and export path.
+- A mobile-first Metadata Audit Pilot page with downloadable audit JSON, CSV, RIS, and BibTeX artifacts.
+- Regression tests for the advertised `3 inserted / 2 merged / 1 rejected` decision summary and public intake boundary.
+
+### Changed
+- Public pilot intake now routes through GitHub Discussion #9 and the structured feedback issue instead of a personal email address.
+- The landing page now leads with the Verifiable Metadata Bridge role and removes unsupported private-workspace promises.
+
+### Security
+- Public-safety scanning now rejects personal Gmail contact addresses from tracked public surfaces.
+- Future repository commits use the account's GitHub noreply address; published history is not rewritten.
+
 ## [0.2.4] - 2026-07-12
 
 ### Added

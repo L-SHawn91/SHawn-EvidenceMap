@@ -9,7 +9,7 @@ Publish a small, safe demo that proves the EvidenceMap concept before building a
 ## Pre-launch
 
 1. Confirm product name.
-2. Use `dr.shawn91@gmail.com` as the commercial contact email and keep the GitHub pilot issue template as an alternate public intake path.
+2. Use GitHub Discussion #9 and the structured pilot feedback issue as the public intake paths; do not publish a personal email address.
 3. Run `bash scripts/public_safety_scan.sh`.
 4. Run one live CLI query and save a polished sample output.
 5. Review all public wording for manual-verification and non-clinical positioning.
@@ -54,8 +54,8 @@ https://l-shawn91.github.io/SHawn-EvidenceMap/
 
 Selected for first release:
 
-- Dedicated email: `dr.shawn91@gmail.com`
-- GitHub issue template: alternate public intake for open-source users
+- GitHub Discussion #9: primary public pilot intake
+- GitHub issue template: structured feedback for completed external runs
 
 Later alternatives:
 

@@ -316,7 +316,7 @@ def to_visual_html(evidence_map: EvidenceMap) -> str:
     </div>
   </section>
 
-  <p class="footer">Prepared as a SHawn EvidenceMap preliminary report. Contact: dr.shawn91@gmail.com</p>
+  <p class="footer">Prepared as a SHawn EvidenceMap preliminary report. Pilot requests: https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9</p>
 </main>
 <button class="print-button" onclick="window.print()">Export PDF</button>
 </body>
