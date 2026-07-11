@@ -30,16 +30,23 @@ SHawn EvidenceMap is an early-stage public-safe evidence mapping toolkit. The ro
 
 ## Near-term
 
+- Accept user-supplied DOI, PMID, OpenAlex ID, and public-registry identifier lists.
+- Add standards-based RIS, BibTeX, and CSV import/export handoffs while retaining canonical JSON/SQLite artifacts.
+- Record source queries, result counts, identifier resolution, and deduplication decisions as machine-readable audit data.
 - Maintain the active GitHub Actions Public CI gate and expand adapter coverage without requiring secrets.
-- Prepare optional package distribution metadata without claiming external adoption.
 - Add more public metadata adapter tests for PubMed, Europe PMC, OpenAlex, and Crossref.
 - Expand toy examples for the `bio`, `ai_cs`, `policy`, `education`, `legal`, and `patent_tech` cartridges.
 - Improve evidence-table schema examples and JSON validation.
 - Add contributor-friendly docs for building a new cartridge.
 - Harden public-safety scanning and false-positive documentation.
 
+These priorities follow the dated [ecosystem comparison and product-gap review](docs/ECOSYSTEM_COMPARISON_2026-07-11.md). Project snapshot/update/diff support follows after the minimum standards-based handoff path is working.
+
 ## Later
 
+- Add deterministic project manifests plus snapshot/update/diff workflows.
+- Evaluate identifier resolution, duplicate handling, and source overlap on larger public fixtures.
+- Add citation-relation expansion and a self-contained interactive map only after ingestion and handoff are stable.
 - Publish small release bundles with sample public reports.
 - Add optional static report gallery generation.
 - Add richer adapter health checks without storing private caches or source-locked corpora.
