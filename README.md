@@ -25,7 +25,7 @@ The current release is **not** a screening platform, full-text synthesis system,
 - **Installation:** [`docs/INSTALLATION.md`](docs/INSTALLATION.md)
 - **Community/pilot requests:** [GitHub Discussion #9](https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9)
 - **Public benchmark:** [`docs/PUBLIC_BENCHMARK_2026-07-11.md`](docs/PUBLIC_BENCHMARK_2026-07-11.md) · [runner and raw JSON](benchmarks/README.md)
-- **Ecosystem comparison:** [`docs/ECOSYSTEM_COMPARISON_2026-07-11.md`](docs/ECOSYSTEM_COMPARISON_2026-07-11.md) · [39-repository raw snapshot](benchmarks/results/2026-07-11-ecosystem-snapshot.json)
+- **Ecosystem comparison:** [`docs/ECOSYSTEM_COMPARISON_2026-07-11.md`](docs/ECOSYSTEM_COMPARISON_2026-07-11.md) · [43-repository raw snapshot](benchmarks/results/2026-07-11-ecosystem-snapshot.json)
 - **Pilot outreach strategy:** [`docs/PILOT_OUTREACH_STRATEGY.md`](docs/PILOT_OUTREACH_STRATEGY.md)
 - **Maintainer evidence:** [`docs/MAINTAINER_EVIDENCE.md`](docs/MAINTAINER_EVIDENCE.md)
 - **Verification details:** [`docs/VERIFICATION.md`](docs/VERIFICATION.md)

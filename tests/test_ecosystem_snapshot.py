@@ -35,7 +35,7 @@ def test_repository_snapshot_is_unique_public_and_includes_target() -> None:
     repositories = data["repositories"]
     canonical = [row["canonical_repo"] for row in repositories]
 
-    assert len(repositories) == 39
+    assert len(repositories) == 43
     assert len(canonical) == len(set(canonical))
     assert all(row["url"].startswith("https://github.com/") for row in repositories)
     assert all("/home/" not in json.dumps(row) for row in repositories)
@@ -46,6 +46,18 @@ def test_repository_snapshot_is_unique_public_and_includes_target() -> None:
     )
     assert target["lane"] == "target"
     assert target["latest_release"] == "v0.2.3"
+
+    expected_follow_up = {
+        "EPPI-Centre/ER4",
+        "OxRML/AgentSLR",
+        "Future-House/robin",
+        "AkariAsai/OpenScholar",
+    }
+    assert expected_follow_up <= set(canonical)
+
+    by_repo = {row["canonical_repo"]: row for row in repositories}
+    assert by_repo["OxRML/AgentSLR"]["license_spdx"] is None
+    assert by_repo["EPPI-Centre/ER4"]["license_spdx"] == "NOASSERTION"
 
 
 def test_onboarding_smoke_is_discovery_only() -> None:
@@ -70,7 +82,7 @@ def test_report_matches_snapshot_and_uses_canonical_citation_js_repository() -> 
 
     assert "**290**" in report
     assert "**116**" in report
-    assert "**39 public GitHub repositories**" in report
+    assert "**43 public GitHub repositories**" in report
     assert "official-documentation assessments, not functional verification" in report
     assert "https://github.com/citation-js/citation-js" in report
     assert "https://github.com/citation-js/citation-js" in public_benchmark
