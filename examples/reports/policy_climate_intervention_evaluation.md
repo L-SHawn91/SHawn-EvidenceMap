@@ -49,7 +49,7 @@ This report is designed for research planning, review scoping, grant background 
 
 ## 7. Initial Interpretation
 
-The strongest current signal is `policy evaluation evidence`. The top-ranked source is `Technologies and policies to decarbonize global industry: Review and assessment of mitigation drivers through 2070` (2020). This suggests the query has enough public metadata signal for an initial evidence map, but the top sources should be manually reviewed before any client-facing conclusion.
+The strongest current signal is `policy evaluation evidence`. The top-ranked source is `Technologies and policies to decarbonize global industry: Review and assessment of mitigation drivers through 2070` (2020). This suggests the query has enough public metadata signal for an initial evidence map, but the top sources should be manually reviewed before any external conclusion.
 
 ## 8. Recommended Next Steps
 

@@ -48,7 +48,7 @@ This report is designed for research planning, review scoping, grant background 
 
 ## 7. Initial Interpretation
 
-The strongest current signal is `intervention evidence`. The top-ranked source is `Do <scp>AI</scp> chatbots improve students learning outcomes? Evidence from a meta‐analysis` (2023). This suggests the query has enough public metadata signal for an initial evidence map, but the top sources should be manually reviewed before any client-facing conclusion.
+The strongest current signal is `intervention evidence`. The top-ranked source is `Do <scp>AI</scp> chatbots improve students learning outcomes? Evidence from a meta‐analysis` (2023). This suggests the query has enough public metadata signal for an initial evidence map, but the top sources should be manually reviewed before any external conclusion.
 
 ## 8. Recommended Next Steps
 

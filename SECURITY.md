@@ -2,7 +2,7 @@
 
 ## Supported scope
 
-This public repository is a demo artifact built from public literature metadata and synthetic/example outputs. It must not ingest or publish private full text, private project state, unpublished manuscripts, credentials, or customer uploads.
+This public repository is a demo artifact built from public literature metadata and synthetic/example outputs. It must not ingest or publish private full text, private project state, unpublished manuscripts, credentials, or private user uploads.
 
 ## Report a vulnerability or accidental disclosure
 

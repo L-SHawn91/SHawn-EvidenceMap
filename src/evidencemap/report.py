@@ -106,7 +106,7 @@ def interpretation(evidence_map: EvidenceMap) -> str:
     dominant = labels.most_common(1)[0][0]
     return (
         f"The strongest current signal is `{dominant}`. The top-ranked source is `{top.title}`"
-        f"{f' ({top.year})' if top.year else ''}. This suggests the query has enough public metadata signal for an initial evidence map, but the top sources should be manually reviewed before any client-facing conclusion."
+        f"{f' ({top.year})' if top.year else ''}. This suggests the query has enough public metadata signal for an initial evidence map, but the top sources should be manually reviewed before any external conclusion."
     )
 
 

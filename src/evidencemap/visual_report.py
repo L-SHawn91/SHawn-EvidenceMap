@@ -217,7 +217,7 @@ def to_visual_html(evidence_map: EvidenceMap) -> str:
             </div>
           </div>
         </div>
-        <p style="text-align:center; margin-top:14px;">{confidence_label} confidence for a first-pass paid pilot brief</p>
+        <p style="text-align:center; margin-top:14px;">{confidence_label} confidence for a first-pass evidence brief</p>
       </div>
     </div>
   </section>
@@ -302,9 +302,9 @@ def to_visual_html(evidence_map: EvidenceMap) -> str:
   <section>
     <h2>Delivery Package</h2>
     <div class="grid">
-      <div class="card"><h3>Visual Brief</h3><p>Client-facing HTML/PDF-ready report with evidence dashboard and top sources.</p></div>
+      <div class="card"><h3>Visual Brief</h3><p>User-facing HTML/PDF-ready report with evidence dashboard and top sources.</p></div>
       <div class="card"><h3>Evidence Table</h3><p>Ranked table with evidence label, support sentence, source link, and quality rationale.</p></div>
-      <div class="card"><h3>Follow-up Plan</h3><p>Clear next steps for deeper manual review, report expansion, or premium workflow.</p></div>
+      <div class="card"><h3>Follow-up Plan</h3><p>Clear next steps for deeper manual review, report expansion, or workflow refinement.</p></div>
     </div>
   </section>
 
@@ -457,11 +457,11 @@ def executive_verdict(evidence_map: EvidenceMap) -> str:
 
 def commercial_readout(evidence_map: EvidenceMap) -> str:
     if not evidence_map.rows:
-        return "Commercial readout: do not deliver yet. Broaden or rewrite the client question first."
+        return "Review readiness: not ready. Broaden or rewrite the research question first."
     score = report_score(evidence_map)
     if score >= 70:
-        return "Commercial readout: suitable as a paid pilot brief after manual verification of top sources."
-    return "Commercial readout: suitable as an internal scoping run; upgrade before charging for a polished expert brief."
+        return "Review readiness: suitable as a first-pass evidence brief after manual verification of top sources."
+    return "Review readiness: suitable as an internal scoping run; strengthen it before external use."
 
 
 def interpretation(evidence_map: EvidenceMap) -> str:
@@ -472,7 +472,7 @@ def interpretation(evidence_map: EvidenceMap) -> str:
     top = evidence_map.rows[0]
     return (
         f"The strongest current signal is {dominant}. The top-ranked source is {top.title}"
-        f"{f' ({top.year})' if top.year else ''}. Manual verification is required before using this as a client-facing conclusion."
+        f"{f' ({top.year})' if top.year else ''}. Manual verification is required before using this as an external conclusion."
     )
 
 

@@ -12,6 +12,7 @@ All notable public changes to this project are documented here.
 ### Changed
 - Public pilot intake now routes through GitHub Discussion #9 and the structured feedback issue instead of a personal email address.
 - The landing page now leads with the Verifiable Metadata Bridge role and removes unsupported private-workspace promises.
+- The launch path now uses a free, bounded early-validation cohort; premature public pricing and service-oriented language were removed until independent use and repeat demand exist.
 
 ### Security
 - Public-safety scanning now rejects personal Gmail contact addresses from tracked public surfaces.

@@ -28,8 +28,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--no-cache", action="store_true", help="Bypass the local public-demo query cache")
     parser.add_argument("--cache-ttl-hours", type=float, default=24, help="Local query cache TTL in hours")
     parser.add_argument("--markdown", action="store_true", help="Print Markdown instead of JSON")
-    parser.add_argument("--report", action="store_true", help="Print fixed customer report Markdown")
-    parser.add_argument("--html-report", action="store_true", help="Print fixed visual customer report HTML")
+    parser.add_argument("--report", action="store_true", help="Print fixed research report Markdown")
+    parser.add_argument("--html-report", action="store_true", help="Print fixed visual research report HTML")
     return parser
 
 

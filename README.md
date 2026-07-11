@@ -13,7 +13,7 @@ PUBLIC_STATUS: public-demo · early-stage OSS
 
 [![Watch the executable 60-second metadata bridge demo](web/assets/pilot-demo-poster.png)](https://l-shawn91.github.io/SHawn-EvidenceMap/assets/pilot-demo-60s.mp4)
 
-**[Watch the 60-second demo](https://l-shawn91.github.io/SHawn-EvidenceMap/assets/pilot-demo-60s.mp4)** · **[Inspect the Metadata Audit Pilot](https://l-shawn91.github.io/SHawn-EvidenceMap/pilot.html)** · **[Request a pilot in Discussion #9](https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9)**
+**[Watch the 60-second demo](https://l-shawn91.github.io/SHawn-EvidenceMap/assets/pilot-demo-60s.mp4)** · **[Inspect the free early-validation cohort](https://l-shawn91.github.io/SHawn-EvidenceMap/pilot.html)** · **[Request a validation slot in Discussion #9](https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9)**
 
 ## Public review quick facts
 
@@ -24,12 +24,12 @@ PUBLIC_STATUS: public-demo · early-stage OSS
 - **Synthetic database demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/db-demo/
 - **Public metadata linkage demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/public-metadata-demo/
 - **Executable 60-second bridge demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/assets/pilot-demo-60s.mp4
-- **Metadata Audit Pilot:** https://l-shawn91.github.io/SHawn-EvidenceMap/pilot.html
+- **Free early validation:** https://l-shawn91.github.io/SHawn-EvidenceMap/pilot.html
 - **Five-minute pilot:** [`docs/PILOT_QUICKSTART.md`](docs/PILOT_QUICKSTART.md)
 - **Verification:** public CI passes `pytest`, database integrity and determinism checks, `public_safety_scan`, `compileall`, wheel build, CLI verification, and artifact upload
 - **Installable release:** [`v0.2.4` wheel + SHA256SUMS](https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/tag/v0.2.4)
 - **Installation:** [`docs/INSTALLATION.md`](docs/INSTALLATION.md)
-- **Community/pilot requests:** [GitHub Discussion #9](https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9)
+- **Community/validation requests:** [GitHub Discussion #9](https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9)
 - **Public benchmark:** [`docs/PUBLIC_BENCHMARK_2026-07-11.md`](docs/PUBLIC_BENCHMARK_2026-07-11.md) · [runner and raw JSON](benchmarks/README.md)
 - **Ecosystem comparison:** [`docs/ECOSYSTEM_COMPARISON_2026-07-11.md`](docs/ECOSYSTEM_COMPARISON_2026-07-11.md) · [43-repository raw snapshot](benchmarks/results/2026-07-11-ecosystem-snapshot.json)
 - **Pilot outreach strategy:** [`docs/PILOT_OUTREACH_STRATEGY.md`](docs/PILOT_OUTREACH_STRATEGY.md)
@@ -207,9 +207,9 @@ See:
 docs/CARTRIDGE_ARCHITECTURE.md
 ```
 
-## Customer Reports
+## Research Reports
 
-Generate a fixed customer-facing preliminary report:
+Generate a fixed preliminary research report:
 
 ```bash
 PYTHONPATH=src python3 -m evidencemap.cli "endometrial organoid implantation" --cartridge bio --limit 5 --report
@@ -251,7 +251,7 @@ Visual sample reports:
 examples/reports/html/
 ```
 
-The visual brief is the preferred client-facing pilot deliverable. It includes:
+The visual brief is the preferred user-facing review artifact. It includes:
 
 1. Executive Verdict
 2. Evidence Score Ring
@@ -278,7 +278,7 @@ docs/REPORT_TEMPLATE.md
 
 ## Source Boundary
 
-Public cartridges use no-auth public metadata sources only. API-key, login, paid, institutional, customer-uploaded, or private SHawn ecosystem sources are private-only.
+Public cartridges use no-auth public metadata sources only. API-key, login, paid, institutional, user-uploaded, or private SHawn ecosystem sources are private-only.
 
 See:
 

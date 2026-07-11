@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Metadata Audit Pilot · SHawn EvidenceMap</title>
+    <title>Free Early Validation · SHawn EvidenceMap</title>
     <meta
       name="description"
-      content="A bounded metadata cleanup and provenance handoff pilot for public DOI, PMID, OpenAlex, accession, CSV, RIS, and BibTeX records."
+      content="A bounded free validation cohort for public DOI, PMID, OpenAlex, accession, CSV, RIS, and BibTeX workflows."
     />
     <style>
       :root {
@@ -57,7 +57,7 @@
       .boundary { border: 1px solid #fde68a; border-radius: 12px; background: var(--warn); padding: 22px; }
       .boundary ul { margin-bottom: 0; }
       .offer { border: 2px solid var(--teal); border-radius: 16px; background: var(--panel); padding: 28px; display: grid; gap: 16px; }
-      .price { font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 850; letter-spacing: -.02em; }
+      .cohort { font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 850; letter-spacing: -.02em; color: var(--teal); }
       .fine { color: var(--muted); font-size: .9rem; }
       footer { padding: 36px 0 60px; color: var(--muted); font-size: .92rem; }
       ul { padding-left: 20px; }
@@ -71,14 +71,14 @@
   <body>
     <main>
       <section class="hero">
-        <div class="eyebrow">Metadata Audit Pilot · introductory validation</div>
+        <div class="eyebrow">Free early validation · public metadata only</div>
         <h1>Clean research metadata, with an audit trail.</h1>
         <p class="lead">
           Bring a public DOI, PMID, OpenAlex, accession, CSV, RIS, or BibTeX list. Receive normalized identifiers,
           explicit collision decisions, provenance records, and deterministic handoff files—without a hosted private-data upload.
         </p>
         <div class="actions">
-          <a class="button" href="https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9">Request a pilot in GitHub Discussions</a>
+          <a class="button" href="https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9">Request a free validation slot</a>
           <a class="button secondary" href="https://github.com/L-SHawn91/SHawn-EvidenceMap">Use the free OSS CLI</a>
           <a class="button secondary" href="index.html">Back to the public demo</a>
         </div>
@@ -111,21 +111,21 @@
       </section>
 
       <section id="pilot">
-        <h2>The bounded pilot</h2>
+        <h2>Free bounded validation</h2>
         <div class="offer">
           <div>
-            <div class="eyebrow">First three validation slots</div>
-            <div class="price">KRW 99,000–150,000</div>
-            <div class="fine">Introductory experimental range</div>
+            <div class="eyebrow">First three external validation slots</div>
+            <div class="cohort">Free early-validation cohort</div>
+            <div class="fine">No fee during this evidence-gathering stage</div>
           </div>
           <div class="grid">
-            <div><h3>Accepted scope</h3><p>Approximately 50–1,000 public scholarly identifiers or public bibliographic metadata records.</p></div>
-            <div><h3>Delivery</h3><p>SQLite audit snapshot, JSON, CSV, RIS, BibTeX, collision report, and a 45-minute handoff session.</p></div>
-            <div><h3>Purpose</h3><p>Metadata hygiene and interoperability before Zotero, Rayyan, R, Python, or another evidence workflow.</p></div>
+            <div><h3>Accepted scope</h3><p>Approximately 20–250 public scholarly identifiers or public bibliographic metadata records.</p></div>
+            <div><h3>What happens</h3><p>Run the documented workflow, inspect the audit outputs, and complete one 30-minute feedback conversation.</p></div>
+            <div><h3>Purpose</h3><p>Find onboarding failures and determine whether the bridge fits a real Zotero, Rayyan, R, or Python handoff.</p></div>
           </div>
           <p class="fine">
-            This is an introductory demand-validation offer, not a fixed public tariff. Availability, scope, invoicing,
-            and applicable institutional or administrative requirements are confirmed before any paid engagement.
+            This cohort is for product validation, not consulting. It includes no SLA, custom feature development,
+            private-data handling, or ongoing support commitment.
           </p>
         </div>
       </section>
@@ -134,9 +134,9 @@
         <h2>How it works</h2>
         <div class="flow">
           <div class="step"><h3>Describe the workflow</h3><p>Post only the public tool path, approximate record count, and desired export format.</p></div>
-          <div class="step"><h3>Confirm the boundary</h3><p>We agree on public metadata inputs, exclusions, delivery, and whether the pilot is suitable.</p></div>
+          <div class="step"><h3>Confirm the boundary</h3><p>Confirm public metadata inputs, exclusions, expected output, and whether the test is suitable.</p></div>
           <div class="step"><h3>Run locally</h3><p>The bridge normalizes, audits, verifies, and exports without creating a hosted private workspace.</p></div>
-          <div class="step"><h3>Handoff</h3><p>You receive reproducible files and a short explanation of merges, rejections, and next-tool import.</p></div>
+          <div class="step"><h3>Review outputs</h3><p>Inspect reproducible files, merges, rejections, and the next-tool import path.</p></div>
         </div>
       </section>
 
@@ -163,13 +163,13 @@
           and the first confusing step. A negative result is useful.
         </p>
         <div class="actions" style="margin-top:18px">
-          <a class="button" href="https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9">Open Pilot Discussion #9</a>
+          <a class="button" href="https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9">Open Validation Discussion #9</a>
           <a class="button secondary" href="https://github.com/L-SHawn91/SHawn-EvidenceMap/issues/new?template=pilot-feedback.yml">Report a completed external run</a>
         </div>
       </section>
 
       <footer>
-        SHawn EvidenceMap is Apache-2.0 research software. The pilot provides metadata processing and workflow support;
+        SHawn EvidenceMap is Apache-2.0 research software. The free cohort evaluates metadata processing and workflow fit;
         it does not provide clinical advice, quality appraisal, registry validation, or manuscript conclusions.
       </footer>
     </main>

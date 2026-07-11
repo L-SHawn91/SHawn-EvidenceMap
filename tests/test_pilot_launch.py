@@ -56,3 +56,41 @@ def test_public_launch_surfaces_do_not_publish_personal_email() -> None:
     combined = "\n".join(path.read_text(encoding="utf-8") for path in paths).lower()
     assert "@gmail.com" not in combined
     assert "mailto:" not in combined
+
+
+def test_public_launch_is_free_validation_first() -> None:
+    paths = [
+        ROOT / "README.md",
+        ROOT / "docs/LAUNCH_PLAN.md",
+        ROOT / "docs/PILOT_OUTREACH_STRATEGY.md",
+        ROOT / "docs/REPORT_TEMPLATE.md",
+        ROOT / "src/evidencemap/cli.py",
+        ROOT / "src/evidencemap/visual_report.py",
+        ROOT / "web/index.html",
+        ROOT / "web/pilot.html",
+    ]
+    combined = "\n".join(path.read_text(encoding="utf-8") for path in paths).lower()
+    for premature_phrase in (
+        "krw 99,000",
+        "paid pilot",
+        "paid engagement",
+        "commercial path",
+        "commercial cta",
+        "premium workflow",
+        "customer reports",
+        "customer-facing",
+        "client-facing",
+        "next paid step",
+    ):
+        assert premature_phrase not in combined
+    assert "free early-validation cohort" in combined
+
+    launch_plan = (ROOT / "docs/LAUNCH_PLAN.md").read_text(encoding="utf-8").lower()
+    for gate in (
+        "five independently documented executions",
+        "three repeat users",
+        "two users independently request",
+        "no unresolved p0/p1 onboarding blocker",
+        "institutional and administrative requirements",
+    ):
+        assert gate in launch_plan
