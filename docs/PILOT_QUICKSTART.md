@@ -6,8 +6,9 @@ Choose the path that matches what you want to test.
 |---|---|---|
 | Search public scholarly metadata for your own topic | `evidencemap "your topic"` | Required |
 | Verify the bundled SQLite/JSON/HTML reference pipeline | `python -m evidencemap.refdb public-demo ...` | Not required after installation |
+| Bridge your own public identifiers or bibliographic records | `python -m evidencemap.refdb ingest ...` | Not required; inputs are not externally resolved |
 
-The SQLite pilot is a **fixed fixture**. Version 0.2.3 does not accept a replacement DOI, PMID, or GEO accession. Do not interpret the bundled registry linkage as independent validation of a scientific conclusion.
+The bundled registry-linkage demo remains a fixed fixture. Version 0.2.4 separately accepts user-provided identifiers, CSV, a conservative RIS subset, and a conservative BibTeX subset. Imported identifiers are normalized and audited but are not externally resolved.
 
 ## 1. Install the verified release
 
@@ -16,7 +17,7 @@ Use an isolated environment:
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/download/v0.2.3/shawn_evidencemap-0.2.3-py3-none-any.whl
+python -m pip install https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/download/v0.2.4/shawn_evidencemap-0.2.4-py3-none-any.whl
 ```
 
 The package is not currently published on PyPI. The command above installs the GitHub release wheel.
@@ -78,6 +79,7 @@ identifiers: 4
 relations: 3
 provenance: 3
 ingest_runs: 1
+ingest_events: 0
 ```
 
 Open `pilot-output/index.html` and inspect:
@@ -109,6 +111,36 @@ REFERENCE_DB_ERROR: database does not exist: pilot-output/does-not-exist.sqlite3
 ```
 
 The command exits nonzero and does not create the file.
+
+## Path C — bridge your own public identifiers
+
+- **Input:** public scholarly identifiers or public-safe bibliographic metadata
+- **Network:** none
+- **Boundary:** import and normalization only; no external registry resolution
+
+```bash
+cat > identifiers.txt <<'EOF'
+doi:10.1000/example
+PMID:12345
+https://openalex.org/W98765
+accession:GSE1234
+EOF
+
+python -m evidencemap.refdb ingest --db pilot-output/bridge.sqlite3 --input identifiers.txt --format identifiers
+python -m evidencemap.refdb verify --db pilot-output/bridge.sqlite3
+python -m evidencemap.refdb export --db pilot-output/bridge.sqlite3 --out pilot-output/bridge.json --format json
+python -m evidencemap.refdb export --db pilot-output/bridge.sqlite3 --out pilot-output/bridge.csv --format csv
+python -m evidencemap.refdb export --db pilot-output/bridge.sqlite3 --out pilot-output/bridge.ris --format ris
+python -m evidencemap.refdb export --db pilot-output/bridge.sqlite3 --out pilot-output/bridge.bib --format bibtex
+```
+
+Expected ingest marker:
+
+```text
+REFERENCE_DB_INGEST_OK inserted=4 merged=0 rejected=0 run_id=...
+```
+
+Use `--format csv`, `ris`, or `bibtex` for bibliographic files. Malformed file syntax fails before a database is created. Cross-entity identifier collisions produce a `REFERENCE_DB_INGEST_PARTIAL` marker, retain a rejected audit event, and exit nonzero.
 
 ## Send genuine pilot feedback
 

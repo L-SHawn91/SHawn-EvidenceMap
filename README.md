@@ -4,24 +4,24 @@ PUBLIC_STATUS: public-demo · early-stage OSS
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 [![Public boundary](https://img.shields.io/badge/public--boundary-metadata%20%2B%20toy%20data-green.svg)](docs/PUBLIC_BOUNDARY.md)
-[![Release: v0.2.3](https://img.shields.io/badge/release-v0.2.3-informational.svg)](CHANGELOG.md)
+[![Release: v0.2.4](https://img.shields.io/badge/release-v0.2.4-informational.svg)](CHANGELOG.md)
 [![Public CI](https://github.com/L-SHawn91/SHawn-EvidenceMap/actions/workflows/ci.yml/badge.svg)](https://github.com/L-SHawn91/SHawn-EvidenceMap/actions/workflows/ci.yml)
 
-A lightweight CLI that turns public scholarly metadata into verifiable, deterministic reference snapshots for evidence-synthesis handoffs.
+**SHawn EvidenceMap — Verifiable Metadata Bridge** is a local-first CLI that turns public scholarly identifiers and metadata into auditable, deterministic reference snapshots and standards-based evidence-synthesis handoffs.
 
-The current release is **not** a screening platform, full-text synthesis system, meta-analysis engine, or complete bibliometric/knowledge-map application. In v0.2.3, “map” means a structured public-metadata evidence table plus a reference-store relation schema; user-supplied corpus ingestion and standards-based handoffs remain roadmap work.
+`Verifiable` means that local database integrity, normalized identifiers, provenance, and per-record ingest decisions can be inspected again. It does **not** mean that an imported identifier was resolved against an external registry. The project is not a screening platform, full-text synthesis system, meta-analysis engine, or complete bibliometric/knowledge-map application.
 
 ## Public review quick facts
 
 - **Representative repo:** `SHawn-EvidenceMap`
 - **License:** Apache-2.0
-- **Release:** `v0.2.3` public benchmark and optional OpenAlex API-key release
+- **Release:** `v0.2.4` verifiable metadata bridge and interoperability release
 - **Demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/
 - **Synthetic database demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/db-demo/
 - **Public metadata linkage demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/public-metadata-demo/
 - **Five-minute pilot:** [`docs/PILOT_QUICKSTART.md`](docs/PILOT_QUICKSTART.md)
 - **Verification:** public CI passes `pytest`, database integrity and determinism checks, `public_safety_scan`, `compileall`, wheel build, CLI verification, and artifact upload
-- **Installable release:** [`v0.2.3` wheel + SHA256SUMS](https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/tag/v0.2.3)
+- **Installable release:** [`v0.2.4` wheel + SHA256SUMS](https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/tag/v0.2.4)
 - **Installation:** [`docs/INSTALLATION.md`](docs/INSTALLATION.md)
 - **Community/pilot requests:** [GitHub Discussion #9](https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9)
 - **Public benchmark:** [`docs/PUBLIC_BENCHMARK_2026-07-11.md`](docs/PUBLIC_BENCHMARK_2026-07-11.md) · [runner and raw JSON](benchmarks/README.md)
@@ -65,14 +65,14 @@ This is not a dump of private SHawn repos. The public stack contains schemas, te
 
 ## What It Does
 
-SHawn EvidenceMap turns a research question into a small, transparent evidence map:
+SHawn EvidenceMap supports two public workflows:
 
-1. Plan a public literature query
-2. Search public metadata sources
-3. Group papers by simple evidence themes
-4. Build a claim/evidence table
-5. Persist synthetic/public-metadata entities, provenance, and relations in a reproducible SQLite reference store
-6. Export Markdown, JSON, or a static database demo page
+1. Search public scholarly metadata and build a small, transparent evidence table.
+2. Ingest DOI, PMID, OpenAlex work ID, public accession, CSV, RIS, or conservative BibTeX records.
+3. Normalize identifiers and reject cross-entity collisions instead of silently merging them.
+4. Preserve per-record `inserted`, `merged`, or `rejected` audit events plus source provenance.
+5. Verify the SQLite schema, foreign keys, and identifier integrity.
+6. Export audit-inclusive JSON or deterministic entity-only CSV, RIS, and BibTeX handoffs.
 
 ## Database-backed reference pipeline
 
@@ -81,8 +81,9 @@ The public reference layer demonstrates database mechanics without publishing no
 ```bash
 python3 -m evidencemap.refdb demo --db demo.sqlite3
 python3 -m evidencemap.refdb public-demo --db public-metadata.sqlite3
+python3 -m evidencemap.refdb ingest --db bridge.sqlite3 --input records.csv --format csv
 python3 -m evidencemap.refdb verify --db public-metadata.sqlite3
-python3 -m evidencemap.refdb export --db public-metadata.sqlite3 --out reference.json
+python3 -m evidencemap.refdb export --db bridge.sqlite3 --out records.ris --format ris
 python3 -m evidencemap.refdb page --db public-metadata.sqlite3 --out index.html
 ```
 
@@ -103,7 +104,10 @@ Included:
 - Claim/evidence table schema
 - Markdown and JSON export
 - SQLite reference schema with migrations and foreign-key integrity checks
-- Idempotent DOI/PMID/accession normalization and entity upsert
+- DOI/PMID/OpenAlex/accession normalization and collision-safe entity upsert
+- Identifier-list, CSV, conservative RIS, and conservative BibTeX ingestion
+- Per-record inserted/merged/rejected audit events and input provenance
+- Deterministic entity-only CSV/RIS/BibTeX handoff exports
 - Paper–dataset–claim relations and source provenance
 - Deterministic database JSON and static HTML export
 - Offline public paper–dataset registry-linkage example using identifiers, titles, and source URLs only
@@ -119,12 +123,12 @@ Excluded:
 
 ## Quick Start
 
-Install the verified v0.2.3 release wheel:
+Install the verified v0.2.4 release wheel:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/download/v0.2.3/shawn_evidencemap-0.2.3-py3-none-any.whl
+python -m pip install https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/download/v0.2.4/shawn_evidencemap-0.2.4-py3-none-any.whl
 ```
 
 ### Search public metadata for your own topic
@@ -144,7 +148,18 @@ python -m evidencemap.refdb verify --db public-metadata.sqlite3
 
 Repeated OpenAlex-backed searches can use an optional `OPENALEX_API_KEY` environment variable. Never commit or post the key. One short no-key pilot uses OpenAlex's limited demo allowance; see [`docs/INSTALLATION.md`](docs/INSTALLATION.md).
 
-The database pilot is fixture-only in v0.2.3; it does not accept replacement DOI, PMID, or GEO identifiers. See the [`five-minute onboarding`](docs/PILOT_QUICKSTART.md) for both paths and negative-path expectations. See [`docs/INSTALLATION.md`](docs/INSTALLATION.md) for checksum verification and source installation.
+### Bridge your own public identifiers or bibliographic records
+
+```bash
+printf 'doi:10.1000/example\nPMID:12345\nhttps://openalex.org/W98765\naccession:GSE1234\n' > identifiers.txt
+python -m evidencemap.refdb ingest --db bridge.sqlite3 --input identifiers.txt --format identifiers
+python -m evidencemap.refdb verify --db bridge.sqlite3
+python -m evidencemap.refdb export --db bridge.sqlite3 --out bridge.csv --format csv
+python -m evidencemap.refdb export --db bridge.sqlite3 --out bridge.ris --format ris
+python -m evidencemap.refdb export --db bridge.sqlite3 --out bridge.bib --format bibtex
+```
+
+Identifier-only input is **not registry-resolved metadata**. RIS and BibTeX support a documented conservative subset and reject unsupported syntax instead of guessing. See the [`five-minute onboarding`](docs/PILOT_QUICKSTART.md), [`database reference`](docs/DATABASE_REFERENCE.md), and [`installation guide`](docs/INSTALLATION.md).
 
 From a source checkout:
 

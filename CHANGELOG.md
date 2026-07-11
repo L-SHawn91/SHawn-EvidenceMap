@@ -2,13 +2,18 @@
 
 All notable public changes to this project are documented here.
 
-## [Unreleased]
+## [0.2.4] - 2026-07-12
 
 ### Added
+- User-supplied DOI, PMID, OpenAlex work ID, and explicit public-accession ingestion.
+- CSV, conservative RIS, and conservative BibTeX input plus deterministic entity-only handoff exports, including stable roundtrips for nested braces and literal `#` values.
+- Schema v2 `ingest_events` records for inserted, merged, and rejected inputs with source provenance, atomic whole-run rollback on unexpected failures, and run/event consistency verification.
+- A tested step migration that preserves existing schema-v1 entities and identifiers.
 - A dated ecosystem comparison covering a 290-tool discovery census, 116 adjacent names, a same-turn 43-repository public snapshot, 13 service/freeware alternatives, and five clean-environment CLI onboarding smokes.
 - Regression tests for snapshot scope, canonical repository identities, public-safe fields, onboarding-smoke boundaries, and report consistency.
 
 ### Changed
+- The public product descriptor is **SHawn EvidenceMap — Verifiable Metadata Bridge**. `Verifiable` refers to local integrity and auditability, not external identifier resolution.
 - The project is positioned as a verifiable, deterministic scholarly-metadata snapshot and standards-based handoff layer rather than a complete screening, full-text synthesis, meta-analysis, or knowledge-map application.
 - The near-term roadmap now prioritizes user-supplied identifiers, RIS/BibTeX/CSV interchange, and auditable resolution/deduplication before project diff and interactive-map features.
 - The public benchmark now uses the canonical Citation.js repository snapshot.

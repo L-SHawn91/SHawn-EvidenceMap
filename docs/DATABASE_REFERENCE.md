@@ -1,6 +1,8 @@
-# SQLite Reference Pipeline
+# Verifiable Metadata Bridge Reference
 
-SHawn EvidenceMap includes a reproducible SQLite reference pipeline that demonstrates how an evidence workflow can persist entities, stable identifiers, provenance, and relations without publishing non-public research records.
+SHawn EvidenceMap includes a local-first **Verifiable Metadata Bridge**. It imports public scholarly identifiers or conservative bibliographic interchange records, records each ingest decision, and exports SQLite/JSON plus deterministic CSV/RIS/BibTeX handoffs without publishing non-public research records.
+
+`Verifiable` means local integrity and auditability. Importing a DOI, PMID, OpenAlex work ID, or accession does not prove that the identifier exists and does not perform external registry resolution.
 
 ## Public boundary
 
@@ -24,18 +26,43 @@ Supporting tables preserve:
 - multiple stable identifiers per entity
 - typed relations between papers, datasets, and claims
 - source and retrieval provenance
-- deterministic ingest-run metadata
+- ingest-run summaries and per-record `inserted`, `merged`, or `rejected` events
 - schema migration history
 
 ## Safety and integrity behavior
 
 The implementation uses Python's standard-library `sqlite3` module and enables foreign-key enforcement. Identifier normalization is deterministic:
 
-- DOI values are lowercased and stripped of common resolver prefixes
-- PMID values are stripped of an optional `PMID:` prefix
+- DOI values are lowercased, stripped of common resolver prefixes, and minimally syntax-validated
+- PMID values are stripped of an optional `PMID:` prefix and must contain digits only
+- OpenAlex work IDs are normalized to uppercase `W` plus digits
 - accession values are uppercased
 
 If identifiers in one upsert resolve to different existing entities, the operation raises an identifier-collision error instead of silently merging records. Repeated ingest, relation, provenance, and run operations are idempotent.
+
+## Import and handoff formats
+
+| Format | Import boundary | Export behavior |
+|---|---|---|
+| `identifiers` | one DOI, PMID, OpenAlex work ID, or explicitly prefixed `accession:` per line | not applicable |
+| `csv` | fixed header fields: `title,doi,pmid,openalex_id,accession,year,journal,authors,url` | UTF-8, fixed columns, `\n` line endings |
+| `ris` | `TY`…`ER` records; common title, author, year, journal, DOI, accession/ID, and URL tags; continuation lines unsupported | deterministic common-tag subset |
+| `bibtex` | `@article`, `@misc`, and `@dataset`; no macros, concatenation, `crossref`, or unsupported entry types | deterministic citation keys from primary identifiers |
+| `json` | not an interchange input in v0.2.4 | audit-inclusive canonical database snapshot |
+
+Unknown or malformed syntax is rejected instead of guessed. CSV/RIS/BibTeX exports contain entity metadata only, so audit timestamps do not change their bytes. JSON intentionally includes provenance, ingest runs, and ingest events.
+
+```bash
+python3 -m evidencemap.refdb ingest --db bridge.sqlite3 --input identifiers.txt --format identifiers
+python3 -m evidencemap.refdb ingest --db bridge.sqlite3 --input records.csv --format csv
+python3 -m evidencemap.refdb verify --db bridge.sqlite3
+python3 -m evidencemap.refdb export --db bridge.sqlite3 --out records.json --format json
+python3 -m evidencemap.refdb export --db bridge.sqlite3 --out records.csv --format csv
+python3 -m evidencemap.refdb export --db bridge.sqlite3 --out records.ris --format ris
+python3 -m evidencemap.refdb export --db bridge.sqlite3 --out records.bib --format bibtex
+```
+
+A syntactically broken input file fails before the database is opened. A parsed record that collides across existing entities is recorded as `rejected`; accepted records remain available, and the CLI exits nonzero when any record was rejected.
 
 ## Run the demo
 
@@ -67,13 +94,13 @@ Two fresh demo databases must produce byte-identical canonical JSON exports. CI 
 1. schema migration and integrity
 2. identifier normalization and collision rejection
 3. idempotent upsert and relation behavior
-4. provenance and ingest-run retention
-5. deterministic JSON export
+4. provenance, ingest-run, and per-record decision retention
+5. deterministic demo JSON plus deterministic entity-only CSV/RIS/BibTeX export
 6. deterministic static page generation
 7. wheel installation and existing CLI behavior
 
 ## What this proves—and what it does not
 
-The reference pipeline proves the public implementation of database-backed evidence mechanics: stable identifiers, provenance, relations, integrity checks, incremental upsert, and reproducible export.
+The bridge proves the public implementation of database-backed evidence mechanics: stable identifiers, provenance, per-record ingest decisions, relations, integrity checks, incremental upsert, and reproducible handoff export.
 
 It does not claim that the synthetic records are research evidence, that a registry linkage independently validates a scientific conclusion, that the outputs are citation-ready findings, that external adoption exists, or that the examples copy a non-public operational system.

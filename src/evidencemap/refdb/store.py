@@ -1,15 +1,22 @@
 from __future__ import annotations
 
 import json
-import re
 import sqlite3
+from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Iterator, Mapping
 
-from .schema import SCHEMA_SQL, SCHEMA_VERSION
+from .interchange import InterchangeError, InterchangeRecord, normalize_identifiers
+from .schema import MIGRATIONS, SCHEMA_VERSION
 
 _ALLOWED_KINDS = frozenset({"paper", "dataset", "claim"})
-_IDENTIFIER_PRIORITY = {"doi": 0, "pmid": 1, "accession": 2, "demo_id": 3}
+_IDENTIFIER_PRIORITY = {
+    "doi": 0,
+    "pmid": 1,
+    "openalex": 2,
+    "accession": 3,
+    "demo_id": 4,
+}
 
 
 class ReferenceStore:
@@ -24,6 +31,7 @@ class ReferenceStore:
         self._conn.row_factory = sqlite3.Row
         self._conn.execute("PRAGMA foreign_keys = ON")
         self._migrated = False
+        self._batch_depth = 0
 
     def __enter__(self) -> "ReferenceStore":
         self.migrate()
@@ -50,16 +58,27 @@ class ReferenceStore:
             raise RuntimeError(
                 f"database schema {current} is newer than supported schema {SCHEMA_VERSION}"
             )
-        if current < SCHEMA_VERSION:
-            self._conn.executescript(SCHEMA_SQL)
-            self._conn.execute(f"PRAGMA user_version = {SCHEMA_VERSION}")
+        while current < SCHEMA_VERSION:
+            migration = MIGRATIONS.get(current)
+            if migration is None:
+                raise RuntimeError(f"missing migration from schema version {current}")
+            self._conn.executescript(migration)
+            current += 1
+            self._conn.execute(f"PRAGMA user_version = {current}")
             self._conn.commit()
         self._migrated = True
         return self.schema_version
 
     def counts(self) -> dict[str, int]:
         self._ensure_schema()
-        tables = ("entities", "identifiers", "relations", "provenance", "ingest_runs")
+        tables = (
+            "entities",
+            "identifiers",
+            "relations",
+            "provenance",
+            "ingest_runs",
+            "ingest_events",
+        )
         return {
             table: int(self._conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0])
             for table in tables
@@ -94,7 +113,7 @@ class ReferenceStore:
 
         if not matched_ids:
             metadata_text = self._dump_json(incoming_metadata)
-            with self._conn:
+            with self._write_scope():
                 cursor = self._conn.execute(
                     "INSERT INTO entities (kind, title, metadata) VALUES (?, ?, ?)",
                     (kind, title or "", metadata_text),
@@ -120,7 +139,7 @@ class ReferenceStore:
         merged_metadata.update(incoming_metadata)
         merged_title = existing["title"] or title or ""
 
-        with self._conn:
+        with self._write_scope():
             self._conn.execute(
                 "UPDATE entities SET title = ?, metadata = ? WHERE id = ?",
                 (merged_title, self._dump_json(merged_metadata), entity_id),
@@ -133,7 +152,7 @@ class ReferenceStore:
         relation = relation.strip()
         if not relation:
             raise ValueError("relation must not be empty")
-        with self._conn:
+        with self._write_scope():
             self._conn.execute(
                 "INSERT OR IGNORE INTO relations (source_id, target_id, relation) VALUES (?, ?, ?)",
                 (source_id, target_id, relation),
@@ -149,7 +168,7 @@ class ReferenceStore:
         self._ensure_schema()
         if not all(value.strip() for value in (source, source_ref, retrieved_at)):
             raise ValueError("source, source_ref, and retrieved_at are required")
-        with self._conn:
+        with self._write_scope():
             self._conn.execute(
                 """
                 INSERT OR IGNORE INTO provenance
@@ -167,21 +186,130 @@ class ReferenceStore:
         started_at: str,
         finished_at: str,
         record_count: int,
+        expects_events: bool = False,
     ) -> None:
         self._ensure_schema()
         if record_count < 0:
             raise ValueError("record_count must be non-negative")
         if not all(value.strip() for value in (run_id, source, started_at, finished_at)):
             raise ValueError("ingest-run fields must not be empty")
-        with self._conn:
+        with self._write_scope():
             self._conn.execute(
                 """
                 INSERT OR IGNORE INTO ingest_runs
-                    (run_id, source, started_at, finished_at, record_count)
-                VALUES (?, ?, ?, ?, ?)
+                    (run_id, source, started_at, finished_at, record_count, expects_events)
+                VALUES (?, ?, ?, ?, ?, ?)
                 """,
-                (run_id, source, started_at, finished_at, record_count),
+                (
+                    run_id,
+                    source,
+                    started_at,
+                    finished_at,
+                    record_count,
+                    int(expects_events),
+                ),
             )
+
+    def ingest_records(
+        self,
+        records: list[InterchangeRecord],
+        *,
+        run_id: str,
+        source: str,
+        started_at: str,
+        finished_at: str,
+    ) -> dict[str, int]:
+        """Ingest parsed records and retain one auditable decision per input record."""
+        self._ensure_schema()
+        existing_run = self._conn.execute(
+            "SELECT record_count FROM ingest_runs WHERE run_id = ?", (run_id,)
+        ).fetchone()
+        if existing_run is not None:
+            rows = self._conn.execute(
+                "SELECT action, COUNT(*) AS count FROM ingest_events WHERE run_id = ? GROUP BY action",
+                (run_id,),
+            ).fetchall()
+            event_count = sum(int(row["count"]) for row in rows)
+            if event_count != int(existing_run["record_count"]):
+                raise RuntimeError(f"incomplete prior ingest run: {run_id}")
+            existing_summary = {"inserted": 0, "merged": 0, "rejected": 0}
+            for row in rows:
+                existing_summary[str(row["action"])] = int(row["count"])
+            return existing_summary
+        self._batch_depth += 1
+        try:
+            with self._conn:
+                if not self._conn.in_transaction:
+                    self._conn.execute("BEGIN")
+                return self._ingest_new_run(
+                    records,
+                    run_id=run_id,
+                    source=source,
+                    started_at=started_at,
+                    finished_at=finished_at,
+                )
+        finally:
+            self._batch_depth -= 1
+
+    def _ingest_new_run(
+        self,
+        records: list[InterchangeRecord],
+        *,
+        run_id: str,
+        source: str,
+        started_at: str,
+        finished_at: str,
+    ) -> dict[str, int]:
+        self.record_ingest_run(
+            run_id=run_id,
+            source=source,
+            started_at=started_at,
+            finished_at=finished_at,
+            record_count=len(records),
+            expects_events=True,
+        )
+        summary = {"inserted": 0, "merged": 0, "rejected": 0}
+        for record_index, record in enumerate(records):
+            try:
+                normalized = self.normalize_identifiers(record.identifiers)
+                matched_before = self._find_entity_ids(normalized)
+                entity_id = self.upsert_entity(
+                    kind=record.kind,
+                    title=record.title,
+                    identifiers=normalized,
+                    metadata=record.metadata,
+                )
+                action = "merged" if matched_before else "inserted"
+                entity_ref = self._entity_reference(entity_id)
+                self.add_provenance(
+                    entity_id,
+                    source=source,
+                    source_ref=record.input_ref,
+                    retrieved_at=finished_at,
+                )
+                detail: dict[str, Any] = {"identifier_count": len(normalized)}
+            except (InterchangeError, ValueError) as exc:
+                action = "rejected"
+                entity_ref = None
+                detail = {"reason": str(exc)}
+            summary[action] += 1
+            with self._write_scope():
+                self._conn.execute(
+                    """
+                    INSERT OR IGNORE INTO ingest_events
+                        (run_id, record_index, input_ref, action, entity_ref, detail)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        run_id,
+                        record_index,
+                        record.input_ref,
+                        action,
+                        entity_ref,
+                        self._dump_json(detail),
+                    ),
+                )
+        return summary
 
     def verify(self) -> list[str]:
         """Return integrity findings; an empty list means the store is clean."""
@@ -212,6 +340,23 @@ class ReferenceStore:
         ).fetchall()
         if collisions:
             issues.append(f"duplicate identifiers: {len(collisions)}")
+
+        incomplete_runs = self._conn.execute(
+            """
+            SELECT r.run_id, r.record_count, COUNT(e.id) AS event_count
+            FROM ingest_runs AS r
+            LEFT JOIN ingest_events AS e ON e.run_id = r.run_id
+            WHERE r.expects_events = 1
+            GROUP BY r.run_id, r.record_count
+            HAVING r.record_count != COUNT(e.id)
+            ORDER BY r.run_id
+            """
+        ).fetchall()
+        for row in incomplete_runs:
+            issues.append(
+                "ingest run event mismatch: "
+                f"{row['run_id']} expected={row['record_count']} actual={row['event_count']}"
+            )
         return issues
 
     def export_json(self) -> str:
@@ -225,37 +370,58 @@ class ReferenceStore:
             "relations": self._load_relations(),
             "provenance": self._load_provenance(),
             "ingest_runs": self._load_ingest_runs(),
+            "ingest_events": self._load_ingest_events(),
         }
         return self._dump_json(payload)
 
     @classmethod
     def normalize_identifiers(cls, identifiers: Mapping[str, str]) -> dict[str, str]:
-        normalized: dict[str, str] = {}
-        for raw_key, raw_value in identifiers.items():
-            if raw_value is None:
-                continue
-            key = str(raw_key).strip().lower()
-            value = str(raw_value).strip()
-            if not key or not value:
-                continue
-
-            if key == "doi":
-                value = value.lower()
-                value = re.sub(r"^https?://(?:dx\.)?doi\.org/", "", value)
-                value = re.sub(r"^doi:\s*", "", value)
-                value = value.lstrip("/")
-            elif key == "pmid":
-                value = re.sub(r"^pmid:\s*", "", value, flags=re.IGNORECASE)
-            elif key == "accession":
-                value = value.upper()
-
-            if value:
-                normalized[key] = value
+        demo_identifiers = {
+            str(key).strip().lower(): str(value).strip()
+            for key, value in identifiers.items()
+            if str(key).strip().lower() == "demo_id" and str(value).strip()
+        }
+        public_identifiers = {
+            key: value
+            for key, value in identifiers.items()
+            if str(key).strip().lower() != "demo_id"
+        }
+        normalized = normalize_identifiers(public_identifiers)
+        normalized.update(demo_identifiers)
         return normalized
 
     def _ensure_schema(self) -> None:
         if not self._migrated:
             self.migrate()
+
+    @contextmanager
+    def _write_scope(self) -> Iterator[None]:
+        if self._batch_depth:
+            if not self._conn.in_transaction:
+                raise RuntimeError("batch write requires an active transaction")
+            yield
+            return
+        with self._conn:
+            yield
+
+    def _entity_reference(self, entity_id: int) -> str:
+        rows = self._conn.execute(
+            """
+            SELECT id_type, id_value
+            FROM identifiers
+            WHERE entity_id = ?
+            ORDER BY id_type, id_value
+            """,
+            (entity_id,),
+        ).fetchall()
+        identifiers = {str(row["id_type"]): str(row["id_value"]) for row in rows}
+        if not identifiers:
+            raise RuntimeError(f"entity has no identifier: {entity_id}")
+        id_type, id_value = min(
+            identifiers.items(),
+            key=lambda item: (_IDENTIFIER_PRIORITY.get(item[0], 99), item[0], item[1]),
+        )
+        return f"{id_type}:{id_value}"
 
     def _find_entity_ids(self, identifiers: Mapping[str, str]) -> set[int]:
         entity_ids: set[int] = set()
@@ -351,7 +517,7 @@ class ReferenceStore:
     def _load_ingest_runs(self) -> list[dict[str, Any]]:
         rows = self._conn.execute(
             """
-            SELECT run_id, source, started_at, finished_at, record_count
+            SELECT run_id, source, started_at, finished_at, record_count, expects_events
             FROM ingest_runs
             ORDER BY run_id
             """
@@ -363,6 +529,27 @@ class ReferenceStore:
                 "started_at": row["started_at"],
                 "finished_at": row["finished_at"],
                 "record_count": int(row["record_count"]),
+                "expects_events": bool(row["expects_events"]),
+            }
+            for row in rows
+        ]
+
+    def _load_ingest_events(self) -> list[dict[str, Any]]:
+        rows = self._conn.execute(
+            """
+            SELECT run_id, record_index, input_ref, action, entity_ref, detail
+            FROM ingest_events
+            ORDER BY run_id, record_index
+            """
+        ).fetchall()
+        return [
+            {
+                "run_id": row["run_id"],
+                "record_index": int(row["record_index"]),
+                "input_ref": row["input_ref"],
+                "action": row["action"],
+                "entity_ref": row["entity_ref"],
+                "detail": self._load_json(row["detail"]),
             }
             for row in rows
         ]

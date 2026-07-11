@@ -33,6 +33,7 @@ def test_public_metadata_demo_is_deterministic_and_metadata_only(tmp_path: Path)
         "relations": 3,
         "provenance": 3,
         "ingest_runs": 1,
+        "ingest_events": 0,
     }
 
     entities = {entity["kind"]: entity for entity in payload["entities"]}
