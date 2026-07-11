@@ -31,7 +31,7 @@ This review separates projects by role. Different roles are not placed in one ru
 
 - The community-maintained [Evidence Synthesis Tools directory](https://evidencesynthesis-tools.github.io/) described **290** open-source tools in early 2026.
 - A disclosed keyword filter over each tool name and first description block retained **116** search, screening, metadata, reference-management, mapping, or workflow-adjacent names. The terms and all retained names are preserved in the raw JSON.
-- From those results and exact-name searches, this review verified a purposeful strategic core of **39 public GitHub repositories** with a same-turn GitHub GraphQL snapshot. This is not a ranked or exhaustive 39-of-116 sample: it retains direct workflow/screening alternatives, metadata/citation components, mapping/bibliometric alternatives, handoff targets, and recent AI/full-text entrants that materially affect positioning.
+- From those results and exact-name searches, this review verified a purposeful strategic core of **43 public GitHub repositories** with a same-turn GitHub GraphQL snapshot. This is not a ranked or exhaustive 43-of-116 sample: it retains direct workflow/screening alternatives, metadata/citation components, mapping/bibliometric alternatives, handoff targets, and recent AI/full-text/scientific-agent entrants that materially affect positioning.
 - It separately reviewed **13 service or freeware alternatives** from their official product pages.
 - Five installable projects were tested in clean Python 3.11 virtual environments for installability and top-level CLI discoverability only.
 
@@ -110,10 +110,13 @@ The raw repository and onboarding snapshot is stored in [`benchmarks/results/202
 | Project | Main role | Product lesson |
 |---|---|---|
 | [PaperQA2](https://github.com/Future-House/paper-qa) | Citation-grounded RAG over user documents | Full-text QA is a mature, dependency-heavy separate product category |
+| [OpenScholar](https://github.com/AkariAsai/OpenScholar) | Apache-2.0 scientific-literature RAG, retriever, training, and evaluation code | A serious scientific-synthesis reference architecture; its large datastore and compute profile are outside SHawn's lightweight metadata niche |
+| [AgentSLR](https://github.com/OxRML/AgentSLR) | Retrieval, screening, OCR, extraction, write-up, and evaluation for nine epidemiological review topics | A research evaluation harness rather than a mature product, but its end-to-end approach is a competitive signal; no repository license was detected, and study-specific speed/quality claims must not be generalized |
 | [LatteReview](https://github.com/PouriaRouzrokh/LatteReview) | Agentic review automation | Agentic orchestration is moving quickly but does not replace metadata provenance |
 | [LitLLMs](https://github.com/LitLLM/litllms-for-literature-review-tmlr) | Evaluation of LLMs for literature review | Evaluation evidence should precede broad AI claims |
 | [DenseReviewer](https://github.com/ielab/densereviewer) | Dense-retrieval screening prioritization | Relevance ranking needs recall-oriented evaluation if SHawn claims review utility |
 | [ProfOlaf](https://github.com/sr-lab/ProfOlaf) | Citation snowballing | Citation expansion is a focused feature with clearer user value than generic AI prose |
+| [Robin](https://github.com/Future-House/robin) | Apache-2.0 literature-to-hypothesis, experiment-planning, and data-analysis agent | Long-horizon scientific-discovery reference, not a direct handoff substitute; literature and data-analysis paths require paid Edison platform access plus model credentials |
 
 **Implication:** full-text RAG, AI screening, and autonomous synthesis should remain integrations or later optional layers. Adding an LLM now would increase cost and risk without fixing the handoff gap.
 
@@ -128,7 +131,7 @@ These products are kept separate because repository metrics are not comparable. 
 | [Covidence](https://www.covidence.org/) | End-to-end systematic-review management and collaboration | Commercial hosted product |
 | [DistillerSR](https://www.distillersr.com/) | Configurable, auditable literature-evidence management | Commercial enterprise platform |
 | [Nested Knowledge](https://about.nested-knowledge.com/) | Living SLR, screening, extraction, meta-analysis, and interactive synthesis | Hosted commercial platform |
-| [EPPI-Reviewer](https://eppi.ioe.ac.uk/cms/er4/) | Review management, searching, screening, extraction, mapping, and synthesis | Hosted product with current 2026 release history; full-product OSS source not established |
+| [EPPI-Reviewer](https://eppi.ioe.ac.uk/cms/er4/) | Review management, searching, screening, extraction, mapping, and synthesis | [Most visible source](https://github.com/EPPI-Centre/ER4) is public under FSL-1.1-MIT and explicitly source-available, not strict OSS; ML components and EPPI Mapper are not included, subscriptions and third-party licenses are still required |
 | [CADIMA](https://www.cadima.info/) | Free team-based systematic review and map workflow | Free web tool; full-product OSI source not established |
 | [ResearchRabbit](https://www.researchrabbit.ai/) | Paper discovery, collections, citation exploration, and visual context | Hosted discovery product; full-product OSS source not established |
 | [Connected Papers](https://www.connectedpapers.com/) | Seed-paper similarity graph and prior/derivative works | Hosted visual-discovery product |
@@ -139,7 +142,7 @@ These products are kept separate because repository metrics are not comparable. 
 
 ## Dated public repository snapshot
 
-Selected strategic rows from the 39-repository raw snapshot:
+Selected strategic rows from the 43-repository raw snapshot:
 
 | Project | Stars | Forks | Latest release | Last push | License field | Interpretation |
 |---|---:|---:|---|---|---|---|
@@ -158,6 +161,10 @@ Selected strategic rows from the 39-repository raw snapshot:
 | HAWC | 28 | 17 | v2026.1 (2026-04-21) | 2026-07-04 | unresolved | Active structured review workspace |
 | citracer | 23 | 0 | v1.7.0 (2026-04-13) | 2026-04-13 | MIT | New focused citation-graph project |
 | Open Paper | 376 | 58 | none in GitHub | 2026-07-10 | AGPL-3.0 | Active user-owned paper-library surface |
+| OpenScholar | 1,557 | 169 | none in GitHub | 2025-08-13 | Apache-2.0 | Substantial scientific RAG reference architecture; no push after 2025-08-13 in this snapshot |
+| AgentSLR | 23 | 5 | none in GitHub | 2026-05-07 | unresolved | Public end-to-end epidemiological SLR evaluation harness; no repo license detected |
+| Robin | 617 | 96 | none in GitHub | 2026-04-21 | Apache-2.0 | Scientific-discovery agent with paid Edison dependencies |
+| EPPI-Reviewer ER4 | 5 | 0 | none in GitHub | 2026-07-08 | FSL-1.1-MIT / GitHub unresolved | Most visible source is public but intentionally not strict OSS |
 
 No row establishes scientific validity or actual active-user count. SHawn's zero stars/forks and absence of documented downstream use remain a real external-evidence gap.
 
@@ -321,7 +328,7 @@ That position is narrower than “complete evidence mapping,” but it is cleare
 
 ## Primary sources
 
-- [Raw 39-repository and onboarding snapshot](../benchmarks/results/2026-07-11-ecosystem-snapshot.json)
+- [Raw 43-repository and onboarding snapshot](../benchmarks/results/2026-07-11-ecosystem-snapshot.json)
 - [Evidence Synthesis Tools directory](https://evidencesynthesis-tools.github.io/)
 - [ASReview official site](https://asreview.nl/)
 - [CoLRev documentation](https://colrev-environment.github.io/colrev/)
@@ -329,6 +336,7 @@ That position is narrower than “complete evidence mapping,” but it is cleare
 - [Open Knowledge Maps](https://openknowledgemaps.org/) and [Headstart](https://github.com/OpenKnowledgeMaps/Headstart)
 - [bibliometrix official site](https://www.bibliometrix.org/)
 - [PaperQA2 repository](https://github.com/Future-House/paper-qa)
+- [AgentSLR repository](https://github.com/OxRML/AgentSLR), [OpenScholar repository](https://github.com/AkariAsai/OpenScholar), and [Robin repository](https://github.com/Future-House/robin)
 - [Rayyan](https://www.rayyan.ai/), [Elicit](https://elicit.com/), [Covidence](https://www.covidence.org/), [DistillerSR](https://www.distillersr.com/), and [Nested Knowledge](https://about.nested-knowledge.com/)
 - [ResearchRabbit](https://www.researchrabbit.ai/), [Connected Papers](https://www.connectedpapers.com/), [Litmaps](https://www.litmaps.com/), [Scite](https://scite.ai/), and [VOSviewer](https://www.vosviewer.com/)
-- [CADIMA](https://www.cadima.info/) and [EPPI-Reviewer](https://eppi.ioe.ac.uk/cms/er4/)
+- [CADIMA](https://www.cadima.info/) and [EPPI-Reviewer](https://eppi.ioe.ac.uk/cms/er4/) with its [source-available ER4 repository](https://github.com/EPPI-Centre/ER4)
