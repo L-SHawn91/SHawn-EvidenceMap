@@ -9,6 +9,7 @@ HARD_PATTERNS = [
     re.compile(r"(?i)(api[_-]?key|secret|token|password|cookie)\s*[=:]\s*['\"]?[A-Za-z0-9_\-]{20,}"),
     re.compile(r"/(home|Users)/[^\s]+/(SHawn|SHide|OneDrive|Clouds)/"),
     re.compile(r"(?i)(corpus\.db|private[_-]?corpus|raw[_-]?manuscript)"),
+    re.compile(r"(?i)\b[a-z0-9._%+-]+@gmail\.com\b"),
 ]
 SKIP_PARTS = {'.git', '.venv', 'node_modules', '__pycache__', 'dist', 'build'}
 

@@ -1,0 +1,25 @@
+TY  - JOUR
+TI  - Imbalanced Host Response to SARS-CoV-2 Drives Development of COVID-19.
+PY  - 2020
+JO  - Cell
+DO  - 10.1016/j.cell.2020.04.026
+AN  - pmid:32416070
+UR  - https://pubmed.ncbi.nlm.nih.gov/32416070/
+ER  -
+
+TY  - JOUR
+TI  - Synthetic Bridge Record B
+AU  - Example Author
+PY  - 2024
+JO  - Synthetic Journal
+DO  - 10.5555/synthetic-demo-b
+AN  - pmid:22222222
+ER  -
+
+TY  - DATA
+TI  - Transcriptional response to SARS-CoV-2 infection
+PY  - 2020
+JO  - NCBI GEO
+AN  - accession:GSE147507
+UR  - https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE147507
+ER  -

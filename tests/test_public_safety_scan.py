@@ -24,3 +24,11 @@ def test_public_safety_scan_rejects_secret_like_assignment(tmp_path):
     result = run_scan(tmp_path)
     assert result.returncode == 1
     assert "PUBLIC_SAFETY_FAIL" in result.stdout
+
+
+def test_public_safety_scan_rejects_personal_gmail_contact(tmp_path):
+    address = "personal" + "@gmail.com"
+    (tmp_path / "landing.html").write_text(f"Contact: {address}\n")
+    result = run_scan(tmp_path)
+    assert result.returncode == 1
+    assert "PUBLIC_SAFETY_FAIL" in result.stdout

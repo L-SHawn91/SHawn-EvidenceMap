@@ -11,6 +11,10 @@ PUBLIC_STATUS: public-demo · early-stage OSS
 
 `Verifiable` means that local database integrity, normalized identifiers, provenance, and per-record ingest decisions can be inspected again. It does **not** mean that an imported identifier was resolved against an external registry. The project is not a screening platform, full-text synthesis system, meta-analysis engine, or complete bibliometric/knowledge-map application.
 
+[![Watch the executable 60-second metadata bridge demo](web/assets/pilot-demo-poster.png)](https://l-shawn91.github.io/SHawn-EvidenceMap/assets/pilot-demo-60s.mp4)
+
+**[Watch the 60-second demo](https://l-shawn91.github.io/SHawn-EvidenceMap/assets/pilot-demo-60s.mp4)** · **[Inspect the Metadata Audit Pilot](https://l-shawn91.github.io/SHawn-EvidenceMap/pilot.html)** · **[Request a pilot in Discussion #9](https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9)**
+
 ## Public review quick facts
 
 - **Representative repo:** `SHawn-EvidenceMap`
@@ -19,6 +23,8 @@ PUBLIC_STATUS: public-demo · early-stage OSS
 - **Demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/
 - **Synthetic database demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/db-demo/
 - **Public metadata linkage demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/public-metadata-demo/
+- **Executable 60-second bridge demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/assets/pilot-demo-60s.mp4
+- **Metadata Audit Pilot:** https://l-shawn91.github.io/SHawn-EvidenceMap/pilot.html
 - **Five-minute pilot:** [`docs/PILOT_QUICKSTART.md`](docs/PILOT_QUICKSTART.md)
 - **Verification:** public CI passes `pytest`, database integrity and determinism checks, `public_safety_scan`, `compileall`, wheel build, CLI verification, and artifact upload
 - **Installable release:** [`v0.2.4` wheel + SHA256SUMS](https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/tag/v0.2.4)

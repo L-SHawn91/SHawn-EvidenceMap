@@ -1,0 +1,11 @@
+{
+  "boundary": "One public metadata record plus explicit synthetic records; no registry resolution is claimed.",
+  "entity_count": 3,
+  "input_records": 6,
+  "summary": {
+    "inserted": 3,
+    "merged": 2,
+    "rejected": 1
+  },
+  "verification": "pass"
+}

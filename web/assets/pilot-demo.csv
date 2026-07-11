@@ -1,0 +1,4 @@
+title,doi,pmid,openalex_id,accession,year,journal,authors,url
+Imbalanced Host Response to SARS-CoV-2 Drives Development of COVID-19.,10.1016/j.cell.2020.04.026,32416070,,,2020,Cell,,https://pubmed.ncbi.nlm.nih.gov/32416070/
+Synthetic Bridge Record B,10.5555/synthetic-demo-b,22222222,,,2024,Synthetic Journal,Example Author,
+Transcriptional response to SARS-CoV-2 infection,,,,GSE147507,2020,NCBI GEO,,https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE147507
