@@ -8,7 +8,7 @@ It is vendor-neutral and describes the repository's public release and maintenan
 - Repository: https://github.com/L-SHawn91/SHawn-EvidenceMap
 - License: Apache-2.0 (`LICENSE` + `NOTICE`)
 - Homepage/demo: https://l-shawn91.github.io/SHawn-EvidenceMap/
-- Release: `v0.2.1` — public-metadata pilot path, after the `v0.2.0` SQLite reference pipeline
+- Release: `v0.2.2` — blind-onboarding safety fixes, after the `v0.2.1` public-metadata pilot
 - Scope: public-safe, database-backed evidence mapping for scholarly metadata and research-agent workflows
 
 ## Maintenance signals
@@ -43,13 +43,13 @@ git status -sb
 
 Current verified state:
 
-- `pytest`: 24 passed
+- `pytest`: 27 passed
 - `public_safety_scan`: `PUBLIC_SAFETY_OK`
 - `compileall`: passed
 - Synthetic and public-metadata SQLite integrity and foreign-key verification: passed
 - Independent database builds produce byte-identical canonical JSON: passed
-- Wheel build: `shawn_evidencemap-0.2.1-py3-none-any.whl`
-- Clean virtual-environment wheel installation, `evidencemap --help`, and reference DB commands: passed
+- Wheel build: `shawn_evidencemap-0.2.2-py3-none-any.whl`
+- Clean virtual-environment wheel installation, domain-neutral generic query, missing-database rejection, `evidencemap --help`, and reference DB commands: passed
 - Release assets: wheel, synthetic/public-metadata SQLite + JSON snapshots, and `SHA256SUMS`
 - Working tree clean at final verification
 

@@ -46,6 +46,21 @@ jobs:
       - name: Verify CLI entry point
         run: evidencemap --help
 
+      - name: Verify blind-onboarding safety
+        run: |
+          python - <<'PY'
+          from evidencemap.cli import build_parser
+          args = build_parser().parse_args(["open science metadata reproducibility"])
+          assert args.cartridge == "generic"
+          print("GENERIC_DEFAULT_OK")
+          PY
+          rm -f build/does-not-exist.sqlite3
+          if python -m evidencemap.refdb verify --db build/does-not-exist.sqlite3; then
+            echo "missing database was incorrectly accepted" >&2
+            exit 1
+          fi
+          test ! -e build/does-not-exist.sqlite3
+
       - name: Build and verify SQLite reference demo
         run: |
           mkdir -p build/reference-demo

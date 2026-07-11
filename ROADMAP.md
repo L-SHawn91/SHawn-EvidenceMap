@@ -2,6 +2,13 @@
 
 SHawn EvidenceMap is an early-stage public-safe evidence mapping toolkit. The roadmap focuses on maintainer hygiene and reusable public workflows rather than private project imports.
 
+## Completed in v0.2.2
+
+- Added missing-database rejection for all read-only SQLite commands.
+- Added safe clickable HTTP(S) provenance links.
+- Added a domain-neutral `generic` cartridge as the default for unscoped scholarly queries.
+- Split onboarding into a real topic-search path and a clearly labeled fixed database fixture.
+
 ## Completed in v0.2.1
 
 - Added a deterministic public PMID/DOI/GEO linkage demo using identifiers, titles, and source URLs only.

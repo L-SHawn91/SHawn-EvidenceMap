@@ -64,6 +64,9 @@ def test_public_metadata_page_states_registry_linkage_boundary(tmp_path: Path) -
     assert EXPECTED_DATASET_TITLE in page
     assert EXPECTED_LINKAGE in page
     assert "5-minute pilot" in page
+    assert 'href="https://pubmed.ncbi.nlm.nih.gov/32416070/"' in page
+    assert 'href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE147507"' in page
+    assert 'rel="noopener noreferrer"' in page
 
 
 def test_public_demo_cli_builds_and_exports_without_network(tmp_path: Path) -> None:

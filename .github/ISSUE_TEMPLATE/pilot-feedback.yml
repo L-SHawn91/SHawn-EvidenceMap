@@ -9,16 +9,28 @@ body:
       value: |
         Thank you for testing SHawn EvidenceMap. Report what actually happened, including failures. Do not include private manuscripts, PDFs, credentials, patient/sample data, unpublished results, or confidential project details.
   - type: dropdown
+    id: path
+    attributes:
+      label: Onboarding path
+      description: Which public workflow did you test?
+      options:
+        - Search my own topic with the generic cartridge
+        - Search with an explicit domain cartridge
+        - Verify the fixed SQLite/JSON/HTML reference fixture
+        - Review the public demo without installing
+    validations:
+      required: true
+  - type: dropdown
     id: result
     attributes:
       label: Pilot result
-      description: What happened when you followed the five-minute pilot?
+      description: What happened when you followed that path?
       options:
         - Completed successfully
         - Completed with usability friction
         - Failed during installation
         - Failed during database build or verification
-        - Reviewed the public demo without installing
+        - Stopped because the expected use case was unsupported
     validations:
       required: true
   - type: input
