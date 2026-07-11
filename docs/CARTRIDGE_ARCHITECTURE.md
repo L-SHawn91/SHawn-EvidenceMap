@@ -15,6 +15,8 @@ core/
   cache/export/safety
 
 cartridges/
+  generic/
+    domain-neutral aliases and labels
   bio/
     sources
     ranking
@@ -27,9 +29,18 @@ cartridges/
   patent_tech
 ```
 
-## Current Cartridge
+## Current Cartridges
 
 Active public-demo cartridges:
+
+### `generic` (default)
+
+Uses:
+- OpenAlex
+- Crossref
+- domain-neutral review, software/tool, data-resource, methodology, empirical, and background labels
+
+Use an explicit domain cartridge when its source and label vocabulary fits the question.
 
 ### `bio`
 

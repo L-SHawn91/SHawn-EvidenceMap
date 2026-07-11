@@ -9,10 +9,15 @@ from .report import to_customer_report
 from .visual_report import to_visual_html
 
 
-def main() -> None:
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Build a public-demo research evidence map.")
     parser.add_argument("query", help="Research question or topic")
-    parser.add_argument("--cartridge", choices=cartridge_ids(), default="bio", help="Domain cartridge to use")
+    parser.add_argument(
+        "--cartridge",
+        choices=cartridge_ids(),
+        default="generic",
+        help="Domain cartridge to use (default: generic)",
+    )
     parser.add_argument("--limit", type=int, default=20, help="Maximum ranked evidence rows to return")
     parser.add_argument(
         "--ranking-mode",
@@ -25,7 +30,11 @@ def main() -> None:
     parser.add_argument("--markdown", action="store_true", help="Print Markdown instead of JSON")
     parser.add_argument("--report", action="store_true", help="Print fixed customer report Markdown")
     parser.add_argument("--html-report", action="store_true", help="Print fixed visual customer report HTML")
-    args = parser.parse_args()
+    return parser
+
+
+def main() -> None:
+    args = build_parser().parse_args()
 
     evidence_map = build_evidence_map(
         args.query,

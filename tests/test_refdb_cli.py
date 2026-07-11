@@ -49,15 +49,37 @@ def test_refdb_cli_demo_verify_export_and_page(tmp_path: Path) -> None:
     assert "No private corpus, manuscript, or operational database is included" in html
 
 
+def test_refdb_read_commands_reject_missing_database_without_creating_file(tmp_path: Path) -> None:
+    commands = (
+        ("verify",),
+        ("export", "--out", str(tmp_path / "missing.json")),
+        ("page", "--out", str(tmp_path / "missing.html")),
+    )
+
+    for index, command in enumerate(commands):
+        db_path = tmp_path / f"missing-{index}.sqlite3"
+        result = _run_module(*command, "--db", str(db_path), cwd=tmp_path)
+
+        assert result.returncode != 0
+        assert "database does not exist" in result.stderr
+        assert not db_path.exists()
+
+
 def test_render_demo_page_is_deterministic_and_escapes_content(tmp_path: Path) -> None:
     db_path = tmp_path / "demo.sqlite3"
     with ReferenceStore(db_path) as store:
         build_synthetic_demo(store)
-        store.upsert_entity(
+        entity_id = store.upsert_entity(
             kind="claim",
             title="<script>alert('synthetic')</script>",
             identifiers={"demo_id": "escape-check"},
             metadata={"data_class": "synthetic"},
+        )
+        store.add_provenance(
+            entity_id,
+            source="synthetic_fixture",
+            source_ref="javascript:alert('unsafe')",
+            retrieved_at="2026-01-01T00:00:00Z",
         )
         export_json = store.export_json()
 
@@ -67,5 +89,7 @@ def test_render_demo_page_is_deterministic_and_escapes_content(tmp_path: Path) -
     assert first == second
     assert "<script>" not in first
     assert "&lt;script&gt;alert(&#x27;synthetic&#x27;)&lt;/script&gt;" in first
+    assert 'href="javascript:' not in first
+    assert "javascript:alert(&#x27;unsafe&#x27;)" in first
     assert "Synthetic database reference demo" in first
     assert "DEMO-DS-001" in first

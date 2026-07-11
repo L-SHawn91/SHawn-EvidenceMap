@@ -2,6 +2,22 @@
 
 All notable public changes to this project are documented here.
 
+## [0.2.2] - 2026-07-11
+
+### Fixed
+- Read-only database commands now reject missing paths without creating or approving empty SQLite files.
+- Public provenance URLs render as safe, clickable HTTP(S) links; non-HTTP schemes remain escaped text.
+- Unscoped scholarly queries now use a domain-neutral `generic` cartridge instead of biomedical labels.
+- The build requirement now matches the setuptools version needed for SPDX license expressions in clean wheel builds.
+
+### Improved
+- The onboarding guide separates real topic search from the fixed offline database fixture.
+- Documentation states that custom DOI/PMID/GEO replacement is not supported by the v0.2.2 database pilot.
+- Negative-path expectations are documented for pilot verification.
+
+### Verification
+- Clean-wheel blind testing covers valid setup, offline rerun, missing-database rejection, public links, and generic query labels.
+
 ## [0.2.1] - 2026-07-10
 
 ### Added

@@ -4,7 +4,7 @@ PUBLIC_STATUS: public-demo · early-stage OSS
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 [![Public boundary](https://img.shields.io/badge/public--boundary-metadata%20%2B%20toy%20data-green.svg)](docs/PUBLIC_BOUNDARY.md)
-[![Release: v0.2.1](https://img.shields.io/badge/release-v0.2.1-informational.svg)](CHANGELOG.md)
+[![Release: v0.2.2](https://img.shields.io/badge/release-v0.2.2-informational.svg)](CHANGELOG.md)
 [![Public CI](https://github.com/L-SHawn91/SHawn-EvidenceMap/actions/workflows/ci.yml/badge.svg)](https://github.com/L-SHawn91/SHawn-EvidenceMap/actions/workflows/ci.yml)
 
 Research evidence mapping from public literature metadata.
@@ -13,13 +13,13 @@ Research evidence mapping from public literature metadata.
 
 - **Representative repo:** `SHawn-EvidenceMap`
 - **License:** Apache-2.0
-- **Release:** `v0.2.1` public-metadata pilot release after the `v0.2.0` SQLite reference-pipeline release
+- **Release:** `v0.2.2` blind-onboarding safety release after the `v0.2.1` public-metadata pilot
 - **Demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/
 - **Synthetic database demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/db-demo/
 - **Public metadata linkage demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/public-metadata-demo/
 - **Five-minute pilot:** [`docs/PILOT_QUICKSTART.md`](docs/PILOT_QUICKSTART.md)
 - **Verification:** public CI passes `pytest`, database integrity and determinism checks, `public_safety_scan`, `compileall`, wheel build, CLI verification, and artifact upload
-- **Installable release:** [`v0.2.1` wheel + SHA256SUMS](https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/tag/v0.2.1)
+- **Installable release:** [`v0.2.2` wheel + SHA256SUMS](https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/tag/v0.2.2)
 - **Installation:** [`docs/INSTALLATION.md`](docs/INSTALLATION.md)
 - **Community/pilot requests:** [GitHub Discussion #9](https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9)
 - **Maintainer evidence:** [`docs/MAINTAINER_EVIDENCE.md`](docs/MAINTAINER_EVIDENCE.md)
@@ -93,7 +93,7 @@ Included:
 - Europe PMC adapter
 - OpenAlex adapter for general scholarly cartridges
 - Crossref adapter for general scholarly cartridges
-- Cartridge architecture with `bio` as the first active cartridge
+- Cartridge architecture with `generic` as the domain-neutral default and explicit domain cartridges
 - Abstract-level triage
 - Claim/evidence table schema
 - Markdown and JSON export
@@ -114,17 +114,30 @@ Excluded:
 
 ## Quick Start
 
-Install the verified v0.2.1 release wheel:
+Install the verified v0.2.2 release wheel:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/download/v0.2.1/shawn_evidencemap-0.2.1-py3-none-any.whl
+python -m pip install https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/download/v0.2.2/shawn_evidencemap-0.2.2-py3-none-any.whl
+```
+
+### Search public metadata for your own topic
+
+```bash
+evidencemap "open science metadata reproducibility" --limit 3 --markdown --no-cache
+```
+
+The domain-neutral `generic` cartridge is the default. Select `--cartridge bio`, `ai_cs`, `policy`, `education`, `legal`, or `patent_tech` when domain-specific sources and labels are appropriate.
+
+### Verify the fixed SQLite reference fixture
+
+```bash
 python -m evidencemap.refdb public-demo --db public-metadata.sqlite3
 python -m evidencemap.refdb verify --db public-metadata.sqlite3
 ```
 
-See [`docs/INSTALLATION.md`](docs/INSTALLATION.md) for checksum verification and source installation.
+The database pilot is fixture-only in v0.2.2; it does not accept replacement DOI, PMID, or GEO identifiers. See the [`five-minute onboarding`](docs/PILOT_QUICKSTART.md) for both paths and negative-path expectations. See [`docs/INSTALLATION.md`](docs/INSTALLATION.md) for checksum verification and source installation.
 
 From a source checkout:
 
@@ -150,6 +163,7 @@ src/evidencemap/cartridges/bio/
 
 Active public-demo cartridges:
 
+- `generic`: domain-neutral scholarly metadata (default)
 - `bio`: biomedical literature
 - `ai_cs`: AI and computer science
 - `policy`: policy and governance research

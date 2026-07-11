@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import sys
 from typing import Sequence
 
 from .demo import build_public_metadata_demo, build_synthetic_demo, render_demo_page
@@ -26,6 +27,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if args.command in {"export", "page"} and args.out is None:
         parser.error("--out is required for export and page")
+    if args.command in {"verify", "export", "page"} and not args.db.is_file():
+        print(f"REFERENCE_DB_ERROR: database does not exist: {args.db}", file=sys.stderr)
+        return 2
 
     with ReferenceStore(args.db) as store:
         if args.command == "demo":

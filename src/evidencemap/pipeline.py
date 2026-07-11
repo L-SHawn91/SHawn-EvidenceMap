@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from .cartridges import get_cartridge
 from .cache import get_cached_map, set_cached_map
-from .core.dedupe import dedupe_key, dedupe_papers, merge_into
 from .core.pipeline import build_with_cartridge
 from .models import EvidenceMap
 
@@ -11,7 +10,7 @@ def build_evidence_map(
     query: str,
     limit: int = 20,
     ranking_mode: str = "recent",
-    cartridge_id: str = "bio",
+    cartridge_id: str = "generic",
     use_cache: bool = True,
     cache_ttl_hours: float = 24,
 ) -> EvidenceMap:

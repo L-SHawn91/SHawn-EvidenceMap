@@ -3,6 +3,7 @@ from __future__ import annotations
 import html
 import json
 from typing import Any, Mapping
+from urllib.parse import urlsplit
 
 from .schema import SCHEMA_VERSION
 from .store import ReferenceStore
@@ -194,6 +195,17 @@ def render_demo_page(export_data: str | Mapping[str, Any]) -> str:
     def esc(value: Any) -> str:
         return html.escape(str(value), quote=True)
 
+    def reference_html(value: Any) -> str:
+        raw = str(value)
+        parsed = urlsplit(raw)
+        escaped = esc(raw)
+        if parsed.scheme in {"http", "https"} and parsed.netloc:
+            return (
+                f'<a href="{escaped}" target="_blank" rel="noopener noreferrer">'
+                f"<code>{escaped}</code></a>"
+            )
+        return f"<code>{escaped}</code>"
+
     entity_rows = "".join(
         "<tr>"
         f"<td data-label=\"Kind\"><span class=\"kind {esc(entity.get('kind', ''))}\">{esc(entity.get('kind', ''))}</span></td>"
@@ -214,7 +226,7 @@ def render_demo_page(export_data: str | Mapping[str, Any]) -> str:
         "<tr>"
         f"<td data-label=\"Entity\"><code>{esc(row.get('entity', ''))}</code></td>"
         f"<td data-label=\"Source\">{esc(row.get('source', ''))}</td>"
-        f"<td data-label=\"Reference\"><code>{esc(row.get('source_ref', ''))}</code></td>"
+        f"<td data-label=\"Reference\">{reference_html(row.get('source_ref', ''))}</td>"
         f"<td data-label=\"Retrieved\">{esc(row.get('retrieved_at', ''))}</td>"
         "</tr>"
         for row in provenance
@@ -277,6 +289,7 @@ def render_demo_page(export_data: str | Mapping[str, Any]) -> str:
     th {{ color:var(--muted); font-size:11px; letter-spacing:.07em; text-transform:uppercase; }}
     tbody tr:last-child td {{ border-bottom:0; }}
     code {{ color:#365149; font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace; overflow-wrap:anywhere; }}
+    td a {{ color:var(--sage); text-underline-offset:2px; }}
     .kind,.relation {{ display:inline-flex; padding:4px 8px; border-radius:999px; font-size:11px; font-weight:800; white-space:nowrap; }}
     .kind {{ background:var(--sage-soft); color:var(--sage); }}
     .kind.dataset {{ background:#f6ead2; color:#875f1e; }}

@@ -19,7 +19,7 @@ def get_cached_map(
     limit: int,
     ranking_mode: str,
     ttl_hours: float,
-    cartridge_id: str = "bio",
+    cartridge_id: str = "generic",
     cache_path: Path = DEFAULT_CACHE_PATH,
 ) -> EvidenceMap | None:
     payload = load_cache(cache_path)
@@ -36,7 +36,7 @@ def set_cached_map(
     evidence_map: EvidenceMap,
     limit: int,
     ranking_mode: str,
-    cartridge_id: str = "bio",
+    cartridge_id: str = "generic",
     cache_path: Path = DEFAULT_CACHE_PATH,
 ) -> None:
     payload = load_cache(cache_path)
@@ -47,7 +47,7 @@ def set_cached_map(
     save_cache(payload, cache_path)
 
 
-def cache_key(query: str, limit: int, ranking_mode: str, cartridge_id: str = "bio") -> str:
+def cache_key(query: str, limit: int, ranking_mode: str, cartridge_id: str = "generic") -> str:
     raw = f"{CACHE_VERSION}|{cartridge_id}|{query.strip().lower()}|{limit}|{ranking_mode}"
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
@@ -69,4 +69,4 @@ def save_cache(payload: dict[str, Any], cache_path: Path) -> None:
 def map_from_dict(data: dict[str, Any]) -> EvidenceMap:
     papers = [Paper(**paper) for paper in data.get("papers", [])]
     rows = [EvidenceRow(**row) for row in data.get("rows", [])]
-    return EvidenceMap(query=data.get("query", ""), papers=papers, rows=rows, cartridge=data.get("cartridge", "bio"))
+    return EvidenceMap(query=data.get("query", ""), papers=papers, rows=rows, cartridge=data.get("cartridge", "generic"))

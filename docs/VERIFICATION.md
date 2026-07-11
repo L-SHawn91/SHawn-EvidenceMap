@@ -14,18 +14,24 @@ PYTHONPATH=src python3 -m evidencemap.refdb demo --db build/reference-demo.sqlit
 PYTHONPATH=src python3 -m evidencemap.refdb verify --db build/reference-demo.sqlite3
 PYTHONPATH=src python3 -m evidencemap.refdb public-demo --db build/public-metadata.sqlite3
 PYTHONPATH=src python3 -m evidencemap.refdb verify --db build/public-metadata.sqlite3
+rm -f build/does-not-exist.sqlite3
+! PYTHONPATH=src python3 -m evidencemap.refdb verify --db build/does-not-exist.sqlite3
+test ! -e build/does-not-exist.sqlite3
 git diff --check
 git status -sb
 ```
 
-Current expected result for v0.2.1:
+Current expected result for v0.2.2:
 
 ```text
-pytest: 24 passed
+pytest: 27 passed
 public_safety_scan: PUBLIC_SAFETY_OK
 compileall: OK
 synthetic_reference_db: REFERENCE_DB_OK
 public_metadata_db: REFERENCE_DB_OK
+missing database: nonzero exit and no file creation
+safe provenance links: HTTP(S) only
+unscoped query cartridge: generic
 deterministic JSON export: OK
 static database page parity: OK
 git diff --check: OK
