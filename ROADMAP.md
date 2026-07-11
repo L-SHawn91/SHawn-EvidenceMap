@@ -2,6 +2,13 @@
 
 SHawn EvidenceMap is an early-stage public-safe evidence mapping toolkit. The roadmap focuses on maintainer hygiene and reusable public workflows rather than private project imports.
 
+## Completed in v0.2.4
+
+- Positioned the product as **SHawn EvidenceMap — Verifiable Metadata Bridge** with an explicit local-verification boundary.
+- Added user-supplied DOI, PMID, OpenAlex work ID, and explicit public-accession ingestion.
+- Added CSV, conservative RIS, and conservative BibTeX import plus deterministic entity-only exports.
+- Added schema v2 per-record ingest events, source provenance, and a tested v1→v2 migration.
+
 ## Completed in v0.2.3
 
 - Added a reproducible, correctness-first public benchmark runner and raw JSON report.
@@ -30,9 +37,8 @@ SHawn EvidenceMap is an early-stage public-safe evidence mapping toolkit. The ro
 
 ## Near-term
 
-- Accept user-supplied DOI, PMID, OpenAlex ID, and public-registry identifier lists.
-- Add standards-based RIS, BibTeX, and CSV import/export handoffs while retaining canonical JSON/SQLite artifacts.
-- Record source queries, result counts, identifier resolution, and deduplication decisions as machine-readable audit data.
+- Add opt-in public-registry resolution adapters while preserving the distinction between imported and resolved identifiers.
+- Record source queries, result counts, resolution status, and richer field-level merge decisions as machine-readable audit data.
 - Maintain the active GitHub Actions Public CI gate and expand adapter coverage without requiring secrets.
 - Add more public metadata adapter tests for PubMed, Europe PMC, OpenAlex, and Crossref.
 - Expand toy examples for the `bio`, `ai_cs`, `policy`, `education`, `legal`, and `patent_tech` cartridges.

@@ -87,6 +87,21 @@ jobs:
           cmp build/public-metadata-demo/demo-a.json web/public-metadata-demo/reference.json
           cmp build/public-metadata-demo/index.html web/public-metadata-demo/index.html
 
+      - name: Verify verifiable metadata bridge handoffs
+        run: |
+          mkdir -p build/bridge
+          printf 'doi:10.1000/example\nPMID:12345\nhttps://openalex.org/W98765\naccession:GSE1234\n' > build/bridge/identifiers.txt
+          python -m evidencemap.refdb ingest --db build/bridge/bridge.sqlite3 --input build/bridge/identifiers.txt --format identifiers --recorded-at 2026-07-11T00:00:00Z
+          python -m evidencemap.refdb verify --db build/bridge/bridge.sqlite3
+          python -m evidencemap.refdb export --db build/bridge/bridge.sqlite3 --out build/bridge/bridge.json --format json
+          python -m evidencemap.refdb export --db build/bridge/bridge.sqlite3 --out build/bridge/bridge.csv --format csv
+          python -m evidencemap.refdb export --db build/bridge/bridge.sqlite3 --out build/bridge/bridge.ris --format ris
+          python -m evidencemap.refdb export --db build/bridge/bridge.sqlite3 --out build/bridge/bridge.bib --format bibtex
+          grep -q '"ingest_events"' build/bridge/bridge.json
+          grep -q 'openalex_id' build/bridge/bridge.csv
+          grep -q 'AN  - openalex:W98765' build/bridge/bridge.ris
+          grep -q '@article{doi_10_1000_example' build/bridge/bridge.bib
+
       - name: Upload wheel artifact
         uses: actions/upload-artifact@v7
         with:

@@ -93,3 +93,70 @@ def test_render_demo_page_is_deterministic_and_escapes_content(tmp_path: Path) -
     assert "javascript:alert(&#x27;unsafe&#x27;)" in first
     assert "Synthetic database reference demo" in first
     assert "DEMO-DS-001" in first
+
+
+def test_refdb_cli_ingest_and_standard_exports(tmp_path: Path) -> None:
+    input_path = tmp_path / "records.csv"
+    db_path = tmp_path / "bridge.sqlite3"
+    input_path.write_text(
+        "title,doi,pmid,openalex_id,accession,year,journal,authors,url\n"
+        'Paper,10.1000/CLI,,,,2025,Journal,"Kim; Lee",https://example.org/p\n'
+        "Dataset,,,,GSE3000,2024,,,https://example.org/d\n",
+        encoding="utf-8",
+    )
+
+    ingest = _run_module(
+        "ingest",
+        "--db",
+        str(db_path),
+        "--input",
+        str(input_path),
+        "--format",
+        "csv",
+        "--recorded-at",
+        "2026-07-11T00:00:00Z",
+        cwd=tmp_path,
+    )
+    assert ingest.returncode == 0, ingest.stderr
+    assert "REFERENCE_DB_INGEST_OK inserted=2 merged=0 rejected=0" in ingest.stdout
+
+    for output_format, suffix, marker in (
+        ("json", "json", '"ingest_events"'),
+        ("csv", "csv", "title,doi,pmid,openalex_id"),
+        ("ris", "ris", "TY  - JOUR"),
+        ("bibtex", "bib", "@article{doi_10_1000_cli"),
+    ):
+        output_path = tmp_path / f"records.{suffix}"
+        result = _run_module(
+            "export",
+            "--db",
+            str(db_path),
+            "--out",
+            str(output_path),
+            "--format",
+            output_format,
+            cwd=tmp_path,
+        )
+        assert result.returncode == 0, result.stderr
+        assert marker in output_path.read_text(encoding="utf-8")
+
+
+def test_refdb_cli_rejects_malformed_input_before_creating_database(tmp_path: Path) -> None:
+    input_path = tmp_path / "broken.ris"
+    db_path = tmp_path / "must-not-exist.sqlite3"
+    input_path.write_text("TY  - JOUR\nTI  - Missing terminator\n", encoding="utf-8")
+
+    result = _run_module(
+        "ingest",
+        "--db",
+        str(db_path),
+        "--input",
+        str(input_path),
+        "--format",
+        "ris",
+        cwd=tmp_path,
+    )
+
+    assert result.returncode != 0
+    assert "REFERENCE_DB_INPUT_ERROR" in result.stderr
+    assert not db_path.exists()

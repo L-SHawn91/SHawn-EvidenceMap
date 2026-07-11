@@ -100,6 +100,7 @@ def test_relations_cover_paper_dataset_claim_and_are_idempotent(tmp_path: Path) 
             "relations": 2,
             "provenance": 0,
             "ingest_runs": 0,
+            "ingest_events": 0,
         }
         exported = json.loads(store.export_json())
         assert {(row["source"], row["relation"], row["target"]) for row in exported["relations"]} == {
@@ -170,6 +171,7 @@ def test_synthetic_demo_export_is_byte_deterministic(tmp_path: Path) -> None:
         "relations": 5,
         "provenance": 6,
         "ingest_runs": 1,
+        "ingest_events": 0,
     }
     assert all(entity["metadata"].get("data_class") == "synthetic" for entity in payload["entities"])
 
@@ -237,3 +239,18 @@ def test_verify_reports_foreign_key_corruption(tmp_path: Path) -> None:
         issues = store.verify()
 
     assert any("foreign key" in issue.lower() for issue in issues)
+
+
+def test_verify_detects_incomplete_ingest_run(tmp_path: Path) -> None:
+    with ReferenceStore(tmp_path / "incomplete.sqlite3") as store:
+        store.record_ingest_run(
+            run_id="incomplete-run",
+            source="test",
+            started_at="2026-07-11T00:00:00Z",
+            finished_at="2026-07-11T00:00:01Z",
+            record_count=1,
+            expects_events=True,
+        )
+        issues = store.verify()
+
+    assert any("ingest run event mismatch" in issue.lower() for issue in issues)

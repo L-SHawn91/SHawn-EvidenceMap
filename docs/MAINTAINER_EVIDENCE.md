@@ -8,8 +8,8 @@ It is vendor-neutral and describes the repository's public release and maintenan
 - Repository: https://github.com/L-SHawn91/SHawn-EvidenceMap
 - License: Apache-2.0 (`LICENSE` + `NOTICE`)
 - Homepage/demo: https://l-shawn91.github.io/SHawn-EvidenceMap/
-- Release: `v0.2.3` — public benchmark, outreach evidence plan, and optional OpenAlex API-key support
-- Scope: public-safe, database-backed evidence mapping for scholarly metadata and research-agent workflows
+- Release: `v0.2.4` — Verifiable Metadata Bridge ingestion, audit, and interoperability handoffs
+- Scope: public-safe, local-first scholarly metadata search and verifiable handoff workflows
 
 ## Maintenance signals
 
@@ -45,12 +45,12 @@ git status -sb
 
 Current verified state:
 
-- `pytest`: 42 passed
+- `pytest`: 53 passed
 - `public_safety_scan`: `PUBLIC_SAFETY_OK`
 - `compileall`: passed
 - Synthetic and public-metadata SQLite integrity and foreign-key verification: passed
 - Independent database builds produce byte-identical canonical JSON: passed
-- Wheel build: `shawn_evidencemap-0.2.3-py3-none-any.whl`
+- Wheel build: `shawn_evidencemap-0.2.4-py3-none-any.whl`
 - Clean virtual-environment wheel installation, domain-neutral generic query, missing-database rejection, `evidencemap --help`, and reference DB commands: passed
 - Correctness-first public benchmark: all SHawn lanes passed; the PyAlex overlap smoke is informational and not ranked
 - Optional OpenAlex API-key URL construction and credential-safe error handling: passed

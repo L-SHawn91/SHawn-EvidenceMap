@@ -21,10 +21,10 @@ git diff --check
 git status -sb
 ```
 
-Current expected result for v0.2.3:
+Current expected result for v0.2.4:
 
 ```text
-pytest: 42 passed
+pytest: 53 passed
 public_safety_scan: PUBLIC_SAFETY_OK
 compileall: OK
 synthetic_reference_db: REFERENCE_DB_OK
@@ -39,6 +39,8 @@ wheel build: OK
 clean-wheel install, CLI help, and reference DB commands: OK
 public benchmark correctness gates and raw JSON safety: OK
 OpenAlex optional API-key handling and error redaction: OK
+identifier/CSV/RIS/BibTeX ingest and deterministic handoff export: OK
+schema v1-to-v2 migration and per-record ingest audit: OK
 ```
 
 ## What the safety scan checks
