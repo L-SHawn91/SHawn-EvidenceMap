@@ -2,6 +2,17 @@
 
 All notable public changes to this project are documented here.
 
+## [Unreleased]
+
+### Added
+- A dated ecosystem comparison covering a 290-tool discovery census, 116 adjacent names, a same-turn 39-repository public snapshot, 13 service/freeware alternatives, and five clean-environment CLI onboarding smokes.
+- Regression tests for snapshot scope, canonical repository identities, public-safe fields, onboarding-smoke boundaries, and report consistency.
+
+### Changed
+- The project is positioned as a verifiable, deterministic scholarly-metadata snapshot and standards-based handoff layer rather than a complete screening, full-text synthesis, meta-analysis, or knowledge-map application.
+- The near-term roadmap now prioritizes user-supplied identifiers, RIS/BibTeX/CSV interchange, and auditable resolution/deduplication before project diff and interactive-map features.
+- The public benchmark now uses the canonical Citation.js repository snapshot.
+
 ## [0.2.3] - 2026-07-11
 
 ### Added

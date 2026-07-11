@@ -79,7 +79,7 @@ The projects below address related but different tasks. GitHub counts were read 
 | [revtools](https://github.com/mjwestgate/revtools) | R tools supporting research synthesis | 58 | 25 | 2016 | No; different language and workflow |
 | [EviAtlas](https://github.com/ESHackathon/eviatlas) | Geographic visualization for systematic maps | 31 | 9 | 2018 | No; visualization scope |
 | [PyAlex](https://github.com/J535D165/pyalex) | Python interface to OpenAlex | 396 | 50 | 2022 | Overlap smoke only |
-| [Citation.js](https://github.com/larsgw/citation.js) | Citation-format conversion | 239 | 28 | 2015 | No; conversion scope |
+| [Citation.js](https://github.com/citation-js/citation-js) | Citation-format conversion | 206 | 48 | 2024 | No; conversion scope |
 
 This snapshot demonstrates the adoption gap rather than technical superiority: SHawn EvidenceMap has reproducible release evidence but no external stars, forks, contributors, or documented downstream use at the measurement date.
 

@@ -7,7 +7,9 @@ PUBLIC_STATUS: public-demo · early-stage OSS
 [![Release: v0.2.3](https://img.shields.io/badge/release-v0.2.3-informational.svg)](CHANGELOG.md)
 [![Public CI](https://github.com/L-SHawn91/SHawn-EvidenceMap/actions/workflows/ci.yml/badge.svg)](https://github.com/L-SHawn91/SHawn-EvidenceMap/actions/workflows/ci.yml)
 
-Research evidence mapping from public literature metadata.
+A lightweight CLI that turns public scholarly metadata into verifiable, deterministic reference snapshots for evidence-synthesis handoffs.
+
+The current release is **not** a screening platform, full-text synthesis system, meta-analysis engine, or complete bibliometric/knowledge-map application. In v0.2.3, “map” means a structured public-metadata evidence table plus a reference-store relation schema; user-supplied corpus ingestion and standards-based handoffs remain roadmap work.
 
 ## Public review quick facts
 
@@ -23,6 +25,7 @@ Research evidence mapping from public literature metadata.
 - **Installation:** [`docs/INSTALLATION.md`](docs/INSTALLATION.md)
 - **Community/pilot requests:** [GitHub Discussion #9](https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9)
 - **Public benchmark:** [`docs/PUBLIC_BENCHMARK_2026-07-11.md`](docs/PUBLIC_BENCHMARK_2026-07-11.md) · [runner and raw JSON](benchmarks/README.md)
+- **Ecosystem comparison:** [`docs/ECOSYSTEM_COMPARISON_2026-07-11.md`](docs/ECOSYSTEM_COMPARISON_2026-07-11.md) · [39-repository raw snapshot](benchmarks/results/2026-07-11-ecosystem-snapshot.json)
 - **Pilot outreach strategy:** [`docs/PILOT_OUTREACH_STRATEGY.md`](docs/PILOT_OUTREACH_STRATEGY.md)
 - **Maintainer evidence:** [`docs/MAINTAINER_EVIDENCE.md`](docs/MAINTAINER_EVIDENCE.md)
 - **Verification details:** [`docs/VERIFICATION.md`](docs/VERIFICATION.md)
