@@ -24,7 +24,7 @@ git status -sb
 Current expected result for v0.2.4:
 
 ```text
-pytest: 57 passed
+pytest: 58 passed
 public_safety_scan: PUBLIC_SAFETY_OK
 compileall: OK
 synthetic_reference_db: REFERENCE_DB_OK

@@ -14,7 +14,7 @@ The objective is not to maximize stars, impressions, clones, or maintainer-gener
 Independent documented runs: 0
 External actionable issues: 0
 Documented downstream uses: 0
-Paid pilots: 0
+Free validation cohort participants: 0
 Repeat users: 0
 ```
 
@@ -51,7 +51,7 @@ Do not say:
 
 Do not publish a personal email address. Do not collect private data through GitHub.
 
-## Initial customer profile
+## Initial user profile
 
 Prioritize:
 
@@ -63,18 +63,24 @@ Prioritize:
 
 Do not target pharmaceutical/CRO enterprise, clinical decision support, regulated submissions, private full-text workflows, or teams requiring an SLA during this validation stage.
 
-## Free and paid boundary
+## Current free-validation boundary
 
-The Apache-2.0 CLI, import/export formats, audit events, database verification, documentation, and bug fixes remain free.
-
-The introductory pilot sells hands-on work rather than restricted code:
+The Apache-2.0 CLI, import/export formats, audit events, database verification, documentation, and bug fixes remain free. The first three bounded validation slots are also free and include:
 
 - metadata cleanup and collision review;
 - reproducible audit snapshot and export package;
 - workflow setup for Zotero, Rayyan, R, or Python;
-- a 45-minute handoff session.
+- one 30-minute feedback conversation.
 
-Introductory validation range: `KRW 99,000–150,000` for approximately 50–1,000 public metadata records. It is not a fixed tariff. Scope, availability, invoicing, and applicable institutional or administrative requirements must be confirmed before payment.
+Keep each validation run to approximately 20–250 public metadata records and one handoff workflow. This stage includes no SLA, custom feature development, private-data handling, or ongoing support commitment.
+
+Do not publish pricing or solicit payment at this stage. Reconsider a support model only after all of these are true:
+
+1. at least five independently documented executions;
+2. at least three repeat users;
+3. at least two users independently ask for setup or ongoing support;
+4. no unresolved P0/P1 onboarding blocker;
+5. applicable institutional and administrative requirements have been checked.
 
 ## Fourteen-day sprint
 
@@ -108,13 +114,13 @@ Do not store names, email addresses, private replies, or unpublished topics in t
 
 ### Days 8–10 — interviews
 
-Target three 20-minute workflow interviews. Observe the current process before presenting the paid pilot. Ask:
+Target three 20-minute workflow interviews. Observe the current process before presenting the tool. Ask:
 
 1. Where does the DOI/PMID list originate?
 2. Which duplicate or conflict cases require manual work?
 3. Which tool receives the cleaned list?
 4. What provenance must be retained?
-5. Would a bounded audit package be worth paying for, and why or why not?
+5. Would you run this workflow again, and why or why not?
 
 ### Days 11–14 — evidence snapshot
 
@@ -125,8 +131,8 @@ Record only:
 - interviews completed;
 - independent executions;
 - actionable issues;
-- explicit quote/estimate requests;
-- paid pilots;
+- unsolicited setup or support requests;
+- completed free validation runs;
 - repeat users.
 
 ## Direct outreach template
@@ -167,13 +173,15 @@ Never advertise inside competitor issue trackers.
 
 ### Day 60
 
-- one paid pilot, or two explicit quote requests;
-- evidence of which output or support task creates willingness to pay.
+- five independently documented executions;
+- at least two repeat users;
+- evidence of which output or onboarding step creates repeat value.
 
 ### Day 90
 
-- three paid pilots, or five repeat users;
-- otherwise stop the monetization experiment and retain the project as free OSS/research infrastructure.
+- three repeat users and two unsolicited support requests;
+- only then decide whether to test a support model privately;
+- otherwise retain the project as free OSS/research infrastructure.
 
 ## Stop and reassess
 
@@ -183,7 +191,7 @@ Pause broader promotion if:
 - two users fail at the same onboarding step;
 - users consistently expect registry validation or scientific appraisal;
 - no one can name a real handoff pain after five interviews;
-- external payment conflicts with applicable institutional or administrative requirements.
+- external support would conflict with applicable institutional or administrative requirements.
 
 Fix the product boundary or onboarding before widening reach.
 

@@ -50,16 +50,20 @@ Static deployment target:
 https://l-shawn91.github.io/SHawn-EvidenceMap/
 ```
 
-## Commercial CTA Options
+## Public Feedback CTA
 
 Selected for first release:
 
 - GitHub Discussion #9: primary public pilot intake
 - GitHub issue template: structured feedback for completed external runs
 
-Later alternatives:
+The current stage does not include pricing, payment, a service waitlist, or a sales form. Reconsider a support model only after all of these gates are met:
 
-- Waitlist form: best for commercial validation, requires a form backend
+1. at least five independently documented executions;
+2. at least three repeat users;
+3. at least two users independently request setup or ongoing support;
+4. no unresolved P0/P1 onboarding blocker;
+5. applicable institutional and administrative requirements have been checked.
 
 ## Do Not Launch With
 

@@ -100,4 +100,4 @@ Add or deepen a cartridge in the public CLI only after:
 
 The public cartridge layer must not directly import private SHawn ecosystem repos, private caches, private corpus DBs, or personal workflow state.
 
-Private SHawn ecosystem capabilities can inform later premium workflows, but only through audited public-safe adapters and outputs.
+Future extensions must use audited public-safe adapters and outputs; private SHawn ecosystem capabilities are not part of the public runtime.

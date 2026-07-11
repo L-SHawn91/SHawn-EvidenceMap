@@ -1,8 +1,8 @@
-# Customer Report Template
+# Research Report Template
 
 PUBLIC_STATUS: public-demo
 
-SHawn EvidenceMap customer reports use a fixed Markdown structure so pilot deliverables are consistent across cartridges.
+SHawn EvidenceMap reports use a fixed Markdown structure so public review artifacts are consistent across cartridges.
 
 ## Fixed Sections
 
@@ -23,7 +23,7 @@ SHawn EvidenceMap customer reports use a fixed Markdown structure so pilot deliv
 PYTHONPATH=src python3 -m evidencemap.cli "research question" --cartridge bio --limit 10 --report
 ```
 
-Generate a client-ready visual brief:
+Generate a review-ready visual brief:
 
 ```bash
 PYTHONPATH=src python3 -m evidencemap.cli "research question" --cartridge bio --limit 10 --html-report > report.html
@@ -50,15 +50,15 @@ PYTHONPATH=src python3 -m evidencemap.cli "research question" --cartridge bio --
 
 ## Visual Brief Standard
 
-The HTML brief is the preferred client-facing pilot deliverable. It should help a buyer answer five questions quickly:
+The HTML brief is the preferred user-facing review artifact. It should help a reviewer answer five questions quickly:
 
 - Is there enough public evidence signal to continue?
 - Which evidence category dominates the first pass?
 - Which top sources should be manually verified first?
 - Where are the gaps or risks?
-- What is the next paid step?
+- What is the next manual review step?
 
-The report includes an `Export PDF` button so the same HTML can be printed or saved as a PDF for delivery.
+The report includes an `Export PDF` button so the same HTML can be printed or saved as a PDF for review.
 
 ## Boundary
 
