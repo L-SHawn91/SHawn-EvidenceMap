@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import os
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -10,17 +12,34 @@ from .models import Paper
 OPENALEX_WORKS = "https://api.openalex.org/works"
 
 
+class OpenAlexRequestError(RuntimeError):
+    """OpenAlex request failure that never includes credential-bearing URLs."""
+
+
 def search_openalex(query: str, limit: int = 20) -> list[Paper]:
-    """Search OpenAlex public metadata without private credentials."""
-    params = urllib.parse.urlencode(
-        {
-            "search": query,
-            "per-page": str(max(1, min(limit, 100))),
-            "sort": "relevance_score:desc",
-        }
-    )
-    with urllib.request.urlopen(f"{OPENALEX_WORKS}?{params}", timeout=25) as response:
-        payload = json.loads(response.read().decode("utf-8"))
+    """Search OpenAlex public metadata with an optional environment API key."""
+    request_params = {
+        "search": query,
+        "per-page": str(max(1, min(limit, 100))),
+        "sort": "relevance_score:desc",
+    }
+    api_key = os.environ.get("OPENALEX_API_KEY", "").strip()
+    if api_key:
+        request_params["api_key"] = api_key
+    params = urllib.parse.urlencode(request_params)
+    try:
+        with urllib.request.urlopen(
+            f"{OPENALEX_WORKS}?{params}", timeout=25
+        ) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+    except urllib.error.HTTPError as exc:
+        raise OpenAlexRequestError(
+            f"OpenAlex request failed with HTTP {exc.code}"
+        ) from None
+    except (urllib.error.URLError, TimeoutError, OSError):
+        raise OpenAlexRequestError("OpenAlex request failed with a network error") from None
+    except json.JSONDecodeError:
+        raise OpenAlexRequestError("OpenAlex returned an invalid JSON response") from None
 
     papers: list[Paper] = []
     for item in payload.get("results", []):

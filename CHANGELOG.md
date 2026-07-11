@@ -2,6 +2,21 @@
 
 All notable public changes to this project are documented here.
 
+## [0.2.3] - 2026-07-11
+
+### Added
+- A correctness-first public benchmark runner with raw JSON, output hashes, repeated timing, sampled peak RSS, and explicit no-leaderboard boundaries.
+- A dated public benchmark report and ethical 14/30/60-day pilot outreach strategy.
+- Optional `OPENALEX_API_KEY` environment support for repeated OpenAlex-backed searches.
+
+### Security
+- OpenAlex HTTP and network errors no longer include credential-bearing request URLs.
+- Tests verify that environment credentials are omitted from raised error messages and benchmark output records only key presence, never the value.
+
+### Verification
+- The v0.2.3 candidate wheel passed five network smoke repetitions and ten local repetitions for DB creation, verification, and missing-path rejection.
+- The PyAlex overlap lane is correctness-only; cross-tool timing is explicitly informational and not a speed ranking.
+
 ## [0.2.2] - 2026-07-11
 
 ### Fixed

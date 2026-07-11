@@ -7,7 +7,7 @@ Choose the path that matches what you want to test.
 | Search public scholarly metadata for your own topic | `evidencemap "your topic"` | Required |
 | Verify the bundled SQLite/JSON/HTML reference pipeline | `python -m evidencemap.refdb public-demo ...` | Not required after installation |
 
-The SQLite pilot is a **fixed fixture**. Version 0.2.2 does not accept a replacement DOI, PMID, or GEO accession. Do not interpret the bundled registry linkage as independent validation of a scientific conclusion.
+The SQLite pilot is a **fixed fixture**. Version 0.2.3 does not accept a replacement DOI, PMID, or GEO accession. Do not interpret the bundled registry linkage as independent validation of a scientific conclusion.
 
 ## 1. Install the verified release
 
@@ -16,10 +16,16 @@ Use an isolated environment:
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/download/v0.2.2/shawn_evidencemap-0.2.2-py3-none-any.whl
+python -m pip install https://github.com/L-SHawn91/SHawn-EvidenceMap/releases/download/v0.2.3/shawn_evidencemap-0.2.3-py3-none-any.whl
 ```
 
 The package is not currently published on PyPI. The command above installs the GitHub release wheel.
+
+OpenAlex currently provides only a limited no-key testing allowance. One short pilot normally fits that allowance. For repeated searches, set a free key in the environment without posting it publicly:
+
+```bash
+export OPENALEX_API_KEY="your-key"
+```
 
 ## Path A — search your own topic
 
