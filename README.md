@@ -1,19 +1,15 @@
 # SHawn EvidenceMap
 
-PUBLIC_STATUS: public-demo · early-stage OSS
+**Bring your DOI list → get a clean, checked, exportable evidence table in 5 minutes.**
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 [![Public boundary](https://img.shields.io/badge/public--boundary-metadata%20%2B%20toy%20data-green.svg)](docs/PUBLIC_BOUNDARY.md)
 [![Release: v0.2.4](https://img.shields.io/badge/release-v0.2.4-informational.svg)](CHANGELOG.md)
 [![Public CI](https://github.com/L-SHawn91/SHawn-EvidenceMap/actions/workflows/ci.yml/badge.svg)](https://github.com/L-SHawn91/SHawn-EvidenceMap/actions/workflows/ci.yml)
 
-**SHawn EvidenceMap — Verifiable Metadata Bridge** is a local-first CLI that turns public scholarly identifiers and metadata into auditable, deterministic reference snapshots and standards-based evidence-synthesis handoffs.
+A local-first Python CLI that normalizes your DOIs, PMIDs, OpenAlex IDs, CSV, RIS, or BibTeX records into a verified, audit-trailed evidence table — then exports to CSV, RIS, BibTeX, JSON, or HTML. No account, no upload, no cloud. Your data stays on your machine.
 
-`Verifiable` means that local database integrity, normalized identifiers, provenance, and per-record ingest decisions can be inspected again. It does **not** mean that an imported identifier was resolved against an external registry. The project is not a screening platform, full-text synthesis system, meta-analysis engine, or complete bibliometric/knowledge-map application.
-
-[![Watch the executable 60-second metadata bridge demo](web/assets/pilot-demo-poster.png)](https://l-shawn91.github.io/SHawn-EvidenceMap/assets/pilot-demo-60s.mp4)
-
-**[Watch the 60-second demo](https://l-shawn91.github.io/SHawn-EvidenceMap/assets/pilot-demo-60s.mp4)** · **[Inspect the free early-validation cohort](https://l-shawn91.github.io/SHawn-EvidenceMap/pilot.html)** · **[Request a validation slot in Discussion #9](https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9)**
+**[▶ Watch the 60-second demo](https://l-shawn91.github.io/SHawn-EvidenceMap/assets/pilot-demo-60s.mp4)** · **[Try the free pilot](https://l-shawn91.github.io/SHawn-EvidenceMap/pilot.html)** · **[Request a validation slot](https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9)**
 
 ## Public review quick facts
 
