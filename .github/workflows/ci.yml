@@ -128,3 +128,21 @@ jobs:
             build/public-metadata-demo/demo-a.json
             build/public-metadata-demo/index.html
           if-no-files-found: error
+
+  pypi-publish:
+    needs: public-checks
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment: pypi
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Download wheel artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: shawn-evidencemap-wheel
+          path: dist
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
