@@ -13,7 +13,15 @@ EFETCH_XML = b"""<?xml version="1.0"?>
     <MedlineCitation>
       <PMID>30000001</PMID>
       <Article>
-        <Journal><Title>Journal of Public Metadata</Title></Journal>
+        <Journal>
+          <JournalIssue>
+            <PubDate>
+              <Year>2024</Year>
+              <Month>May</Month>
+            </PubDate>
+          </JournalIssue>
+          <Title>Journal of Public Metadata</Title>
+        </Journal>
         <ArticleTitle>Synthetic smoke fixture for the PubMed adapter</ArticleTitle>
         <Abstract><AbstractText>Synthetic abstract text used only for adapter parsing.</AbstractText></Abstract>
         <AuthorList>
@@ -23,24 +31,18 @@ EFETCH_XML = b"""<?xml version="1.0"?>
       </Article>
     </MedlineCitation>
     <PubmedData>
-      <History>
-        <PubMedPubDate PubStatus="pubmed"><Year>2024</Year></PubMedPubDate>
-      </History>
       <ArticleIdList>
         <ArticleId IdType="pubmed">30000001</ArticleId>
       </ArticleIdList>
     </PubmedData>
-    <MedlineCitation>
-      <Article>
-        <ArticleDate><Year>2024</Year></ArticleDate>
-      </Article>
-    </MedlineCitation>
   </PubmedArticle>
   <PubmedArticle>
     <MedlineCitation>
       <PMID>30000002</PMID>
       <Article>
-        <Journal><Title>Journal of Public Metadata</Title></Journal>
+        <Journal>
+          <Title>Journal of Public Metadata</Title>
+        </Journal>
         <ArticleTitle>Second synthetic entry with a collective author</ArticleTitle>
         <Abstract>
           <AbstractText Label="BACKGROUND">Background sentence.</AbstractText>
@@ -49,6 +51,11 @@ EFETCH_XML = b"""<?xml version="1.0"?>
         <AuthorList>
           <Author><CollectiveName>Public Consortium</CollectiveName></Author>
         </AuthorList>
+        <ArticleDate DateType="Electronic">
+          <Year>2023</Year>
+          <Month>07</Month>
+          <Day>15</Day>
+        </ArticleDate>
       </Article>
     </MedlineCitation>
     <PubmedData>
@@ -56,11 +63,6 @@ EFETCH_XML = b"""<?xml version="1.0"?>
         <ArticleId IdType="pubmed">30000002</ArticleId>
       </ArticleIdList>
     </PubmedData>
-    <MedlineCitation>
-      <Article>
-        <ArticleDate><Year>2023</Year></ArticleDate>
-      </Article>
-    </MedlineCitation>
   </PubmedArticle>
 </PubmedArticleSet>
 """
@@ -98,9 +100,11 @@ def test_search_pubmed_parses_public_metadata_smoke(monkeypatch: pytest.MonkeyPa
     assert papers[0].authors == ["Jane Doe", "Alex Roe"]
     assert papers[0].url == "https://pubmed.ncbi.nlm.nih.gov/30000001/"
     assert papers[0].source_hits == ["pubmed"]
+    assert papers[0].year == 2024
     assert "Synthetic abstract text" in papers[0].abstract
 
     assert papers[1].authors == ["Public Consortium"]
+    assert papers[1].year == 2023
     assert "Background sentence." in papers[1].abstract
     assert "Results sentence." in papers[1].abstract
 
