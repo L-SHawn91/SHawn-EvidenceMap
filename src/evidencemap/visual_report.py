@@ -3,6 +3,7 @@ from __future__ import annotations
 import html
 from collections import Counter
 from datetime import date
+from urllib.parse import urlsplit
 
 from .models import EvidenceMap
 
@@ -16,7 +17,7 @@ def to_visual_html(evidence_map: EvidenceMap) -> str:
     max_year_count = max(year_counts.values(), default=1)
     top_rows = evidence_map.rows[:5]
     coverage_score = report_score(evidence_map)
-    confidence_label = confidence_band(coverage_score)
+    coverage_label = coverage_band(coverage_score)
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -194,8 +195,8 @@ def to_visual_html(evidence_map: EvidenceMap) -> str:
       <span class="pill">Date: {date.today().isoformat()}</span>
       <span class="pill">Cartridge: {esc(evidence_map.cartridge)}</span>
       <span class="pill">Rows: {len(evidence_map.rows)}</span>
-      <span class="pill">Evidence score: {coverage_score}/100</span>
-      <span class="pill">Confidence: {confidence_label}</span>
+      <span class="pill">Metadata triage score: {coverage_score}/100</span>
+      <span class="pill">Coverage band: {coverage_label}</span>
       <span class="pill">Pilot deliverable</span>
     </div>
   </header>
@@ -203,7 +204,7 @@ def to_visual_html(evidence_map: EvidenceMap) -> str:
   <section>
     <div class="hero-panel">
       <div class="verdict">
-        <div class="eyebrow">Executive Verdict</div>
+        <div class="eyebrow">Executive Triage Status</div>
         <h2>{esc(executive_verdict(evidence_map))}</h2>
         <p>{esc(interpretation(evidence_map))}</p>
         <div class="callout">{esc(commercial_readout(evidence_map))}</div>
@@ -213,11 +214,11 @@ def to_visual_html(evidence_map: EvidenceMap) -> str:
           <div class="score-inner">
             <div>
               <strong>{coverage_score}</strong>
-              <span>evidence brief score</span>
+              <span>metadata triage score</span>
             </div>
           </div>
         </div>
-        <p style="text-align:center; margin-top:14px;">{confidence_label} confidence for a first-pass evidence brief</p>
+        <p style="text-align:center; margin-top:14px;">{coverage_label} metadata coverage for a first-pass candidate-evidence brief</p>
       </div>
     </div>
   </section>
@@ -233,7 +234,12 @@ def to_visual_html(evidence_map: EvidenceMap) -> str:
   </section>
 
   <section>
-    <h2>Key Findings</h2>
+    <h2>Claim and Statement Gate</h2>
+    {statement_gate_html(evidence_map)}
+  </section>
+
+  <section>
+    <h2>Top Candidate Records</h2>
     {key_findings_html(evidence_map)}
   </section>
 
@@ -262,7 +268,7 @@ def to_visual_html(evidence_map: EvidenceMap) -> str:
   </section>
 
   <section>
-    <h2>Top Evidence</h2>
+    <h2>Top Candidate Evidence</h2>
     <div class="grid">
       {top_cards_html(top_rows)}
     </div>
@@ -274,7 +280,7 @@ def to_visual_html(evidence_map: EvidenceMap) -> str:
       <table>
         <thead>
           <tr>
-            <th>#</th><th>Evidence</th><th>Year</th><th>Paper</th><th>Rationale</th><th>Support sentence</th><th>Source</th>
+            <th>#</th><th>Relation</th><th>Evidence</th><th>Year</th><th>Paper</th><th>Rationale</th><th>Candidate source sentence</th><th>Location</th><th>DOI</th><th>PMID</th><th>Source name</th><th>Source URL</th>
           </tr>
         </thead>
         <tbody>
@@ -285,7 +291,7 @@ def to_visual_html(evidence_map: EvidenceMap) -> str:
   </section>
 
   <section>
-    <h2>Initial Interpretation</h2>
+    <h2>Preliminary Triage Note</h2>
     <p>{esc(interpretation(evidence_map))}</p>
   </section>
 
@@ -303,7 +309,7 @@ def to_visual_html(evidence_map: EvidenceMap) -> str:
     <h2>Delivery Package</h2>
     <div class="grid">
       <div class="card"><h3>Visual Brief</h3><p>User-facing HTML/PDF-ready report with evidence dashboard and top sources.</p></div>
-      <div class="card"><h3>Evidence Table</h3><p>Ranked table with evidence label, support sentence, source link, and quality rationale.</p></div>
+      <div class="card"><h3>Evidence Table</h3><p>Ranked table with review relation, candidate source sentence, traceability, and quality rationale.</p></div>
       <div class="card"><h3>Follow-up Plan</h3><p>Clear next steps for deeper manual review, report expansion, or workflow refinement.</p></div>
     </div>
   </section>
@@ -321,6 +327,17 @@ def to_visual_html(evidence_map: EvidenceMap) -> str:
 <button class="print-button" onclick="window.print()">Export PDF</button>
 </body>
 </html>"""
+
+
+def statement_gate_html(evidence_map: EvidenceMap) -> str:
+    claim = evidence_map.claim or "Not supplied"
+    reason = evidence_map.statement.reason or "Statement drafting was not requested."
+    draft = f"<p><strong>Draft:</strong> {esc(evidence_map.statement.draft)}</p>" if evidence_map.statement.draft else ""
+    return (
+        f'<div class="note"><p><strong>Claim:</strong> {esc(claim)}</p>'
+        f'<p><strong>Statement status:</strong> {esc(evidence_map.statement.status)}</p>'
+        f'<p><strong>Gate note:</strong> {esc(reason)}</p>{draft}</div>'
+    )
 
 
 def evidence_mix_html(counts: Counter[str], max_count: int) -> str:
@@ -363,7 +380,7 @@ def source_mix_html(counts: Counter[str]) -> str:
 
 def top_cards_html(rows) -> str:
     if not rows:
-        return '<div class="card"><p>No top evidence available.</p></div>'
+        return '<div class="card"><p>No candidate evidence available.</p></div>'
     cards = []
     for idx, row in enumerate(rows, start=1):
         cards.append(
@@ -372,7 +389,7 @@ def top_cards_html(rows) -> str:
   <span class="tag">{esc(row.evidence_type)}</span>
   <h3>{esc(row.title)}</h3>
   <p>{esc(str(row.year or "Year unavailable"))}</p>
-  <p>{esc(row.support_sentence)}</p>
+  <p>{esc(row.candidate_source_sentence)}</p>
 </div>"""
         )
     return "\n".join(cards)
@@ -384,7 +401,7 @@ def key_findings_html(evidence_map: EvidenceMap) -> str:
     items = []
     for idx, row in enumerate(evidence_map.rows[:3], start=1):
         items.append(
-            f"<li><strong>Finding {idx}:</strong> {esc(row.evidence_type)} is represented by <em>{esc(row.title)}</em>{f' ({row.year})' if row.year else ''}. {esc(row.support_sentence)}</li>"
+            f"<li><strong>Candidate {idx}:</strong> {esc(row.evidence_type)} is represented by <em>{esc(row.title)}</em>{f' ({row.year})' if row.year else ''}. {esc(row.candidate_source_sentence)}</li>"
         )
     return "<ul>" + "\n".join(items) + "</ul>"
 
@@ -393,12 +410,12 @@ def quality_signals_html(evidence_map: EvidenceMap) -> str:
     if not evidence_map.rows:
         return '<div class="note">No evidence rows were returned. Re-run with broader terms before delivery.</div>'
     rows = evidence_map.rows
-    support_ratio = round(100 * sum(bool(row.support_sentence) for row in rows) / len(rows))
+    candidate_ratio = round(100 * sum(bool(row.candidate_source_sentence) for row in rows) / len(rows))
     year_ratio = round(100 * sum(bool(row.year) for row in rows) / len(rows))
     source_ratio = min(100, len({source_label(row.source_url) for row in rows}) * 25)
     diversity_ratio = min(100, len({row.evidence_type for row in rows}) * 25)
     return f"""<div class="matrix">
-  <div class="signal {signal_class(support_ratio)}"><strong>Support Sentence Coverage</strong><div class="metric">{support_ratio}%</div><p>Rows with an extracted sentence that can be checked by a reviewer.</p></div>
+  <div class="signal {signal_class(candidate_ratio)}"><strong>Candidate Sentence Coverage</strong><div class="metric">{candidate_ratio}%</div><p>Rows with an extracted candidate sentence that can be checked by a reviewer.</p></div>
   <div class="signal {signal_class(year_ratio)}"><strong>Year Metadata Coverage</strong><div class="metric blue">{year_ratio}%</div><p>Rows with usable publication year metadata for timeline interpretation.</p></div>
   <div class="signal {signal_class(source_ratio)}"><strong>Source Breadth</strong><div class="metric green">{source_ratio}%</div><p>Public source diversity proxy based on link families in the ranked table.</p></div>
   <div class="signal {signal_class(diversity_ratio)}"><strong>Evidence Label Diversity</strong><div class="metric warn">{diversity_ratio}%</div><p>Whether the map has multiple evidence types rather than one narrow cluster.</p></div>
@@ -413,8 +430,8 @@ def gap_check_html(evidence_map: EvidenceMap) -> str:
     gaps = []
     if len(counts) == 1 and len(evidence_map.rows) >= 3:
         gaps.append(f"Evidence is concentrated in one category: {dominant}. Add query variants to test for missing evidence types.")
-    if any(not row.support_sentence for row in evidence_map.rows):
-        gaps.append("Some rows lack support sentences. Manual abstract/full-text review is recommended.")
+    if any(not row.candidate_source_sentence for row in evidence_map.rows):
+        gaps.append("Some rows lack candidate source sentences. Manual abstract/full-text review is recommended.")
     if all((row.year or 0) < 2020 for row in evidence_map.rows):
         gaps.append("Most evidence appears older. Add a recent-mode run before delivery.")
     if not gaps:
@@ -433,13 +450,30 @@ def action_plan_html(evidence_map: EvidenceMap) -> str:
 </div>"""
 
 
+def safe_source_link_html(value: object) -> str:
+    raw = str(value or "")
+    escaped = esc(raw)
+    parsed = urlsplit(raw)
+    if parsed.scheme in {"http", "https"} and parsed.netloc:
+        return f'<a href="{escaped}" target="_blank" rel="noopener noreferrer">{escaped}</a>'
+    return escaped
+
+
 def table_rows_html(evidence_map: EvidenceMap) -> str:
     rows = []
     for idx, row in enumerate(evidence_map.rows, start=1):
         rows.append(
-            f"<tr><td>{idx}</td><td>{esc(row.evidence_type)}</td><td>{esc(str(row.year or ''))}</td><td>{esc(row.title)}</td><td>{esc(row.rationale)}</td><td>{esc(row.support_sentence)}</td><td><a href=\"{esc(row.source_url)}\">source</a></td></tr>"
+            f"<tr><td>{idx}</td><td>{esc(row.evidence_relation)}</td><td>{esc(row.evidence_type)}</td><td>{esc(str(row.year or ''))}</td><td>{esc(row.title)}</td><td>{esc(row.rationale)}</td><td>{esc(row.candidate_source_sentence)}</td><td>{esc(source_location(row))}</td><td>{esc(row.doi)}</td><td>{esc(row.pmid)}</td><td>{esc(row.source)}</td><td>{safe_source_link_html(row.source_url)}</td></tr>"
         )
     return "\n".join(rows)
+
+
+def source_location(row) -> str:
+    if not row.source_section:
+        return ""
+    if row.source_sentence_index is None:
+        return row.source_section
+    return f"{row.source_section} sentence {row.source_sentence_index}"
 
 
 def executive_verdict(evidence_map: EvidenceMap) -> str:
@@ -447,12 +481,12 @@ def executive_verdict(evidence_map: EvidenceMap) -> str:
         return "No deliverable signal yet"
     score = report_score(evidence_map)
     if score >= 80:
-        return "Strong first-pass evidence signal"
+        return "High first-pass metadata coverage"
     if score >= 60:
-        return "Usable pilot evidence signal"
+        return "Usable pilot metadata coverage"
     if score >= 40:
-        return "Partial signal, needs refinement"
-    return "Weak signal, broaden the search"
+        return "Partial metadata coverage, needs refinement"
+    return "Low metadata coverage, broaden the search"
 
 
 def commercial_readout(evidence_map: EvidenceMap) -> str:
@@ -471,7 +505,7 @@ def interpretation(evidence_map: EvidenceMap) -> str:
     dominant = counts.most_common(1)[0][0]
     top = evidence_map.rows[0]
     return (
-        f"The strongest current signal is {dominant}. The top-ranked source is {top.title}"
+        f"The highest-ranking triage category is {dominant}. The top candidate record is {top.title}"
         f"{f' ({top.year})' if top.year else ''}. Manual verification is required before using this as an external conclusion."
     )
 
@@ -481,14 +515,14 @@ def report_score(evidence_map: EvidenceMap) -> int:
     if not rows:
         return 0
     row_score = min(30, len(rows) * 4)
-    support_score = round(25 * sum(bool(row.support_sentence) for row in rows) / len(rows))
+    support_score = round(25 * sum(bool(row.candidate_source_sentence) for row in rows) / len(rows))
     year_score = round(15 * sum(bool(row.year) for row in rows) / len(rows))
     diversity_score = min(15, len({row.evidence_type for row in rows}) * 5)
     source_score = min(15, len({source_label(row.source_url) for row in rows}) * 5)
     return min(100, row_score + support_score + year_score + diversity_score + source_score)
 
 
-def confidence_band(score: int) -> str:
+def coverage_band(score: int) -> str:
     if score >= 80:
         return "High"
     if score >= 60:

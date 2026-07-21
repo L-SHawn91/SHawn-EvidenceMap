@@ -12,7 +12,7 @@ def sample_map(query="organoid | implantation"):
         title="Title with | pipe",
         year=2024,
         rationale="Line one\nline two",
-        support_sentence="Manual verification required.",
+        candidate_source_sentence="Manual verification required.",
         source_url="https://example.org/paper",
     )
     paper = Paper(id="p1", title=row.title, abstract="Public abstract", year=2024, url=row.source_url)
@@ -28,7 +28,7 @@ def test_json_export_contains_query_and_rows():
 
 def test_markdown_export_escapes_table_cells():
     md = to_markdown(sample_map())
-    assert "Claim with \\| separator" in md
+    assert "Research topic: organoid | implantation" in md
     assert "Title with \\| pipe" in md
     assert "Line one line two" in md
     assert "PUBLIC_STATUS: public-demo-output" in md
@@ -45,3 +45,13 @@ def test_visual_html_escapes_query_text():
     html = to_visual_html(sample_map('<script>alert(1)</script>'))
     assert "&lt;script&gt;alert(1)&lt;/script&gt;" in html
     assert "<script>alert(1)</script>" not in html
+
+
+def test_visual_html_does_not_link_non_http_source_url():
+    evidence_map = sample_map()
+    evidence_map.rows[0].source_url = "javascript:alert('unsafe')"
+
+    html = to_visual_html(evidence_map)
+
+    assert 'href="javascript:' not in html
+    assert "javascript:alert(&#x27;unsafe&#x27;)" in html

@@ -12,6 +12,7 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from evidencemap.pipeline import build_evidence_map  # noqa: E402
+from evidencemap.visual_report import safe_source_link_html  # noqa: E402
 
 
 HOST = "127.0.0.1"
@@ -29,10 +30,11 @@ class DemoHandler(BaseHTTPRequestHandler):
             return
         params = parse_qs(parsed.query)
         query = (params.get("q") or [""])[0].strip()
+        claim = (params.get("claim") or [""])[0].strip()
         ranking_mode = (params.get("mode") or ["recent"])[0]
         if ranking_mode not in {"recent", "foundational", "balanced"}:
             ranking_mode = "recent"
-        body = render_page(query=query, ranking_mode=ranking_mode)
+        body = render_page(query=query, claim=claim, ranking_mode=ranking_mode)
         encoded = body.encode("utf-8")
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")
@@ -55,21 +57,31 @@ class DemoHandler(BaseHTTPRequestHandler):
         sys.stderr.write("[EvidenceMap] " + fmt % args + "\n")
 
 
-def render_page(query: str, ranking_mode: str) -> str:
+def render_page(query: str, claim: str, ranking_mode: str) -> str:
     rows = ""
-    status = "Enter a biomedical research question."
+    status = "Enter a public-metadata search topic."
+    statement_status = "Statement gate: not requested"
     if query:
-        evidence_map = build_evidence_map(query, limit=10, ranking_mode=ranking_mode)
+        evidence_map = build_evidence_map(
+            query,
+            limit=10,
+            ranking_mode=ranking_mode,
+            claim=claim,
+            draft_statement=bool(claim),
+        )
         status = f"{len(evidence_map.rows)} evidence rows · mode={ranking_mode}"
+        statement_status = f"Statement gate: {evidence_map.statement.status} — {evidence_map.statement.reason}"
         rows = "\n".join(
             f"""
             <tr>
+              <td>{escape(row.evidence_relation)}</td>
               <td>{escape(row.evidence_type)}</td>
               <td>{escape(str(row.year or ""))}</td>
               <td>{escape(row.title)}</td>
               <td>{escape(row.rationale)}</td>
-              <td>{escape(row.support_sentence)}</td>
-              <td><a href="{escape(row.source_url)}" target="_blank" rel="noreferrer">source</a></td>
+              <td>{escape(row.candidate_source_sentence)}</td>
+              <td>{escape(row.source)}</td>
+              <td>{safe_source_link_html(row.source_url)}</td>
             </tr>
             """
             for row in evidence_map.rows
@@ -77,7 +89,7 @@ def render_page(query: str, ranking_mode: str) -> str:
     if not rows:
         rows = """
         <tr>
-          <td colspan="6">No results yet.</td>
+          <td colspan="8">No results yet.</td>
         </tr>
         """
     return f"""<!doctype html>
@@ -110,7 +122,7 @@ def render_page(query: str, ranking_mode: str) -> str:
     }}
     form {{
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 180px 120px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 180px 120px;
       gap: 10px;
       margin: 28px 0;
     }}
@@ -169,7 +181,8 @@ def render_page(query: str, ranking_mode: str) -> str:
   <h1>SHawn EvidenceMap</h1>
   <p>Public-demo evidence mapping from public biomedical metadata. Outputs require manual verification before citation or manuscript use.</p>
   <form action="/demo" method="get">
-    <input name="q" value="{escape(query)}" placeholder="endometrial organoid implantation" />
+    <input name="q" value="{escape(query)}" placeholder="Search topic: endometrial organoid implantation" />
+    <input name="claim" value="{escape(claim)}" placeholder="Claim to review (optional)" />
     <select name="mode">
       {option("recent", ranking_mode, "Recent")}
       {option("foundational", ranking_mode, "Foundational")}
@@ -178,16 +191,19 @@ def render_page(query: str, ranking_mode: str) -> str:
     <button type="submit">Map</button>
   </form>
   <div class="status">{escape(status)}</div>
+  <p>{escape(statement_status)}</p>
   <div class="table-wrap">
     <table>
       <thead>
         <tr>
+          <th>Relation</th>
           <th>Evidence</th>
           <th>Year</th>
           <th>Paper</th>
           <th>Rationale</th>
-          <th>Support sentence</th>
-          <th>Link</th>
+          <th>Candidate source sentence</th>
+          <th>Source name</th>
+          <th>Source URL</th>
         </tr>
       </thead>
       <tbody>

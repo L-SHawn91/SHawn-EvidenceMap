@@ -18,7 +18,18 @@ class Paper:
     source: str = "pubmed"
     source_hits: list[str] = field(default_factory=list)
     quality_score: float = 0.0
-    support_sentence: str = ""
+    candidate_source_sentence: str = ""
+    source_section: str = ""
+    source_sentence_index: int | None = None
+
+    @property
+    def support_sentence(self) -> str:
+        """Deprecated read alias for pre-0.3 integrations."""
+        return self.candidate_source_sentence
+
+    @support_sentence.setter
+    def support_sentence(self, value: str) -> None:
+        self.candidate_source_sentence = value
 
 
 @dataclass(slots=True)
@@ -29,8 +40,28 @@ class EvidenceRow:
     title: str
     year: int | None
     rationale: str
-    support_sentence: str
+    candidate_source_sentence: str
     source_url: str
+    evidence_relation: str = "candidate"
+    source: str = ""
+    doi: str = ""
+    pmid: str = ""
+    source_section: str = ""
+    source_sentence_index: int | None = None
+
+    @property
+    def support_sentence(self) -> str:
+        """Deprecated read alias; public serializers use candidate terminology."""
+        return self.candidate_source_sentence
+
+
+@dataclass(slots=True)
+class StatementResult:
+    status: str = "not_requested"
+    reason: str = ""
+    draft: str = ""
+    reviewed_support_count: int = 0
+    reviewed_contradict_count: int = 0
 
 
 @dataclass(slots=True)
@@ -39,3 +70,5 @@ class EvidenceMap:
     papers: list[Paper]
     rows: list[EvidenceRow]
     cartridge: str = "generic"
+    claim: str = ""
+    statement: StatementResult = field(default_factory=StatementResult)

@@ -5,11 +5,18 @@ All notable public changes to this project are documented here.
 ## [Unreleased]
 
 ### Added
+- Search-topic/claim separation with `--claim`, manual `--reviews` relation files, and a fail-closed `--draft-statement` gate.
+- Candidate sentence traceability through source section, 1-based sentence index, DOI, PMID, source name, and source URL.
+- Runtime `evidencemap.__version__` synchronized with package version `0.3.0`.
+- A public claim-review guide and review-file example.
 - A reproducible 60-second metadata bridge demo generated from tracked public/synthetic input and the real ingest, verify, and export path.
 - A mobile-first Metadata Audit Pilot page with downloadable audit JSON, CSV, RIS, and BibTeX artifacts.
 - Regression tests for the advertised `3 inserted / 2 merged / 1 rejected` decision summary and public intake boundary.
 
 ### Changed
+- Automatically selected text is now presented as a candidate source sentence rather than a support sentence; no automatic evidence relation is implied.
+- Fixed Markdown and visual reports use triage/coverage language instead of verdict/confidence wording.
+- Legacy cached `support_sentence` payloads are migrated on read, while new JSON exports use only `candidate_source_sentence`.
 - Public pilot intake now routes through GitHub Discussion #9 and the structured feedback issue instead of a personal email address.
 - The landing page now leads with the Verifiable Metadata Bridge role and removes unsupported private-workspace promises.
 - The launch path now uses a free, bounded early-validation cohort; premature public pricing and service-oriented language were removed until independent use and repeat demand exist.

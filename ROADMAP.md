@@ -2,6 +2,15 @@
 
 SHawn EvidenceMap is an early-stage public-safe evidence mapping toolkit. The roadmap focuses on maintainer hygiene and reusable public workflows rather than private project imports.
 
+## Completed in v0.3.0
+
+- Separated search topics from optional user-supplied claims.
+- Renamed automatically extracted text to `candidate_source_sentence` and preserved source section, 1-based sentence index, DOI, PMID, source name, and URL.
+- Added fail-closed human review states: `candidate`, `reviewed-support`, `reviewed-contradict`, and `uncertain`.
+- Added a deterministic statement gate that requires two distinct reviewed-support rows and blocks on any reviewed contradiction.
+- Kept review decisions out of the public query cache and added migration support for pre-0.3 cached `support_sentence` payloads.
+- Updated CLI, Markdown/JSON, fixed reports, visual reports, local web demo, Pages copy, and examples to use candidate/triage language.
+
 ## Completed in v0.2.4
 
 - Positioned the product as **SHawn EvidenceMap — Verifiable Metadata Bridge** with an explicit local-verification boundary.

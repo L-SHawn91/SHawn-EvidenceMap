@@ -25,10 +25,11 @@ def to_customer_report(evidence_map: EvidenceMap) -> str:
         "",
         "## 2. Scope",
         "",
-        f"- Research question: `{evidence_map.query}`",
+        f"- Research topic: `{evidence_map.query}`",
+        f"- Claim under review: `{evidence_map.claim or 'not supplied'}`",
         f"- Cartridge: `{evidence_map.cartridge}`",
         "- Data type: public literature metadata and abstracts when available",
-        "- Output type: claim-centered evidence map",
+        "- Output type: candidate-sentence evidence map with explicit review states",
         "- Verification level: preliminary, manual verification required",
         "",
         "## 3. Method Snapshot",
@@ -37,7 +38,8 @@ def to_customer_report(evidence_map: EvidenceMap) -> str:
         "- Normalize records into a shared paper schema.",
         "- Deduplicate by DOI, PMID, or normalized title.",
         "- Rank records by query concept coverage, citation signal, year profile, and metadata quality.",
-        "- Extract a support sentence from title/abstract text when available.",
+        "- Extract a candidate source sentence from title/abstract text when available.",
+        "- Keep all automatically extracted rows in the `candidate` state until a user reviews them.",
         "- Classify each row into a cartridge-specific evidence label.",
         "",
         "## 4. Evidence Mix",
@@ -57,19 +59,23 @@ def to_customer_report(evidence_map: EvidenceMap) -> str:
             "",
             "## 6. Ranked Evidence Table",
             "",
-            "| # | Evidence type | Year | Paper | Rationale | Support sentence | Source |",
-            "|---:|---|---:|---|---|---|---|",
+            f"- Statement status: `{evidence_map.statement.status}`",
+            f"- Statement reason: {evidence_map.statement.reason or 'not requested'}",
+            *([f"- Statement draft: {evidence_map.statement.draft}"] if evidence_map.statement.draft else []),
+            "",
+            "| # | Relation | Evidence type | Year | Paper | Rationale | Candidate source sentence | Location | DOI | PMID | Source name | Source URL |",
+            "|---:|---|---|---:|---|---|---|---|---|---|---|---|",
         ]
     )
     for idx, row in enumerate(evidence_map.rows, start=1):
         year = "" if row.year is None else str(row.year)
         lines.append(
-            f"| {idx} | {_cell(row.evidence_type)} | {year} | {_cell(row.title)} | {_cell(row.rationale)} | {_cell(row.support_sentence)} | {row.source_url} |"
+            f"| {idx} | {_cell(row.evidence_relation)} | {_cell(row.evidence_type)} | {year} | {_cell(row.title)} | {_cell(row.rationale)} | {_cell(row.candidate_source_sentence)} | {_cell(_location(row.source_section, row.source_sentence_index))} | {_cell(row.doi)} | {_cell(row.pmid)} | {_cell(row.source)} | {_cell(row.source_url)} |"
         )
     lines.extend(
         [
             "",
-            "## 7. Initial Interpretation",
+            "## 7. Preliminary Triage Note",
             "",
             interpretation(evidence_map),
             "",
@@ -85,13 +91,13 @@ def to_customer_report(evidence_map: EvidenceMap) -> str:
             "",
             "- Public metadata may be incomplete, stale, duplicated, or missing abstracts.",
             "- Ranking is a triage signal, not a quality appraisal.",
-            "- Support sentences are extracted automatically and may not represent the full paper.",
+            "- Candidate source sentences are extracted automatically and are not evidence-relation judgments.",
             "- This report does not verify full text, methods quality, statistical validity, or clinical/policy recommendations.",
             "- Manual expert review is required before citation, manuscript use, clinical interpretation, business decisions, or public claims.",
             "",
             "## 10. Delivery Note",
             "",
-            "Prepared as a SHawn EvidenceMap preliminary report. For deeper paid work, the next deliverable can include expanded search strategy, inclusion/exclusion criteria, manual source verification, and a polished evidence brief.",
+            "Prepared as a SHawn EvidenceMap preliminary report. Follow-up work may include an expanded search strategy, inclusion/exclusion criteria, manual source verification, and a polished candidate-evidence brief.",
             "",
         ]
     )
@@ -105,10 +111,16 @@ def interpretation(evidence_map: EvidenceMap) -> str:
     labels = Counter(row.evidence_type for row in evidence_map.rows)
     dominant = labels.most_common(1)[0][0]
     return (
-        f"The strongest current signal is `{dominant}`. The top-ranked source is `{top.title}`"
-        f"{f' ({top.year})' if top.year else ''}. This suggests the query has enough public metadata signal for an initial evidence map, but the top sources should be manually reviewed before any external conclusion."
+        f"The highest-ranking triage category is `{dominant}`. The top candidate record is `{top.title}`"
+        f"{f' ({top.year})' if top.year else ''}. This indicates enough public metadata coverage for an initial map; it does not establish the claim, and the source text must be manually reviewed before any external conclusion."
     )
 
 
 def _cell(value: str) -> str:
     return value.replace("|", "\\|").replace("\n", " ").strip()
+
+
+def _location(section: str, index: int | None) -> str:
+    if not section:
+        return ""
+    return f"{section} sentence {index}" if index is not None else section

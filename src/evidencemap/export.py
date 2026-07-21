@@ -19,15 +19,22 @@ def to_markdown(evidence_map: EvidenceMap) -> str:
         "",
         "This output is for research triage and requires manual verification before citation.",
         "",
-        "| Claim | Evidence type | Year | Paper | Rationale | Support sentence | Source |",
-        "|---|---|---:|---|---|---|---|",
+        f"Research topic: {evidence_map.query}",
+        f"Claim under review: {evidence_map.claim or 'Not supplied'}",
+        "",
+        f"Statement status: {evidence_map.statement.status}",
+        *([f"Statement reason: {evidence_map.statement.reason}"] if evidence_map.statement.reason else []),
+        *([f"Statement draft: {evidence_map.statement.draft}"] if evidence_map.statement.draft else []),
+        "",
+        "| Relation | Evidence type | Year | Paper | Rationale | Candidate source sentence | Location | DOI | PMID | Source name | Source URL |",
+        "|---|---|---:|---|---|---|---|---|---|---|---|",
     ]
     for row in evidence_map.rows:
         title = _cell(row.title)
         rationale = _cell(row.rationale)
         year = "" if row.year is None else str(row.year)
         lines.append(
-            f"| {_cell(row.claim)} | {_cell(row.evidence_type)} | {year} | {title} | {rationale} | {_cell(row.support_sentence)} | {row.source_url} |"
+            f"| {_cell(row.evidence_relation)} | {_cell(row.evidence_type)} | {year} | {title} | {rationale} | {_cell(row.candidate_source_sentence)} | {_cell(_location(row.source_section, row.source_sentence_index))} | {_cell(row.doi)} | {_cell(row.pmid)} | {_cell(row.source)} | {_cell(row.source_url)} |"
         )
     lines.append("")
     return "\n".join(lines)
@@ -35,3 +42,9 @@ def to_markdown(evidence_map: EvidenceMap) -> str:
 
 def _cell(value: str) -> str:
     return value.replace("|", "\\|").replace("\n", " ").strip()
+
+
+def _location(section: str, index: int | None) -> str:
+    if not section:
+        return ""
+    return f"{section} sentence {index}" if index is not None else section

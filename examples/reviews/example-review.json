@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "reviews": [
+    {
+      "paper_id": "REPLACE_WITH_FIRST_PAPER_ID",
+      "relation": "reviewed-support"
+    },
+    {
+      "paper_id": "REPLACE_WITH_SECOND_PAPER_ID",
+      "relation": "reviewed-support"
+    },
+    {
+      "paper_id": "REPLACE_WITH_AMBIGUOUS_PAPER_ID",
+      "relation": "uncertain"
+    }
+  ]
+}

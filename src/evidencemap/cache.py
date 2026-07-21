@@ -7,10 +7,10 @@ from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
-from .models import EvidenceMap, EvidenceRow, Paper
+from .models import EvidenceMap, EvidenceRow, Paper, StatementResult
 
 
-CACHE_VERSION = "v1"
+CACHE_VERSION = "v2"
 DEFAULT_CACHE_PATH = Path.home() / ".cache" / "shawn-evidencemap" / "query_cache.json"
 
 
@@ -67,6 +67,27 @@ def save_cache(payload: dict[str, Any], cache_path: Path) -> None:
 
 
 def map_from_dict(data: dict[str, Any]) -> EvidenceMap:
-    papers = [Paper(**paper) for paper in data.get("papers", [])]
-    rows = [EvidenceRow(**row) for row in data.get("rows", [])]
-    return EvidenceMap(query=data.get("query", ""), papers=papers, rows=rows, cartridge=data.get("cartridge", "generic"))
+    paper_fields = set(Paper.__dataclass_fields__)
+    row_fields = set(EvidenceRow.__dataclass_fields__)
+    papers: list[Paper] = []
+    for raw in data.get("papers", []):
+        paper = dict(raw)
+        if "candidate_source_sentence" not in paper and "support_sentence" in paper:
+            paper["candidate_source_sentence"] = paper.pop("support_sentence")
+        papers.append(Paper(**{key: value for key, value in paper.items() if key in paper_fields}))
+    rows: list[EvidenceRow] = []
+    for raw in data.get("rows", []):
+        row = dict(raw)
+        if "candidate_source_sentence" not in row and "support_sentence" in row:
+            row["candidate_source_sentence"] = row.pop("support_sentence")
+        rows.append(EvidenceRow(**{key: value for key, value in row.items() if key in row_fields}))
+    statement_raw = data.get("statement") or {}
+    statement = StatementResult(**statement_raw) if isinstance(statement_raw, dict) else StatementResult()
+    return EvidenceMap(
+        query=data.get("query", ""),
+        papers=papers,
+        rows=rows,
+        cartridge=data.get("cartridge", "generic"),
+        claim=data.get("claim", ""),
+        statement=statement,
+    )

@@ -12,7 +12,7 @@ SHawn EvidenceMap reports use a fixed Markdown structure so public review artifa
 4. Evidence Mix
 5. Year Coverage
 6. Ranked Evidence Table
-7. Initial Interpretation
+7. Preliminary Triage Note
 8. Recommended Next Steps
 9. Limitations
 10. Delivery Note
@@ -32,17 +32,17 @@ PYTHONPATH=src python3 -m evidencemap.cli "research question" --cartridge bio --
 ## Visual Brief Sections
 
 1. Cover
-2. Executive Verdict
-3. Evidence Score Ring
+2. Executive Triage Status
+3. Metadata Triage Score
 4. Executive Snapshot
-5. Key Findings
+5. Top Candidate Records
 6. Evidence Dashboard
 7. Source Coverage
 8. Year Timeline
 9. Quality Signals
-10. Top Evidence
+10. Top Candidate Evidence
 11. Ranked Evidence Table
-12. Initial Interpretation
+12. Preliminary Triage Note
 13. Evidence Gap Check
 14. Action Plan
 15. Delivery Package
