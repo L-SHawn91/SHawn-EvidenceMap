@@ -57,7 +57,7 @@ def apply_review_payload(evidence_map: EvidenceMap, payload: Mapping[str, Any]) 
             raise ReviewFileError(f"duplicate review for paper_id: {paper_id}")
         if paper_id not in rows_by_id:
             raise ReviewFileError(f"unknown paper_id: {paper_id}")
-        if relation not in RELATION_STATES - {"candidate"}:
+        if not isinstance(relation, str) or relation not in RELATION_STATES - {"candidate"}:
             raise ReviewFileError(f"invalid relation: {relation}")
         seen.add(paper_id)
         decisions.append((paper_id, relation))

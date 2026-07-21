@@ -119,6 +119,14 @@ def test_reviews_reject_malformed_duplicate_unknown_and_invalid_relations() -> N
         apply_review_payload(evidence_map, {"schema_version": 2, "reviews": []})
 
 
+@pytest.mark.parametrize("relation", [None, True, 1, [], {}])
+def test_reviews_reject_non_string_relations_as_review_file_errors(relation: object) -> None:
+    evidence_map = make_map(make_row("1"))
+
+    with pytest.raises(ReviewFileError, match="invalid relation"):
+        apply_review_payload(evidence_map, {"reviews": [{"paper_id": "1", "relation": relation}]})
+
+
 def test_reviews_reject_unknown_top_level_fields() -> None:
     evidence_map = make_map(make_row("1"))
 
