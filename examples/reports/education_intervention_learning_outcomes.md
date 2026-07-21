@@ -1,7 +1,7 @@
 # SHawn EvidenceMap Report: education intervention learning outcomes
 
 PUBLIC_STATUS: public-demo-report
-REPORT_DATE: 2026-06-27
+REPORT_DATE: 2026-07-21
 CARTRIDGE: education
 
 ## 1. Executive Summary
@@ -13,10 +13,11 @@ This report is designed for research planning, review scoping, grant background 
 
 ## 2. Scope
 
-- Research question: `education intervention learning outcomes`
+- Research topic: `education intervention learning outcomes`
+- Claim under review: `not supplied`
 - Cartridge: `education`
 - Data type: public literature metadata and abstracts when available
-- Output type: claim-centered evidence map
+- Output type: candidate-sentence evidence map with explicit review states
 - Verification level: preliminary, manual verification required
 
 ## 3. Method Snapshot
@@ -25,7 +26,8 @@ This report is designed for research planning, review scoping, grant background 
 - Normalize records into a shared paper schema.
 - Deduplicate by DOI, PMID, or normalized title.
 - Rank records by query concept coverage, citation signal, year profile, and metadata quality.
-- Extract a support sentence from title/abstract text when available.
+- Extract a candidate source sentence from title/abstract text when available.
+- Keep all automatically extracted rows in the `candidate` state until a user reviews them.
 - Classify each row into a cartridge-specific evidence label.
 
 ## 4. Evidence Mix
@@ -38,17 +40,20 @@ This report is designed for research planning, review scoping, grant background 
 
 ## 6. Ranked Evidence Table
 
-| # | Evidence type | Year | Paper | Rationale | Support sentence | Source |
-|---:|---|---:|---|---|---|---|
-| 1 | intervention evidence | 2023 | Do <scp>AI</scp> chatbots improve students learning outcomes? Evidence from a meta‐analysis | Query term overlap: education, intervention, learning, outcomes; quality=1.89; cited_by=469; doi=10.1111/bjet.13334 | The main goal of the current study was to meta‐analytically examine the effects of AI chatbots on students' learning outcomes and the moderating effects of educational levels and intervention duration. | https://doi.org/10.1111/bjet.13334 |
-| 2 | intervention evidence | 2020 | Immersive virtual reality as a pedagogical tool in education: a systematic literature review of quantitative learning outcomes and experimental design | Query term overlap: education, intervention, learning, outcomes; quality=1.86; cited_by=980; doi=10.1007/s40692-020-00169-2 | The review highlights that a rigorous methodological approach through the identification of appropriate assessment measures, intervention characteristics, and learning outcomes is essential to understanding the potential of I-VR as a pedagogical method. | https://doi.org/10.1007/s40692-020-00169-2 |
-| 3 | intervention evidence | 2009 | Continuing education meetings and workshops: effects on professional practice and health care outcomes | Query term overlap: education, intervention, outcomes; quality=1.84; cited_by=1813; doi=10.1002/14651858.cd003030.pub2 | AUTHORS' CONCLUSIONS: Educational meetings alone or combined with other interventions, can improve professional practice and healthcare outcomes for the patients. | https://doi.org/10.1002/14651858.cd003030.pub2 |
-| 4 | intervention evidence | 2017 | PROTOCOL: Interventions for improving learning outcomes and access to education in low‐ and middle‐income countries: a systematic review | Query term overlap: education, intervention, learning, outcomes; quality=1.83; cited_by=78; doi=10.1002/cl2.176 | much attention has been focused on addressing issues related to access to education, but more recently attention has shifted towards improving the quality of | https://doi.org/10.1002/cl2.176 |
-| 5 | intervention evidence | 2021 | Learning Outcomes of Digital Learning Interventions in Higher Education | Query term overlap: education, intervention, learning, outcomes; quality=1.81; cited_by=33; doi=10.1097/cin.0000000000000797 | Although using digital technologies in higher education, including nursing, is considered a modern and innovative way of teaching and learning, uncertainty exists concerning these technologies' actual usefulness in achieving positive learning outcomes. | https://doi.org/10.1097/cin.0000000000000797 |
+- Statement status: `not_requested`
+- Statement reason: not requested
 
-## 7. Initial Interpretation
+| # | Relation | Evidence type | Year | Paper | Rationale | Candidate source sentence | Location | DOI | PMID | Source name | Source URL |
+|---:|---|---|---:|---|---|---|---|---|---|---|---|
+| 1 | candidate | intervention evidence | 2023 | Do <scp>AI</scp> chatbots improve students learning outcomes? Evidence from a meta‐analysis | Query term overlap: education, intervention, learning, outcomes; quality=1.89; cited_by=469; doi=10.1111/bjet.13334 | The main goal of the current study was to meta‐analytically examine the effects of AI chatbots on students' learning outcomes and the moderating effects of educational levels and intervention duration. | abstract |  |  | public-metadata | https://doi.org/10.1111/bjet.13334 |
+| 2 | candidate | intervention evidence | 2020 | Immersive virtual reality as a pedagogical tool in education: a systematic literature review of quantitative learning outcomes and experimental design | Query term overlap: education, intervention, learning, outcomes; quality=1.86; cited_by=980; doi=10.1007/s40692-020-00169-2 | The review highlights that a rigorous methodological approach through the identification of appropriate assessment measures, intervention characteristics, and learning outcomes is essential to understanding the potential of I-VR as a pedagogical method. | abstract |  |  | public-metadata | https://doi.org/10.1007/s40692-020-00169-2 |
+| 3 | candidate | intervention evidence | 2009 | Continuing education meetings and workshops: effects on professional practice and health care outcomes | Query term overlap: education, intervention, outcomes; quality=1.84; cited_by=1813; doi=10.1002/14651858.cd003030.pub2 | AUTHORS' CONCLUSIONS: Educational meetings alone or combined with other interventions, can improve professional practice and healthcare outcomes for the patients. | abstract |  |  | public-metadata | https://doi.org/10.1002/14651858.cd003030.pub2 |
+| 4 | candidate | intervention evidence | 2017 | PROTOCOL: Interventions for improving learning outcomes and access to education in low‐ and middle‐income countries: a systematic review | Query term overlap: education, intervention, learning, outcomes; quality=1.83; cited_by=78; doi=10.1002/cl2.176 | much attention has been focused on addressing issues related to access to education, but more recently attention has shifted towards improving the quality of | abstract |  |  | public-metadata | https://doi.org/10.1002/cl2.176 |
+| 5 | candidate | intervention evidence | 2021 | Learning Outcomes of Digital Learning Interventions in Higher Education | Query term overlap: education, intervention, learning, outcomes; quality=1.81; cited_by=33; doi=10.1097/cin.0000000000000797 | Although using digital technologies in higher education, including nursing, is considered a modern and innovative way of teaching and learning, uncertainty exists concerning these technologies' actual usefulness in achieving positive learning outcomes. | abstract |  |  | public-metadata | https://doi.org/10.1097/cin.0000000000000797 |
 
-The strongest current signal is `intervention evidence`. The top-ranked source is `Do <scp>AI</scp> chatbots improve students learning outcomes? Evidence from a meta‐analysis` (2023). This suggests the query has enough public metadata signal for an initial evidence map, but the top sources should be manually reviewed before any external conclusion.
+## 7. Preliminary Triage Note
+
+The highest-ranking triage category is `intervention evidence`. The top candidate record is `Do <scp>AI</scp> chatbots improve students learning outcomes? Evidence from a meta‐analysis` (2023). This indicates enough public metadata coverage for an initial map; it does not establish the claim, and the source text must be manually reviewed before any external conclusion.
 
 ## 8. Recommended Next Steps
 
@@ -62,11 +67,10 @@ The strongest current signal is `intervention evidence`. The top-ranked source i
 
 - Public metadata may be incomplete, stale, duplicated, or missing abstracts.
 - Ranking is a triage signal, not a quality appraisal.
-- Support sentences are extracted automatically and may not represent the full paper.
+- Candidate source sentences are extracted automatically and are not evidence-relation judgments.
 - This report does not verify full text, methods quality, statistical validity, or clinical/policy recommendations.
 - Manual expert review is required before citation, manuscript use, clinical interpretation, business decisions, or public claims.
 
 ## 10. Delivery Note
 
-Prepared as a SHawn EvidenceMap preliminary report. For deeper paid work, the next deliverable can include expanded search strategy, inclusion/exclusion criteria, manual source verification, and a polished evidence brief.
-
+Prepared as a SHawn EvidenceMap preliminary report. Follow-up work may include an expanded search strategy, inclusion/exclusion criteria, manual source verification, and a polished candidate-evidence brief.

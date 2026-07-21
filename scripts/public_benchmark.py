@@ -243,7 +243,7 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
 
         def query_factory(index: int, warmup: bool) -> tuple[list[str], Callable[[dict[str, Any]], None]]:
             def annotate(result: dict[str, Any]) -> None:
-                rows = result["stdout"].count("\n| Evidence related to:")
+                rows = result["stdout"].count("\n| candidate |")
                 result["stdout"] += f"\nBENCH_ROWS={rows}\n"
 
             return _shawn_cli_command(query), annotate

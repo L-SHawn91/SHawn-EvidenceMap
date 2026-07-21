@@ -29,7 +29,12 @@ def rank_public_papers(
         if score <= 0:
             continue
         paper.quality_score = score
-        paper.support_sentence = support
+        paper.candidate_source_sentence = support
+        _, _, paper.source_sentence_index = best_candidate_source_sentence(
+            paper.abstract or paper.title,
+            groups,
+        )
+        paper.source_section = "abstract" if paper.abstract else "title"
         scored.append(paper)
 
     scored.sort(
@@ -127,16 +132,23 @@ def concept_hit_count(text: str, groups: list[set[str]]) -> int:
 
 
 def best_support_sentence(query: str, text: str, groups: list[set[str]]) -> str:
+    """Deprecated compatibility wrapper for the pre-0.3 helper name."""
+    return best_candidate_source_sentence(text, groups)[0]
+
+
+def best_candidate_source_sentence(text: str, groups: list[set[str]]) -> tuple[str, str, int | None]:
     sentences = split_sentences(text)
     if not sentences:
-        return ""
+        return "", "", None
     ranked = sorted(
-        sentences,
-        key=lambda sent: (concept_hit_count(normalize(sent), groups), len(sent)),
+        enumerate(sentences, start=1),
+        key=lambda item: (concept_hit_count(normalize(item[1]), groups), len(item[1])),
         reverse=True,
     )
-    best = ranked[0].strip()
-    return best[:360] + ("..." if len(best) > 360 else "")
+    index, sentence = ranked[0]
+    sentence = sentence.strip()
+    candidate = sentence[:360] + ("..." if len(sentence) > 360 else "")
+    return candidate, "abstract", index
 
 
 def split_sentences(text: str) -> list[str]:

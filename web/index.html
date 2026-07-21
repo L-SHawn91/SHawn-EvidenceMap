@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SHawn EvidenceMap · Verifiable Metadata Bridge</title>
+    <title>SHawn EvidenceMap · Metadata Bridge + Claim Review</title>
     <meta
       name="description"
-      content="Turn public scholarly identifiers and bibliographic records into auditable, deterministic research handoffs."
+      content="Bridge public scholarly metadata into auditable candidate evidence, then apply explicit human claim-review gates."
     />
     <style>
       :root {
@@ -203,10 +203,9 @@
     <main>
       <section class="hero">
         <div class="eyebrow">Local-first · public metadata · Apache-2.0</div>
-        <h1>Verifiable Metadata Bridge</h1>
+        <h1>Metadata bridge. Reviewable claims.</h1>
         <p class="lead">
-          Turn DOI, PMID, OpenAlex, accession, CSV, RIS, and BibTeX records into auditable,
-          deterministic handoffs for Zotero, Rayyan, R, Python, and research agents.
+          Normalize DOI, PMID, OpenAlex, accession, CSV, RIS, and BibTeX records into auditable handoffs — or map public candidate sentences around a supplied claim without pretending the relation was automatically verified.
         </p>
         <div class="actions">
           <a class="button" href="pilot.html">Watch the 60-second bridge demo</a>
@@ -228,24 +227,30 @@
             <table>
               <thead>
                 <tr>
+                  <th>Relation</th>
                   <th>Evidence type</th>
                   <th>Paper</th>
-                  <th>Rationale</th>
-                  <th>Source</th>
+                  <th>Candidate source</th>
+                  <th>Source name</th>
+                  <th>Source URL</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><span class="tag">model system</span></td>
+                  <td><span class="tag">candidate</span></td>
+                  <td>model system</td>
                   <td>Mechanistic Insights Into Recurrent Implantation Failure via Endometrial Organoid and Blastoid-Endometrial Cell Models.</td>
-                  <td>Support sentence extracted from PubMed abstract; quality=1.98</td>
+                  <td>Abstract candidate · relation requires human review</td>
                   <td>PubMed</td>
+                  <td><a href="https://pubmed.ncbi.nlm.nih.gov/41242872/">https://pubmed.ncbi.nlm.nih.gov/41242872/</a></td>
                 </tr>
                 <tr>
-                  <td><span class="tag">model system</span></td>
+                  <td><span class="tag">candidate</span></td>
+                  <td>model system</td>
                   <td>Long-term, hormone-responsive organoid cultures of human endometrium in a chemically defined medium.</td>
-                  <td>Foundational mode ranks high-citation baseline papers separately</td>
+                  <td>Title/abstract candidate · no automatic support label</td>
                   <td>PubMed</td>
+                  <td><a href="https://pubmed.ncbi.nlm.nih.gov/28394884/">https://pubmed.ncbi.nlm.nih.gov/28394884/</a></td>
                 </tr>
               </tbody>
             </table>
@@ -269,14 +274,14 @@
             <p>Three bounded tests using public DOI, PMID, OpenAlex, accession, CSV, RIS, or BibTeX inputs.</p>
           </div>
           <div class="item">
-            <h3>Onboarding feedback</h3>
-            <p>Report the first confusing step, failed import, or handoff mismatch. Negative results are useful.</p>
+            <h3>Claim-review gate</h3>
+            <p>Supply a claim, review candidate source text, and record support, contradiction, or uncertainty. Fewer than two reviewed supports stays <code>needs_check</code>.</p>
           </div>
         </div>
       </section>
 
       <footer>
-        Research planning only. EvidenceMap output must be manually verified before citation, clinical interpretation, grant submission, or manuscript use.
+        Research planning only. Candidate sentences are not evidence judgments; review states are user decisions, not scientific validation. Verify source context and methods before external use.
       </footer>
     </main>
   </body>

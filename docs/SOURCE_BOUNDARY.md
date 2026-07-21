@@ -36,4 +36,4 @@ Private-only sources must not be imported directly into this public repo.
 
 ## Product Rule
 
-Public report output can mention that deeper paid work may use additional verified sources, but the public code must not include credentials, private endpoints, private paths, or private workflow assumptions.
+Public report output may mention optional follow-up work using additional verified sources, but the public code must not include credentials, private endpoints, private paths, or private workflow assumptions.

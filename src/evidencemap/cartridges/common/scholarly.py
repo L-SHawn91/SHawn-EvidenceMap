@@ -42,16 +42,21 @@ def make_scholarly_cartridge(config: ScholarlyCartridgeConfig) -> EvidenceCartri
     def paper_to_row(query: str, paper: Paper) -> EvidenceRow:
         text = f"{paper.title}\n{paper.abstract}"
         evidence_type = classify(text, compiled_rules)
-        claim = f"Evidence related to: {query}"
         return EvidenceRow(
-            claim=claim,
+            claim="",
             evidence_type=evidence_type,
             paper_id=paper.id,
             title=paper.title,
             year=paper.year,
             rationale=rationale_for(query, text, paper),
-            support_sentence=paper.support_sentence,
+            candidate_source_sentence=paper.candidate_source_sentence,
             source_url=paper.url,
+            evidence_relation="candidate",
+            source=paper.source,
+            doi=paper.doi,
+            pmid=paper.id if paper.source == "pubmed" and paper.id.isdigit() else "",
+            source_section=paper.source_section,
+            source_sentence_index=paper.source_sentence_index,
         )
 
     return EvidenceCartridge(
@@ -82,7 +87,11 @@ def rank_scholarly_papers(
         if score <= 0:
             continue
         paper.quality_score = score
-        paper.support_sentence = support
+        paper.candidate_source_sentence = support
+        paper.source_section = "abstract" if paper.abstract else "title"
+        _, _, paper.source_sentence_index = best_candidate_source_sentence(
+            paper.abstract or paper.title, groups, section=paper.source_section
+        )
         scored.append(paper)
     scored.sort(
         key=lambda p: (
@@ -192,16 +201,25 @@ def concept_hit_count(text: str, groups: list[set[str]]) -> int:
 
 
 def best_support_sentence(text: str, groups: list[set[str]]) -> str:
+    """Deprecated compatibility wrapper for the pre-0.3 helper name."""
+    return best_candidate_source_sentence(text, groups)[0]
+
+
+def best_candidate_source_sentence(
+    text: str,
+    groups: list[set[str]],
+    section: str = "abstract",
+) -> tuple[str, str, int | None]:
     sentences = split_sentences(text)
     if not sentences:
-        return ""
-    ranked = sorted(
-        sentences,
-        key=lambda sent: (concept_hit_count(normalize(sent), groups), len(sent)),
-        reverse=True,
+        return "", section, None
+    best_index, best = max(
+        enumerate(sentences, start=1),
+        key=lambda item: (concept_hit_count(normalize(item[1]), groups), len(item[1])),
     )
-    best = ranked[0].strip()
-    return best[:360] + ("..." if len(best) > 360 else "")
+    best = best.strip()
+    clipped = best[:360] + ("..." if len(best) > 360 else "")
+    return clipped, section, best_index
 
 
 def split_sentences(text: str) -> list[str]:

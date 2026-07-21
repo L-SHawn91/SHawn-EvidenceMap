@@ -1,13 +1,13 @@
 # SHawn EvidenceMap
 
-**Bring your DOI list → get a clean, checked, exportable evidence table in 5 minutes.**
+**Bring public identifiers or a research claim → get an auditable candidate-evidence table with explicit human review gates.**
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 [![Public boundary](https://img.shields.io/badge/public--boundary-metadata%20%2B%20toy%20data-green.svg)](docs/PUBLIC_BOUNDARY.md)
 [![Release: v0.2.4](https://img.shields.io/badge/release-v0.2.4-informational.svg)](CHANGELOG.md)
 [![Public CI](https://github.com/L-SHawn91/SHawn-EvidenceMap/actions/workflows/ci.yml/badge.svg)](https://github.com/L-SHawn91/SHawn-EvidenceMap/actions/workflows/ci.yml)
 
-A local-first Python CLI that normalizes your DOIs, PMIDs, OpenAlex IDs, CSV, RIS, or BibTeX records into a verified, audit-trailed evidence table — then exports to CSV, RIS, BibTeX, JSON, or HTML. No account, no upload, no cloud. Your data stays on your machine.
+A local-first Python CLI with two bounded workflows: normalize DOI/PMID/OpenAlex/accession and bibliographic records into an integrity-checked audit trail, or search public metadata for candidate source sentences around a user-supplied claim. Human review states are explicit; the tool never auto-labels a source as supporting or contradicting a claim. No account, upload, or cloud workspace is required.
 
 **[▶ Watch the 60-second demo](https://l-shawn91.github.io/SHawn-EvidenceMap/assets/pilot-demo-60s.mp4)** · **[Try the free pilot](https://l-shawn91.github.io/SHawn-EvidenceMap/pilot.html)** · **[Request a validation slot](https://github.com/L-SHawn91/SHawn-EvidenceMap/discussions/9)**
 
@@ -16,6 +16,7 @@ A local-first Python CLI that normalizes your DOIs, PMIDs, OpenAlex IDs, CSV, RI
 - **Representative repo:** `SHawn-EvidenceMap`
 - **License:** Apache-2.0
 - **Release:** `v0.2.4` verifiable metadata bridge and interoperability release
+- **Next release candidate:** `v0.3.0` claim-review workflow (unreleased on this branch until tagged)
 - **Demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/
 - **Synthetic database demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/db-demo/
 - **Public metadata linkage demo:** https://l-shawn91.github.io/SHawn-EvidenceMap/public-metadata-demo/
@@ -69,12 +70,13 @@ This is not a dump of private SHawn repos. The public stack contains schemas, te
 
 SHawn EvidenceMap supports two public workflows:
 
-1. Search public scholarly metadata and build a small, transparent evidence table.
-2. Ingest DOI, PMID, OpenAlex work ID, public accession, CSV, RIS, or conservative BibTeX records.
-3. Normalize identifiers and reject cross-entity collisions instead of silently merging them.
-4. Preserve per-record `inserted`, `merged`, or `rejected` audit events plus source provenance.
-5. Verify the SQLite schema, foreign keys, and identifier integrity.
-6. Export audit-inclusive JSON or deterministic entity-only CSV, RIS, and BibTeX handoffs.
+1. Search public scholarly metadata and build a transparent candidate-evidence table.
+2. Keep the search topic separate from an optional proposition supplied with `--claim`.
+3. Preserve candidate sentence location, DOI/PMID, source name, and source URL.
+4. Apply only user-supplied `candidate`, `reviewed-support`, `reviewed-contradict`, or `uncertain` relation states.
+5. Gate a deterministic statement wrapper behind at least two reviewed-support rows and zero reviewed-contradict rows.
+6. Ingest DOI, PMID, OpenAlex work ID, public accession, CSV, RIS, or conservative BibTeX records.
+7. Normalize identifiers, reject cross-entity collisions, preserve ingest audit events, and export deterministic handoffs.
 
 ## Database-backed reference pipeline
 
@@ -103,7 +105,9 @@ Included:
 - Crossref adapter for general scholarly cartridges
 - Cartridge architecture with `generic` as the domain-neutral default and explicit domain cartridges
 - Abstract-level triage
-- Claim/evidence table schema
+- Search-topic/claim separation and candidate-evidence table schema
+- Human-authored relation review files with fail-closed validation
+- Evidence-bounded statement gate; no automatic support/contradiction judgment
 - Markdown and JSON export
 - SQLite reference schema with migrations and foreign-key integrity checks
 - DOI/PMID/OpenAlex/accession normalization and collision-safe entity upsert
@@ -118,7 +122,7 @@ Included:
 Excluded:
 - Private full-text corpus
 - Private PDF ingestion
-- Manuscript drafting
+- Unrestricted manuscript drafting or automatic claim validation
 - Clinical advice
 - Private lab or non-public project data
 - SHawn internal agent operations
@@ -176,6 +180,23 @@ PYTHONPATH=src python3 -m evidencemap.cli "endometrial organoid implantation" --
 PYTHONPATH=src python3 -m evidencemap.cli "endometrial organoid implantation" --ranking-mode foundational --markdown
 ```
 
+### Review a claim without automatic evidence labeling
+
+```bash
+PYTHONPATH=src python3 -m evidencemap.cli \
+  "endometrial organoid implantation" \
+  --claim "Endometrial organoid co-culture models reproduce selected implantation-related responses." \
+  --json --no-cache > candidate-map.json
+
+# Review the returned source text and paper IDs, then create reviews.json.
+PYTHONPATH=src python3 -m evidencemap.cli \
+  "endometrial organoid implantation" \
+  --claim "Endometrial organoid co-culture models reproduce selected implantation-related responses." \
+  --reviews reviews.json --draft-statement --markdown --no-cache
+```
+
+Every row starts as `candidate`. The statement gate remains `needs_check` unless at least two distinct rows are manually marked `reviewed-support` and none is marked `reviewed-contradict`. See [`docs/CLAIM_REVIEW_WORKFLOW.md`](docs/CLAIM_REVIEW_WORKFLOW.md).
+
 ## Cartridge Architecture
 
 The public product is one repo with domain cartridges:
@@ -225,7 +246,7 @@ The Markdown report format is fixed across cartridges:
 4. Evidence Mix
 5. Year Coverage
 6. Ranked Evidence Table
-7. Initial Interpretation
+7. Preliminary Triage Note
 8. Recommended Next Steps
 9. Limitations
 10. Delivery Note
@@ -249,20 +270,22 @@ examples/reports/html/
 
 The visual brief is the preferred user-facing review artifact. It includes:
 
-1. Executive Verdict
-2. Evidence Score Ring
+1. Executive Triage Status
+2. Metadata Triage Score
 3. Executive Snapshot
-4. Key Findings
-5. Evidence Dashboard
-6. Source Coverage
-7. Year Timeline
-8. Quality Signals
-9. Top Evidence
-10. Ranked Evidence Table
-11. Evidence Gap Check
-12. Action Plan
-13. Delivery Package
-14. QA and Limitations
+4. Claim and Statement Gate
+5. Top Candidate Records
+6. Evidence Dashboard
+7. Source Coverage
+8. Year Timeline
+9. Quality Signals
+10. Top Candidate Evidence
+11. Ranked Evidence Table
+12. Preliminary Triage Note
+13. Evidence Gap Check
+14. Action Plan
+15. Delivery Package
+16. QA and Limitations
 
 The visual brief includes an `Export PDF` button for browser print/PDF delivery.
 
@@ -303,7 +326,7 @@ evidencemap "endometrial organoid implantation" --limit 10 --markdown
 
 ## Safety Note
 
-This tool is for research planning and literature triage. Outputs should be manually verified before citation, clinical interpretation, grant submission, or manuscript use.
+This tool is for research planning and literature triage. Candidate sentences are not evidence judgments. Even `reviewed-*` states record a user's review decision, not full-text quality appraisal or scientific validation. Verify wording, context, methods, and citations before clinical interpretation, grant submission, manuscript use, or public claims.
 
 Before release or tag, run:
 
@@ -329,6 +352,7 @@ python3 -m compileall -q src
 ## Project documents
 
 - [Public boundary](docs/PUBLIC_BOUNDARY.md)
+- [Claim review workflow](docs/CLAIM_REVIEW_WORKFLOW.md)
 - [Roadmap](ROADMAP.md)
 - [Changelog](CHANGELOG.md)
 - [Contributing](CONTRIBUTING.md)

@@ -20,16 +20,21 @@ def paper_to_row(query: str, paper: Paper) -> EvidenceRow:
     text = f"{paper.title}\n{paper.abstract}"
     evidence_type = classify(text)
     rationale = rationale_for(query, text, paper)
-    claim = f"Evidence related to: {query}"
     return EvidenceRow(
-        claim=claim,
+        claim="",
         evidence_type=evidence_type,
         paper_id=paper.id,
         title=paper.title,
         year=paper.year,
         rationale=rationale,
-        support_sentence=paper.support_sentence,
+        candidate_source_sentence=paper.candidate_source_sentence,
         source_url=paper.url,
+        evidence_relation="candidate",
+        source=paper.source,
+        doi=paper.doi,
+        pmid=paper.id if paper.source == "pubmed" and paper.id.isdigit() else "",
+        source_section=paper.source_section,
+        source_sentence_index=paper.source_sentence_index,
     )
 
 
